@@ -104,9 +104,52 @@ app.use((req, res, next) => { res.setHeader('X-Content-Type-Options', 'nosniff')
 app.use(express.json({ limit: '20mb' }));
 
 const DASHBOARD = path.join(__dirname, 'public', 'dashboard.html');
+const SHARE_DIR = path.join(__dirname, 'public', 'share');
+const escAttr = v => String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+/* Link previews (WhatsApp, LinkedIn, Slack, Teams, X, Facebook) and icons */
+function shareHead(req) {
+  const b = (store['settings/branding'] && store['settings/branding'].data) || {};
+  const app = process.env.SHARE_TITLE || b.appName || 'Credit Control Desk';
+  const company = b.company || 'Urja Products Private Limited';
+  const title = `${app} | ${company}`;
+  const desc = process.env.SHARE_DESCRIPTION || `Receivables tracking, pending-due alerts and reminders by email, WhatsApp and voice AI for ${company}. Sign in to continue.`;
+  const base = (process.env.PUBLIC_URL || `${req.protocol}://${req.get('host')}`).replace(/\/+$/, '');
+  const url = base + '/';
+  const img = `${base}/share/og-image.jpg?v=${process.env.SHARE_IMAGE_VERSION || '1'}`;
+  const color = /^#[0-9a-f]{6}$/i.test(b.color || '') ? b.color : '#E96B17';
+  const alt = `${app} – receivables dashboard for ${company}`;
+  const m = (k, v, attr = 'name') => `<meta ${attr}="${k}" content="${escAttr(v)}">`;
+  return [
+    `<title>${escAttr(title)}</title>`,
+    m('description', desc), m('robots', 'noindex, nofollow'), m('theme-color', color),
+    `<link rel="canonical" href="${escAttr(url)}">`,
+    m('og:type', 'website', 'property'), m('og:site_name', app, 'property'), m('og:title', title, 'property'), m('og:description', desc, 'property'),
+    m('og:url', url, 'property'), m('og:locale', 'en_IN', 'property'),
+    m('og:image', img, 'property'), m('og:image:secure_url', img, 'property'), m('og:image:type', 'image/jpeg', 'property'),
+    m('og:image:width', '1200', 'property'), m('og:image:height', '630', 'property'), m('og:image:alt', alt, 'property'),
+    m('twitter:card', 'summary_large_image'), m('twitter:title', title), m('twitter:description', desc), m('twitter:image', img), m('twitter:image:alt', alt),
+    `<link rel="icon" href="/favicon.ico" sizes="any">`, `<link rel="icon" type="image/png" sizes="32x32" href="/share/favicon-32.png">`,
+    `<link rel="apple-touch-icon" href="/apple-touch-icon.png">`, `<link rel="manifest" href="/site.webmanifest">`,
+    m('apple-mobile-web-app-title', app), m('application-name', app)
+  ].join('');
+}
+app.use('/share', express.static(SHARE_DIR, { maxAge: '7d' }));
+app.get('/favicon.ico', (req, res) => res.sendFile(path.join(SHARE_DIR, 'favicon.ico'), { maxAge: '7d' }));
+app.get('/apple-touch-icon.png', (req, res) => res.sendFile(path.join(SHARE_DIR, 'apple-touch-icon.png'), { maxAge: '7d' }));
+app.get('/site.webmanifest', (req, res) => {
+  const b = (store['settings/branding'] && store['settings/branding'].data) || {};
+  res.type('application/manifest+json').send(JSON.stringify({
+    name: `${b.appName || 'Credit Control Desk'} – ${b.company || 'Urja Products Private Limited'}`, short_name: b.appName || 'Credit Desk',
+    start_url: '/', display: 'standalone', background_color: '#F3F4F1', theme_color: b.color || '#E96B17',
+    icons: [{ src: '/share/icon-192.png', sizes: '192x192', type: 'image/png' }, { src: '/share/icon-512.png', sizes: '512x512', type: 'image/png' }]
+  }));
+});
+
 app.get('/', (req, res) => {
   const page = fs.readFileSync(DASHBOARD, 'utf8');
   res.type('html').send('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
+    + shareHead(req)
     + '<style>:root{color-scheme:light}body{margin:0;font:14px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>'
     + '<script>window.__CCD_SERVER__=true</script></head><body>' + page + '</body></html>');
 });

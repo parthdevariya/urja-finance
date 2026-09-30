@@ -1,0 +1,19 @@
+Credit Control Desk - link preview update
+=========================================
+Copy these into your repository root (same folders), commit, push, redeploy:
+
+  server.js                        (replaces yours - adds link-preview tags and icons)
+  Dockerfile                       (replaces yours - copies all .js modules; fixes "Cannot find module './bc'")
+  public/share/og-image.jpg        (new - 1200x630 preview image)
+  public/share/favicon.ico         (new)
+  public/share/favicon-32.png      (new)
+  public/share/apple-touch-icon.png(new)
+  public/share/icon-192.png        (new)
+  public/share/icon-512.png        (new)
+
+Do NOT replace public/dashboard.html or bc.js - they are unchanged.
+
+Optional Render environment variables:
+  PUBLIC_URL=https://urja-finance.onrender.com   (only needed if you add a custom domain)
+  SHARE_TITLE / SHARE_DESCRIPTION                 (override the preview text)
+  SHARE_IMAGE_VERSION=2                           (change after replacing og-image.jpg so apps refetch it)
