@@ -525,6 +525,62 @@ tr.clickrow:hover td{background:var(--surface-2)}
   .pe input[type=checkbox],.pe input[type=radio],.invpick input,.emchips input{width:18px;height:18px}
 }
 
+/* ---------- customer groups ---------- */
+.gbar{display:flex;align-items:center;gap:10px;min-width:0}
+.gbar .gl{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);font-weight:600;flex:none;display:flex;align-items:center;gap:5px}
+.gbar .gl svg{width:14px;height:14px}
+.gbar .gs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;min-width:0;padding:2px 0;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);padding-right:24px}
+.gbar .gs::-webkit-scrollbar{display:none}
+.gbar button{flex:none;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line-strong);background:var(--surface);border-radius:999px;padding:5px 11px;font-size:12.5px;color:var(--ink-2);white-space:nowrap}
+.gbar button b{font-family:var(--mono);font-weight:600;font-size:11px;color:var(--ink-3)}
+.gbar button i{font-style:normal;font-family:var(--mono);font-size:10.5px;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:0 6px;color:var(--ink-3)}
+.gbar button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.gbar button[aria-pressed="true"] b,.gbar button[aria-pressed="true"] i{color:var(--surface);background:transparent;border-color:rgba(255,255,255,.35)}
+.gbar .gsel{display:none}
+.gtag{display:inline-flex;align-items:center;font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.03em;border:1px solid var(--line-strong);border-radius:4px;padding:0 5px;color:var(--ink-2);background:var(--surface-2);vertical-align:1px}
+.gtag.none{color:var(--ink-3);border-style:dashed}
+.gsum{width:100%;border-collapse:collapse;font-size:13px}
+.gsum th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);font-weight:600;text-align:left;padding:8px 12px;border-bottom:1px solid var(--line)}
+.gsum th.r,.gsum td.r{text-align:right}
+.gsum td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+.gsum tr[data-g]{cursor:pointer}
+.gsum tr[data-g]:hover td{background:var(--surface-2)}
+.gsum tr.on td{background:var(--accent-soft)}
+.gsum .gn{font-weight:500;color:var(--ink)}
+.gsum .gbarc{display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--surface-2);min-width:90px}
+.gsum .gbarc span{display:block;height:100%}
+.gsum tfoot td{font-weight:600;border-bottom:0}
+.grpedit{display:flex;flex-direction:column;gap:6px;max-width:760px}
+.grpedit .gr{display:grid;grid-template-columns:110px minmax(0,1fr) 90px 34px;gap:8px;align-items:center}
+.grpedit .gr input{border:1px solid var(--line-strong);background:var(--surface);border-radius:6px;padding:7px 9px;font-size:13.5px;width:100%}
+.grpedit .gr input.code{font-family:var(--mono);text-transform:uppercase}
+.grpedit .gr input.bad{border-color:var(--crit);background:var(--crit-soft)}
+.grpedit .gr .n{font-family:var(--mono);font-size:12px;color:var(--ink-3);text-align:right}
+.grpedit .gh{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);font-weight:600}
+.grpedit .rm{border:1px solid var(--line);background:var(--surface);border-radius:6px;height:32px;color:var(--ink-3)}
+.gover{display:flex;flex-direction:column;gap:4px;margin-top:6px}
+.gover div{display:flex;gap:8px;align-items:center;font-size:12.5px;flex-wrap:wrap}
+/* ---------- install app prompt ---------- */
+.inst{position:fixed;left:0;right:0;bottom:0;z-index:70;display:flex;justify-content:center;padding:0 12px calc(12px + env(safe-area-inset-bottom,0px));pointer-events:none}
+.inst .card{pointer-events:auto;width:100%;max-width:440px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 50px -12px rgba(15,25,20,.45);padding:16px;display:flex;flex-direction:column;gap:12px;animation:instUp .28s ease-out}
+@keyframes instUp{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+.inst .top{display:flex;gap:12px;align-items:center}
+.inst .ico{width:52px;height:52px;border-radius:12px;flex:none;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.inst .top b{display:block;font-size:15.5px;color:var(--ink)}
+.inst .top span{display:block;font-size:12.5px;color:var(--ink-3)}
+.inst .x{margin-left:auto;align-self:flex-start;border:0;background:transparent;color:var(--ink-3);font-size:18px;padding:2px 6px}
+.inst ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--ink-2)}
+.inst ul li{display:flex;gap:8px;align-items:center}
+.inst ul svg{width:16px;height:16px;flex:none;color:var(--brand-deep)}
+.inst ol{margin:0;padding:0 0 0 2px;list-style:none;display:flex;flex-direction:column;gap:8px;font-size:13.5px;color:var(--ink)}
+.inst ol li{display:flex;gap:10px;align-items:center}
+.inst ol li em{font-style:normal;width:22px;height:22px;flex:none;border-radius:50%;background:var(--brand);color:var(--brand-ink);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center}
+.inst ol svg{width:18px;height:18px;vertical-align:-4px;color:#1F6FEB}
+.inst .bt{display:flex;gap:8px;justify-content:flex-end}
+.inst .bt .btn{padding:10px 16px;font-size:14px}
+.inst .bt .btn.primary{flex:1;justify-content:center}
+@media (min-width:701px){.inst{justify-content:flex-end;padding:0 20px 20px}}
+
 /* ---------- tablet (701–1024) ---------- */
 @media (max-width: 1024px){
   .d-city,.d-rep,.l-ext,.l-post,.g-inv{display:none}
@@ -570,7 +626,7 @@ tr.clickrow:hover td{background:var(--surface-2)}
   .brand h1{font-size:21px}
   .brand .sub{font-size:12.5px}
   .actions{gap:6px}
-  .actions .btn .bt{display:none}
+  .actions .btn .bt,.actions #btnReport .bt,.actions #btnCxoPdf .bt,.actions #btnUpload .bt{display:none}
   .actions #btnUpload{display:none}
   .actions .btn{padding:0;width:40px;height:40px;justify-content:center}
   header.top{flex-wrap:nowrap;align-items:flex-start}
@@ -598,6 +654,15 @@ tr.clickrow:hover td{background:var(--surface-2)}
   .seg::-webkit-scrollbar{display:none}
   .seg button{flex:none}
   .alerts{max-height:none}
+  .gbar{flex-direction:column;align-items:stretch;gap:6px}
+  .gbar .gs{margin:0 -12px;padding:2px 36px 2px 12px}
+  .gsum .g-hide,.gsum .g-od{display:none}
+  .gsum .gn{display:block;font-size:12.5px;line-height:1.3;margin-top:2px}
+  .gsum{font-size:12.5px}
+  .gsum td,.gsum th{padding:8px 10px}
+  .grpedit .gr{grid-template-columns:84px minmax(0,1fr) 34px}
+  .grpedit .gr .n,.grpedit .gh.n{display:none}
+  .inst{bottom:calc(56px + env(safe-area-inset-bottom,0px));padding-bottom:10px}
   .alert{grid-template-columns:4px minmax(0,1fr);padding:12px 12px 12px 0;gap:0 10px}
   .alert .amt{grid-column:2;flex-direction:row;justify-content:space-between;align-items:center;margin-top:8px;flex-wrap:wrap;gap:8px}
   .alert .amt .n{font-size:15px}
@@ -736,7 +801,7 @@ tr.clickrow:hover td{background:var(--surface-2)}
 <div class="brandbar"><div class="in">
   <img class="brandLogo" src="data:image/png;base64,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" alt="URJA — An ISO 9001:2015 Co.">
   <div class="t"><b id="bbApp">Credit Control Desk</b><span id="bbSub">Urja Products Private Limited · Accounts receivable</span></div>
-  <div class="who"><span class="av" aria-hidden="true">AD</span><span>admin</span><button class="btn sm" id="btnLogout" type="button" aria-label="Sign out"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/></svg><span class="bt">Sign out</span></button></div>
+  <div class="who"><button class="btn sm" id="btnInstall" type="button" hidden aria-label="Install app" title="Install this app on your phone or tablet"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M12 7v7m0 0l-3-3m3 3l3-3"/></svg><span class="bt">Install app</span></button><span class="av" aria-hidden="true">AD</span><span>admin</span><button class="btn sm" id="btnLogout" type="button" aria-label="Sign out"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/></svg><span class="bt">Sign out</span></button></div>
 </div></div>
 <nav class="viewbar" aria-label="Sections"><div class="in" id="viewNav">
   <button type="button" data-view="dash" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</button>
@@ -757,11 +822,14 @@ tr.clickrow:hover td{background:var(--surface-2)}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 8V3h10v5M7 17H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="7" y="14" width="10" height="7"/></svg><span class="bt">Download report</span></button>
       <button class="btn primary offview" id="btnCxoPdf" type="button" data-only="cxo" aria-label="Download executive summary (PDF)" title="Download the executive summary as a PDF to print or share">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 8V3h10v5M7 17H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="7" y="14" width="10" height="7"/></svg><span class="bt">Download PDF</span></button>
-      <button class="btn" id="btnExport" type="button" data-only="dash" aria-label="Export alerts to Excel" title="Export alerts to Excel">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v3h16v-3"/></svg><span class="bt">Export alerts</span></button>
+      <button class="btn" id="btnExport" type="button" data-only="dash" aria-label="Export to Excel" title="Download a full Excel workbook: summary, customers, ledger, overdue, due soon, alerts, ageing, groups and activity">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg><span class="bt">Export to Excel</span></button>
+      <button class="btn offview" id="btnCxoXls" type="button" data-only="cxo" aria-label="Export to Excel" title="Download the full Excel workbook">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg><span class="bt">Excel</span></button>
       <input type="file" id="file" accept=".xml,.xlsx,.xls,.csv,.pdf" hidden>
     </div>
   </header>
+  <div class="gbar" id="gbar" role="group" aria-label="Customer group filter"><span class="gl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h18l-7 8v6l-4-2v-4z"/></svg>Customer group</span><div class="gs" id="gbarList"></div></div>
 
   <div id="viewSettings" class="view" hidden>
   <section class="panel" id="settingsPanel">
@@ -769,6 +837,7 @@ tr.clickrow:hover td{background:var(--surface-2)}
       <div class="stabs" role="tablist" id="stabs">
         <button role="tab" type="button" data-st="brand" aria-selected="true">Company &amp; branding</button>
         <button role="tab" type="button" data-st="rules" aria-selected="false">Alert rules</button>
+        <button role="tab" type="button" data-st="groups" aria-selected="false">Customer groups</button>
         <button role="tab" type="button" data-st="email" aria-selected="false">Email</button>
         <button role="tab" type="button" data-st="wa" aria-selected="false">WhatsApp</button>
         <button role="tab" type="button" data-st="voice" aria-selected="false">Voice AI (OmniDim)</button>
@@ -874,6 +943,18 @@ tr.clickrow:hover td{background:var(--surface-2)}
         <div><button class="btn primary" type="submit">Save voice AI settings</button> <button class="btn ghost" type="button" data-reset="voice">Restore default text</button></div>
       </form>
 
+      <form class="spane" data-sp="groups" hidden id="fGroups" novalidate>
+        <div class="ph-help">Customers are grouped automatically by the letters at the start of their customer code (the Business Central customer posting group), for example <span class="num">CNI-0006</span> → <b>CNI</b>. Codes that match no group are shown as <b>Unassigned</b>. You can move a single customer to another group from its profile in Customers.</div>
+        <div class="grpedit" id="grpEdit"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
+          <button class="btn sm" type="button" id="grpAdd">+ Add group</button>
+          <button class="btn sm ghost" type="button" id="grpReset">Restore the 10 standard groups</button>
+          <span style="flex:1"></span>
+          <button class="btn primary" type="button" id="grpSave">Save groups</button>
+        </div>
+        <div id="grpOver"></div>
+      </form>
+
       <form class="spane" data-sp="bc" hidden id="fBc" novalidate>
         <div id="bcHosted">
           <div class="banner warn">Business Central sync runs on the <b>self-hosted Credit Control Desk app</b>. It signs in to Microsoft with your Entra app's client secret and calls the Business Central API, and neither can be done from this page. Once set up there, the app pulls open customer ledger entries automatically, with no file uploads needed.</div>
@@ -915,6 +996,7 @@ tr.clickrow:hover td{background:var(--surface-2)}
           </ol>
         </details>
       </form>
+
 
       <form class="spane" data-sp="server" hidden id="fServer">
         <div id="srvArtifact">
@@ -979,6 +1061,11 @@ tr.clickrow:hover td{background:var(--surface-2)}
       </section>
     </div>
   </div>
+
+  <section class="panel" id="grpPanel">
+    <div class="ph"><h2>By customer group</h2><span class="muted" style="font-size:12px" id="grpHint">Tap a group to filter the whole dashboard</span></div>
+    <div class="tw" id="grpWrap"></div>
+  </section>
 
   <section class="panel" id="tablePanel">
     <div class="ph">
@@ -1073,6 +1160,7 @@ tr.clickrow:hover td{background:var(--surface-2)}
 </div>
 <div class="modal" id="profile" hidden><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="pfTitle" id="pfSheet"></div></div>
 <div class="modal" id="compose" hidden><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="cmpTitle" id="cmpSheet"></div></div>
+<div class="inst" id="inst" hidden></div>
 <div class="toast" id="toast" hidden></div>
 
 <script>
@@ -1197,6 +1285,27 @@ const S = {
 };
 let db = null, dl = null;
 
+/* ---------- customer groups ---------- */
+const DEFAULT_GROUPS = [["CBF","Basket, Filter & Rolls"],["CCA","Carbon & Aramid"],["CFA","Customer - Fixed Asset"],["CFF","Ceramic Foam Filter"],["CFG","Fiber Glass Fabrics"],
+  ["CNI","NMEJ & Insulation"],["COD","Customer of Defence"],["COT","Others"],["CPP","PPGL"],["CPT","PTFE Cutting & Belting"]].map(([code, name]) => ({code, name}));
+const NONE = "_none";
+S.groups = DEFAULT_GROUPS.map(g => ({...g})); S.gassign = {}; S.gf = "";
+try { S.gf = localStorage.getItem("ccd_gf") || ""; } catch {}
+let gMap = new Map();
+function gIndex(){ gMap = new Map(S.groups.map(g => [g.code, g.name])); if (S.gf && S.gf !== NONE && !gMap.has(S.gf)) S.gf = ""; }
+gIndex();
+const gPrefix = cn => ((String(cn || "").trim().match(/^([A-Za-z]+)/) || [])[1] || "").toUpperCase();
+function groupOf(cn){ const o = S.gassign[cn]; if (o && (o === NONE || gMap.has(o))) return o; const p = gPrefix(cn); return gMap.has(p) ? p : NONE; }
+const gName = code => code === NONE ? "Unassigned" : (gMap.get(code) || code);
+const gLabel = code => code === NONE ? "Unassigned" : `${code} · ${gName(code)}`;
+const inG = cn => !S.gf || groupOf(cn) === S.gf;
+const gtag = cn => { const g = groupOf(cn); return `<span class="gtag${g === NONE ? " none" : ""}" title="${esc(gName(g))}">${g === NONE ? "No group" : esc(g)}</span>`; };
+function setGroupFilter(code){
+  S.gf = code || ""; try { localStorage.setItem("ccd_gf", S.gf); } catch {}
+  S.open = null; render();
+  if (S.view === "cust") renderCustView(); if (S.view === "log") renderLogView();
+}
+
 /* Row shape: d posting, cn cust no, c name, ci city, ct contact, ph phone, t type, no doc no, ex ext doc, du due, a amount, r remaining */
 
 /* ---------- sample (illustrative, not real customers) ---------- */
@@ -1204,16 +1313,16 @@ function sampleData(){
   const asOf = new Date(Date.UTC(2026,8,26));
   const at = off => iso(new Date(asOf - off*DAY));
   const C = [
-    ["SMP-001","Kaveri Forge Works","PUNE","Mr. A. Kulkarni","98xxxxxx01"],
-    ["SMP-002","Narmada Thermal Systems","VADODARA","Ms. R. Shah","98xxxxxx02"],
-    ["SMP-003","Deccan Kiln Engineers","HYDERABAD","Mr. S. Rao","98xxxxxx03"],
-    ["SMP-004","Coastal Refractory Co.","MUMBAI","Ms. P. Naik","98xxxxxx04"],
-    ["SMP-005","Aravali Steel Processors","ALWAR","Mr. V. Singh","98xxxxxx05"],
-    ["SMP-006","Sabar Power Utilities","AHMEDABAD","Mr. K. Patel","98xxxxxx06"],
-    ["SMP-007","Konkan Shipbuilders","GOA","Ms. D. Fernandes","98xxxxxx07"],
-    ["SMP-008","Tapi Chemicals Ltd","BHARUCH","Mr. H. Desai","98xxxxxx08"],
-    ["SMP-009","Western Insulation Traders","THANE","Mr. J. Mehta","98xxxxxx09"],
-    ["SMP-010","Godavari Heat Treat","NASHIK","Mr. R. Joshi","98xxxxxx10"]
+    ["CBF-S001","Kaveri Forge Works","PUNE","Mr. A. Kulkarni","98xxxxxx01"],
+    ["CNI-S002","Narmada Thermal Systems","VADODARA","Ms. R. Shah","98xxxxxx02"],
+    ["CFF-S003","Deccan Kiln Engineers","HYDERABAD","Mr. S. Rao","98xxxxxx03"],
+    ["CNI-S004","Coastal Refractory Co.","MUMBAI","Ms. P. Naik","98xxxxxx04"],
+    ["CPP-S005","Aravali Steel Processors","ALWAR","Mr. V. Singh","98xxxxxx05"],
+    ["CNI-S006","Sabar Power Utilities","AHMEDABAD","Mr. K. Patel","98xxxxxx06"],
+    ["COD-S007","Konkan Shipbuilders","GOA","Ms. D. Fernandes","98xxxxxx07"],
+    ["CPT-S008","Tapi Chemicals Ltd","BHARUCH","Mr. H. Desai","98xxxxxx08"],
+    ["CFG-S009","Western Insulation Traders","THANE","Mr. J. Mehta","98xxxxxx09"],
+    ["CCA-S010","Godavari Heat Treat","NASHIK","Mr. R. Joshi","98xxxxxx10"]
   ];
   const R = []; let k = 3000;
   const inv = (ci, postOff, credit, amt, rem) => { const c = C[ci]; R.push({d:at(postOff),cn:c[0],c:c[1],ci:c[2],ct:c[3],ph:c[4],t:"Invoice",no:"SMP/26-27/0"+(k++),ex:"PO-"+(k*7%9000),du:at(postOff-credit),a:amt,r:rem??amt}); };
@@ -1488,7 +1597,7 @@ const BUCKETS = [
 function compute(){
   const asOf = asOfDate(), st = S.settings;
   const custs = new Map();
-  const rows = S.rows.map(r => ({...r, od: daysBetween(asOf, fromIso(r.du))}));
+  const rows = S.rows.filter(r => inG(r.cn)).map(r => ({...r, od: daysBetween(asOf, fromIso(r.du))}));
   for (const r of rows){
     if (!custs.has(r.cn)) custs.set(r.cn, {cn:r.cn, c:r.c, ci:r.ci, ct:r.ct, ph:r.ph, rows:[], debit:0, credit:0, overdue:0, soon:0, residual:0, maxOd:-Infinity, sig:0});
     const c = custs.get(r.cn); c.rows.push(r);
@@ -1549,7 +1658,7 @@ function compute(){
 
 /* ---------- render ---------- */
 let V = null;
-function render(){ V = compute(); renderSource(); renderHero(); renderKpis(); renderCxo(); renderAlerts(); renderAgeing(); renderTop(); renderTable(); if (S.view === "cust") renderCustView(); renderLogView(); if (P && !$("#profile").hidden) {} }
+function render(){ V = compute(); renderGbar(); renderGroupPanel(); renderSource(); renderHero(); renderKpis(); renderCxo(); renderAlerts(); renderAgeing(); renderTop(); renderTable(); if (S.view === "cust") renderCustView(); renderLogView(); if (P && !$("#profile").hidden) {} }
 function renderSource(){
   const m = S.meta || {}, el = $("#source");
   const chip = S.mode === "sample" ? `<span class="chip sample">Sample data</span>` : S.mode === "live" ? `<span class="chip live">Shared with team</span>` : `<span class="chip local">This screen only</span>`;
@@ -1588,7 +1697,7 @@ function renderKpis(){
     T(`Critical (>${st.critDays} days)`, compact(k.crit), k.critN ? `${L("ledger:crit", plural(k.critN,"invoice"))} · ${L("cust:crit", plural(k.custCrit,"customer"))}` : "Nothing critical", "--crit", k.critN ? "ledger:crit" : "", "crit", ps && deltaChip(k.crit, ps.crit, true)) +
     T(`Due in ${st.soonDays} days`, compact(k.soon), k.soonN ? `${L("ledger:soon", plural(k.soonN,"invoice"))} · ${L("cust:soon", plural(k.custSoon,"customer"))}` : "Nothing falling due", "--soon", k.soonN ? "ledger:soon" : "", "soon") +
     T("Unapplied credits", compact(-k.credit), k.creditN ? `${L("ledger:credit", (k.creditN === 1 ? "1 payment/credit note" : k.creditN + " payments/credit notes"))} not knocked off` : "None", "--ok", k.creditN ? "ledger:credit" : "", "cr");
-  if (S.view === "dash") $("#pgSub").textContent = (k.overdue > 0 ? `${compact(k.overdue)} overdue across ${plural(k.custOverdue, "customer")}` : "Nothing overdue")
+  if (S.view === "dash") $("#pgSub").textContent = (S.gf ? gLabel(S.gf) + " · " : "") + (k.overdue > 0 ? `${compact(k.overdue)} overdue across ${plural(k.custOverdue, "customer")}` : "Nothing overdue")
     + (k.soonN ? ` · ${plural(k.soonN, "invoice")} due in the next ${st.soonDays} days` : "") + ` · report dated ${dmy(V.asOf)}`;
   $("#kpis").querySelectorAll("[data-go]").forEach(b => b.onclick = () => { const [tab, f] = b.dataset.go.split(":"); goTable(tab, f); });
 }
@@ -1608,7 +1717,7 @@ function renderAlerts(){
   const overdueTotal = V.alerts.filter(a => ["crit","high","med"].includes(a.sev)).length;
   $("#alertCount").innerHTML = `<button type="button" class="klink" data-af="overdue">${overdueTotal} overdue</button> · <button type="button" class="klink" data-af="soon">${counts.soon||0} due soon</button>`;
   $("#alertCount").querySelectorAll("[data-af]").forEach(b => b.onclick = () => goTable("cust", b.dataset.af));
-  if (!list.length){ $("#alerts").innerHTML = `<li class="empty">No pending-due alerts for this report date.</li>`; return; }
+  if (!list.length){ $("#alerts").innerHTML = `<li class="empty">No pending-due alerts${S.gf ? " in " + esc(gLabel(S.gf)) : ""} for this report date.</li>`; return; }
   const lastMap = lastActivityMap();
   const lim = S.alertAll || !matchMedia("(max-width: 980px)").matches ? list.length : 6;
   const moreBtn = list.length > lim ? `<li class="alert-more"><button class="btn" type="button" id="alertMore">Show all ${list.length} alerts</button></li>` : "";
@@ -1620,7 +1729,7 @@ function renderAlerts(){
         <div><span class="sev">${SEV_LABEL[a.sev]}</span></div>
         <div class="ttl">${a.cn ? `<button type="button" data-open="${esc(a.cn)}">${esc(a.title)}</button>` : esc(a.title)}</div>
         <div class="desc">${esc(a.desc)}</div>
-        ${c ? `<div class="who">${c.ci ? `<span>${esc(c.ci)}</span>` : ""}${lastMap[c.cn] ? `<span>Last: ${CH_LABEL[lastMap[c.cn].ch]} · ${esc(fmtWhen(lastMap[c.cn].at))}</span>` : ""}${fuTxt}${fu && fu.note ? `<span>“${esc(fu.note.slice(0,80))}”</span>` : ""}</div>` : ""}
+        ${c ? `<div class="who">${gtag(c.cn)}${c.ci ? `<span>${esc(c.ci)}</span>` : ""}${lastMap[c.cn] ? `<span>Last: ${CH_LABEL[lastMap[c.cn].ch]} · ${esc(fmtWhen(lastMap[c.cn].at))}</span>` : ""}${fuTxt}${fu && fu.note ? `<span>“${esc(fu.note.slice(0,80))}”</span>` : ""}</div>` : ""}
       </div>
       <div class="amt"><span class="n">${inr(a.amt)}</span>${c && a.sev !== "info" ? actIcons(a.cn, a.sev === "soon" ? "soon" : "od") : a.resid ? `<button class="btn sm" type="button" data-resid="1">View</button>` : ""}</div></li>`;
   }).join("") + moreBtn;
@@ -1685,7 +1794,7 @@ function renderTable(){
   const q = $("#q").value.trim().toLowerCase();
   const more = $("#tableMore"); more.hidden = true;
   if (S.tab === "cust"){
-    let list = V.list.filter(c => !q || [c.c,c.cn,c.ci,c.ct].join(" ").toLowerCase().includes(q) || c.rows.some(r => (r.no+" "+r.ex).toLowerCase().includes(q)));
+    let list = V.list.filter(c => !q || [c.c,c.cn,c.ci,c.ct,gName(groupOf(c.cn))].join(" ").toLowerCase().includes(q) || c.rows.some(r => (r.no+" "+r.ex).toLowerCase().includes(q)));
     if (v === "overdue") list = list.filter(c => c.overdue > 0);
     if (v === "crit") list = list.filter(c => c.status === "crit");
     if (v === "soon") list = list.filter(c => c.soon > 0);
@@ -1697,7 +1806,7 @@ function renderTable(){
     const sum = list.reduce((s,c) => (s.d += c.debit, s.c += c.credit, s.o += c.overdue, s), {d:0,c:0,o:0});
     $("#tableWrap").innerHTML = `<table class="rt t-cust"><thead><tr>${th("name","Customer")}${th("debit","Debit",1)}${th("credit","Credit",1)}${th("net","Net due",1)}${th("overdue","Overdue",1)}${th("od","Oldest",1)}<th>Status</th><th>Remind</th></tr></thead><tbody>
       ${list.map(c => `<tr class="cust${S.open===c.cn?" open":""}" data-cn="${esc(c.cn)}" tabindex="0" aria-expanded="${S.open===c.cn}">
-        <td class="c-name"><div class="nm">${esc(c.c)}</div><div class="sm">${esc(c.cn)}${c.ci ? " · " + esc(c.ci) : ""}</div></td>
+        <td class="c-name"><div class="nm">${esc(c.c)}</div><div class="sm">${esc(c.cn)} ${gtag(c.cn)}${c.ci ? " · " + esc(c.ci) : ""}</div></td>
         <td class="r num c-debit" data-label="Debit">${c.debit ? inr(c.debit) : "–"}</td><td class="r num neg c-credit" data-label="Credit">${c.credit ? inr(c.credit) : "–"}</td>
         <td class="r num c-net" data-label="Net due" style="font-weight:600">${inr(c.net)}</td><td class="r num c-od" data-label="Overdue">${c.overdue ? inr(c.overdue) : "–"}</td>
         <td class="r num c-old" data-label="Oldest">${c.maxOd > 0 ? c.maxOd + " d" : "–"}</td>
@@ -1719,7 +1828,7 @@ function renderTable(){
     rows.sort((a,b) => b.od - a.od);
     const shown = rows.slice(0, 500);
     $("#tableWrap").innerHTML = `<table class="rt t-led"><thead><tr><th>Customer</th><th>Type</th><th>Document</th><th class="l-ext">Ext. doc / PO</th><th class="l-post">Posted</th><th>Due</th><th class="r">Days past due</th><th class="r">Amount</th><th class="r">Debit</th><th class="r">Credit</th><th>Remind</th></tr></thead><tbody>
-      ${shown.map(r => `<tr><td class="l-cust"><button type="button" class="nm linkish" data-open="${esc(r.cn)}">${esc(r.c)}</button><div class="sm">${esc(r.cn)}</div></td><td class="l-type">${esc(r.t)}</td><td class="num l-doc" data-label="${esc(r.t || "Document")}">${esc(r.no)}</td><td class="sm l-ext">${esc(r.ex)}</td><td class="num l-post">${dmy(fromIso(r.d))}</td><td class="num l-due" data-label="Due">${dmy(fromIso(r.du))}</td>
+      ${shown.map(r => `<tr><td class="l-cust"><button type="button" class="nm linkish" data-open="${esc(r.cn)}">${esc(r.c)}</button><div class="sm">${esc(r.cn)} ${gtag(r.cn)}</div></td><td class="l-type">${esc(r.t)}</td><td class="num l-doc" data-label="${esc(r.t || "Document")}">${esc(r.no)}</td><td class="sm l-ext">${esc(r.ex)}</td><td class="num l-post">${dmy(fromIso(r.d))}</td><td class="num l-due" data-label="Due">${dmy(fromIso(r.du))}</td>
         <td class="r num l-days">${r.r > 0 ? (r.od > 0 ? `<span class="pill ${r.od > st.critDays ? "s-crit" : r.od > 30 ? "s-high" : "s-med"}">${r.od}</span>` : `<span class="sm">${r.od === 0 ? "due today" : "in " + (-r.od) + " d"}</span>`) : "–"}</td>
         <td class="r num sm l-amt">${inr(r.a,2)}</td><td class="r num l-dr" data-label="Balance">${r.r > 0 ? inr(r.r,2) : ""}</td><td class="r num neg l-cr" data-label="Credit">${r.r < 0 ? inr(-r.r,2) : ""}</td><td class="acts-cell l-acts">${r.r >= st.minAmt && (r.od > 0 || -r.od <= st.soonDays) ? actIcons(r.cn, r.od > 0 ? "od" : "soon", rowKey(r)) : ""}</td></tr>`).join("") || `<tr><td colspan="11" class="empty">No entries match.</td></tr>`}
       </tbody></table>`;
@@ -2124,6 +2233,7 @@ $("#stabs").querySelectorAll("[data-st]").forEach(b => b.onclick = () => {
   document.querySelectorAll("#settingsPanel [data-sp]").forEach(p => p.hidden = p.dataset.sp !== b.dataset.st);
   if (b.dataset.st === "server" && SERVER) loadServerConfig();
   if (b.dataset.st === "bc" && SERVER) loadBc();
+  if (b.dataset.st === "groups") renderGroupEditor();
 });
 document.querySelectorAll("#settingsPanel [data-ph]").forEach(el => el.innerHTML = "Placeholders: " + PLACEHOLDERS.map(([k,d]) => `<code>${k}</code> ${d}`).join(" · "));
 function renderComms(){
@@ -2274,7 +2384,8 @@ function setView(v){
   document.querySelectorAll("header.top [data-only]").forEach(el => el.classList.toggle("offview", el.dataset.only !== v));
   if (v === "upload"){ renderUploadView(); if (SERVER) refreshBcUploadCard(); }
   if (v === "cxo"){ renderCxo(); loadAllReports(); }
-  if (v === "settings"){ renderSettings(); renderComms(); if (!brDirty) renderBrandForm(); const st = $("#stabs [aria-selected=true]"); if (st && st.dataset.st === "server" && SERVER) loadServerConfig(); }
+  if (v === "settings"){ renderSettings(); if ($("#stabs [aria-selected=true]")?.dataset.st === "groups") renderGroupEditor(); renderComms(); if (!brDirty) renderBrandForm(); const st = $("#stabs [aria-selected=true]"); if (st && st.dataset.st === "server" && SERVER) loadServerConfig(); }
+  renderGbar();
   $("#pgTitle").innerHTML = VIEW_TITLES[v][0]; $("#pgSub").textContent = VIEW_TITLES[v][1]; if (v === "dash" && V) renderKpis();
   if (v === "cust"){ renderCustView(); loadAllReports(); }
   if (v === "log") renderLogView();
@@ -2288,10 +2399,10 @@ function renderCustView(){
   if (!V) return;
   const q = $("#cq").value.trim().toLowerCase(), f = $("#cf").value;
   const cur = new Map(V.list.map(c => [c.cn, c])), last = lastActivityMap();
-  let list = Object.values(S.dir).map(d => { const ct = contactOf(d.cn); const c = cur.get(d.cn); return {d, ct, c, last: last[d.cn]}; });
+  let list = Object.values(S.dir).filter(d => inG(d.cn)).map(d => { const ct = contactOf(d.cn); const c = cur.get(d.cn); return {d, ct, c, last: last[d.cn]}; });
   const tot = list.length, noEmail = list.filter(x => !x.ct.emails.length).length, noWa = list.filter(x => !x.ct.phones.some(p => p.wa)).length;
   $("#custStats").innerHTML = `<div class="stat"><b>${tot}</b><span>Customers</span></div><div class="stat"><b>${list.filter(x => x.c && x.c.net > 0).length}</b><span>With outstanding</span></div><div class="stat"><b>${noEmail}</b><span>No email</span></div><div class="stat"><b>${noWa}</b><span>No WhatsApp no.</span></div>`;
-  if (q) list = list.filter(x => [x.d.name, x.d.cn, x.ct.city, x.d.city, ...x.ct.people.map(p => p.name), ...x.ct.phones.map(p => p.num), ...x.ct.emails.map(e => e.email)].join(" ").toLowerCase().includes(q.replace(/^\+/, "")));
+  if (q) list = list.filter(x => [x.d.name, x.d.cn, gName(groupOf(x.d.cn)), x.ct.city, x.d.city, ...x.ct.people.map(p => p.name), ...x.ct.phones.map(p => p.num), ...x.ct.emails.map(e => e.email)].join(" ").toLowerCase().includes(q.replace(/^\+/, "")));
   if (f === "out") list = list.filter(x => x.c && x.c.net > 0);
   if (f === "overdue") list = list.filter(x => x.c && x.c.overdue > 0);
   if (f === "noemail") list = list.filter(x => !x.ct.emails.length);
@@ -2299,10 +2410,10 @@ function renderCustView(){
   if (f === "edited") list = list.filter(x => x.ct.edited);
   list.sort((a,b) => ((b.c ? b.c.net : 0) - (a.c ? a.c.net : 0)) || a.d.name.localeCompare(b.d.name));
   const more = $("#custMore"); more.hidden = true;
-  if (!list.length){ $("#custWrap").innerHTML = `<div class="empty">${tot ? "No customers match." : "Upload a report to build the customer list."}</div>`; return; }
+  if (!list.length){ $("#custWrap").innerHTML = `<div class="empty">${tot ? "No customers match." : S.gf && Object.keys(S.dir).length ? "No customers in " + esc(gLabel(S.gf)) + "." : "Upload a report to build the customer list."}</div>`; return; }
   $("#custWrap").innerHTML = `<table class="rt t-dir"><thead><tr><th>Customer</th><th class="d-city">City</th><th>Contacts</th><th class="r">Outstanding</th><th class="r">Overdue</th><th>Last reminder</th><th class="d-rep">In reports</th><th></th></tr></thead><tbody>
     ${list.map(({d, ct, c, last}) => `<tr class="clickrow" data-profile="${esc(d.cn)}" tabindex="0">
-      <td class="d-name"><div class="nm">${esc(d.name)}</div><div class="sm">${esc(d.cn)}${(ct.city || d.city) ? `<span class="d-city-inline"> · ${esc(ct.city || d.city)}</span>` : ""}${ct.gstin ? " · GSTIN " + esc(ct.gstin) : ""}</div></td>
+      <td class="d-name"><div class="nm">${esc(d.name)}</div><div class="sm">${esc(d.cn)} ${gtag(d.cn)}${(ct.city || d.city) ? `<span class="d-city-inline"> · ${esc(ct.city || d.city)}</span>` : ""}${ct.gstin ? " · GSTIN " + esc(ct.gstin) : ""}</div></td>
       <td class="d-city">${esc(ct.city || d.city || "—")}</td>
       <td class="d-ct"><div class="chips">
         <span class="chip n" title="${plural(ct.people.length, "contact person")}">${MINI.person}${ct.people.length}</span>
@@ -2319,19 +2430,19 @@ function renderCustView(){
 }
 $("#cq").addEventListener("input", renderCustView); $("#cf").onchange = renderCustView;
 $("#custWrap").addEventListener("keydown", e => { const tr = e.target.closest && e.target.closest("tr[data-profile]"); if (tr && (e.key === "Enter" || e.key === " ")){ e.preventDefault(); openProfile(tr.dataset.profile); } });
-$("#custExport").onclick = async () => {
-  if (typeof XLSX === "undefined"){ toast("Spreadsheet library did not load"); return; }
-  const cur = new Map(V.list.map(c => [c.cn, c])), last = lastActivityMap();
-  const rows = Object.values(S.dir).map(d => { const ct = contactOf(d.cn), c = cur.get(d.cn), l = last[d.cn]; return {
-    "Customer No": d.cn, Customer: d.name, City: ct.city || d.city, GSTIN: ct.gstin,
-    "Contact people": ct.people.map(p => p.name + (p.role ? " (" + p.role + ")" : "")).join("; "),
-    Phones: ct.phones.map(p => fmtPhone(p.num) + (p.label ? " " + p.label : "")).join("; "),
-    "WhatsApp numbers": ct.phones.filter(p => p.wa).map(p => fmtPhone(p.num)).join("; "),
-    Emails: ct.emails.map(e => e.email).join("; "), Notes: ct.notes,
-    "Outstanding (₹)": c ? Math.round(c.net*100)/100 : 0, "Overdue (₹)": c ? Math.round(c.overdue*100)/100 : 0,
-    "Last reminder": l ? CH_LABEL[l.ch] + " " + fmtWhen(l.at) : "" }; });
-  const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(rows), "Customers");
-  await saveFile(`Customers ${dmy(V.asOf)}.xlsx`, new Blob([XLSX.write(wb, {bookType:"xlsx", type:"array"})]));
+$("#custExport").onclick = async e => {
+  const btn = e.currentTarget; if (!dl){ toast("Downloads are not available in this view"); return; } btn.disabled = true;
+  try{
+    const Excel = await loadExcel(), wb = newBook(Excel), cur = new Map(V.list.map(c => [c.cn, c])), last = lastActivityMap();
+    const dirList = Object.values(S.dir).filter(d => inG(d.cn)).sort((a, b) => a.name.localeCompare(b.name));
+    xlTable(wb, "Customers", [{h:"Customer No", w:12}, {h:"Customer", w:36}, {h:"Group", w:8}, {h:"Group name", w:22}, {h:"City", w:14}, {h:"GSTIN", w:17}, {h:"Contact people", w:30, wrap:true}, {h:"Phones", w:30, wrap:true}, {h:"WhatsApp numbers", w:20, wrap:true}, {h:"Emails", w:32, wrap:true}, {h:"Notes", w:26, wrap:true}, {h:"Outstanding (₹)", w:15, t:"money"}, {h:"Overdue (₹)", w:15, t:"money"}, {h:"Last reminder", w:24}],
+      dirList.map(d => { const ct = contactOf(d.cn), c = cur.get(d.cn), l = last[d.cn]; return [d.cn, d.name, ...xlGroup(d.cn), ct.city || d.city || "", ct.gstin || "",
+        ct.people.map(p => p.name + (p.role ? " (" + p.role + ")" : "")).join("; "), ct.phones.map(p => fmtPhone(p.num) + (p.label ? " " + p.label : "")).join("; "), ct.phones.filter(p => p.wa).map(p => fmtPhone(p.num)).join("; "),
+        ct.emails.map(x => x.email).join("; "), ct.notes || "", c ? xlR(c.net) : 0, c ? xlR(c.overdue) : 0, l ? CH_LABEL[l.ch] + " · " + fmtWhen(l.at) : ""]; }),
+      {title: (S.brand.company || "") + " · Customers", sub: S.gf ? gLabel(S.gf) : "All customer groups", total:{label:`${dirList.length} customers`, cols:[11,12]}, freezeCols:2});
+    await saveWorkbook(wb, `Customers ${dmy(V.asOf)}${S.gf ? " " + (S.gf === NONE ? "Unassigned" : S.gf) : ""}`);
+  }catch(err){ toast(err.message || "The file could not be created."); }
+  btn.disabled = false;
 };
 
 /* ---------- activity view ---------- */
@@ -2339,13 +2450,14 @@ let logOpen = null;
 function filteredLog(){
   const q = $("#lq").value.trim().toLowerCase(), ch = $("#lch").value, res = $("#lres").value, from = $("#lfrom").value, to = $("#lto").value;
   return allActivity().filter(e => {
+    if (!inG(e.cn)) return false;
     if (ch !== "all" && e.ch !== ch) return false;
     if (res === "failed" && e.ok !== false) return false;
     if (res === "api" && (e.mode !== "api" || e.ok === false)) return false;
     if (res === "manual" && e.mode !== "manual") return false;
     const day = new Date(e.at); const ds = `${day.getFullYear()}-${String(day.getMonth()+1).padStart(2,"0")}-${String(day.getDate()).padStart(2,"0")}`;
     if (from && ds < from) return false; if (to && ds > to) return false;
-    if (q){ const nm = e.customer || (S.dir[e.cn] || {}).name || ""; if (![nm, e.cn, e.to, e.subject, (e.invoices || []).join(" ")].join(" ").toLowerCase().includes(q)) return false; }
+    if (q){ const nm = e.customer || (S.dir[e.cn] || {}).name || ""; if (![nm, e.cn, gName(groupOf(e.cn)), e.to, e.subject, (e.invoices || []).join(" ")].join(" ").toLowerCase().includes(q)) return false; }
     return true;
   });
 }
@@ -2361,7 +2473,7 @@ function renderLogView(){
   $("#logWrap").innerHTML = `<table class="rt t-log"><thead><tr><th>Date &amp; time</th><th>Customer</th><th>Channel</th><th class="g-kind">Reminder</th><th>Sent to</th><th class="g-inv">Invoices</th><th class="r">Amount</th><th>Status</th></tr></thead><tbody>
     ${shown.map(e => { const st = statusOf(e), key = e.at + e.ch + e.cn, nm = e.customer || (S.dir[e.cn] || {}).name || e.cn, inv = e.invoices || []; return `<tr class="clickrow" data-log="${esc(key)}" tabindex="0" aria-expanded="${logOpen === key}">
       <td class="num g-when" style="white-space:nowrap">${esc(fmtWhen(e.at))}</td>
-      <td class="g-cust"><button type="button" class="nm linkish" data-profile="${esc(e.cn)}">${esc(nm)}</button><div class="sm">${esc(e.cn)}</div></td>
+      <td class="g-cust"><button type="button" class="nm linkish" data-profile="${esc(e.cn)}">${esc(nm)}</button><div class="sm">${esc(e.cn)} ${gtag(e.cn)}</div></td>
       <td class="g-ch"><span style="display:inline-flex;gap:6px;align-items:center;white-space:nowrap"><span class="ic ${e.ch === "voice" ? "call" : e.ch === "wa" ? "wa" : "mail"}" style="width:24px;height:24px;border:0;background:transparent">${CH_ICON[e.ch] || ""}</span>${CH_LABEL[e.ch] || esc(e.ch)}</span></td>
       <td class="g-kind">${e.kind === "soon" ? "Due soon" : e.kind === "od" ? "Overdue" : "—"}</td>
       <td class="num sm g-to" style="color:var(--ink)">${esc(e.ch === "email" ? (e.to || "") : e.to ? fmtPhone(e.to) : "")}</td>
@@ -2379,11 +2491,16 @@ function renderLogView(){
 }
 ["lq","lch","lres","lfrom","lto"].forEach(id => $("#" + id).addEventListener(id === "lq" ? "input" : "change", renderLogView));
 $("#logWrap").addEventListener("click", e => { const tr = e.target.closest("tr[data-log]"); if (!tr || e.target.closest("[data-profile]")) return; logOpen = logOpen === tr.dataset.log ? null : tr.dataset.log; renderLogView(); });
-$("#logExport").onclick = async () => {
-  if (typeof XLSX === "undefined"){ toast("Spreadsheet library did not load"); return; }
-  const rows = filteredLog().map(e => ({"Date": new Date(e.at).toLocaleDateString("en-IN"), "Time": new Date(e.at).toLocaleTimeString("en-IN"), "Customer No": e.cn, Customer: e.customer || (S.dir[e.cn] || {}).name || "", Channel: CH_LABEL[e.ch] || e.ch, Reminder: e.kind === "soon" ? "Due soon" : e.kind === "od" ? "Overdue" : "", "Sent to": e.to || "", Invoices: (e.invoices || []).join(", "), "Amount (₹)": e.amount || 0, Status: statusOf(e).t, Reference: e.ref || "", Error: e.error || "", Subject: e.subject || "", Message: e.preview || ""}));
-  const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(rows), "Activity");
-  await saveFile(`Reminder activity ${dmy(todayUTC())}.xlsx`, new Blob([XLSX.write(wb, {bookType:"xlsx", type:"array"})]));
+$("#logExport").onclick = async e => {
+  const btn = e.currentTarget; if (!dl){ toast("Downloads are not available in this view"); return; } btn.disabled = true;
+  try{
+    const Excel = await loadExcel(), wb = newBook(Excel), list = filteredLog();
+    xlTable(wb, "Activity", [{h:"Date & time", w:17, t:"dt"}, {h:"Customer No", w:12}, {h:"Customer", w:32}, {h:"Group", w:8}, {h:"Channel", w:14}, {h:"Reminder", w:10}, {h:"Sent to", w:26}, {h:"Invoices", w:30, wrap:true}, {h:"Amount (₹)", w:15, t:"money"}, {h:"Status", w:20}, {h:"Subject", w:30, wrap:true}, {h:"Reference", w:20}, {h:"Error", w:30, wrap:true}],
+      list.map(e => [new Date(e.at), e.cn, e.customer || (S.dir[e.cn] || {}).name || "", xlGroup(e.cn)[0], CH_LABEL[e.ch] || e.ch, e.kind === "soon" ? "Due soon" : e.kind === "od" ? "Overdue" : "", e.ch === "email" ? e.to || "" : e.to ? fmtPhone(e.to) : "", (e.invoices || []).join(", "), e.amount ? xlR(e.amount) : null, statusOf(e).t, e.subject || "", e.ref || "", e.error || ""]),
+      {title: (S.brand.company || "") + " · Reminder activity", sub: S.gf ? gLabel(S.gf) : "All customer groups", total:{label:`${list.length} actions`, cols:[8]}, freezeCols:1});
+    await saveWorkbook(wb, `Reminder activity ${dmy(todayUTC())}${S.gf ? " " + (S.gf === NONE ? "Unassigned" : S.gf) : ""}`);
+  }catch(err){ toast(err.message || "The file could not be created."); }
+  btn.disabled = false;
 };
 
 /* ---------- customer profile editor ---------- */
@@ -2428,7 +2545,9 @@ function renderProfile(){
           <label class="tg"><input type="radio" name="pfEmailPrimary" data-primary="emails.${i}" ${m.primary ? "checked" : ""}>Primary</label>
           <button class="rm" type="button" data-rm="emails.${i}" aria-label="Remove email">✕</button></div>`).join("") || `<div class="empty-line">No email addresses. Business Central reports don't include them, so add them here.</div>`}
         <h4>Other details</h4>
-        <div class="frow"><label class="fld" for="pfCity">City<input id="pfCity" data-e="city" value="${esc(L.city)}"></label><label class="fld" for="pfGst">GSTIN<input id="pfGst" data-e="gstin" value="${esc(L.gstin)}" maxlength="15" style="text-transform:uppercase"></label></div>
+        <div class="frow"><label class="fld" for="pfGrp">Customer group<select id="pfGrp">${(() => { const auto = gMap.has(gPrefix(P.cn)) ? gPrefix(P.cn) : NONE, cur = S.gassign[P.cn] || "auto";
+          return `<option value="auto" ${cur === "auto" ? "selected" : ""}>Automatic from code: ${esc(gLabel(auto))}</option>` + S.groups.map(g => `<option value="${esc(g.code)}" ${cur === g.code ? "selected" : ""}>${esc(g.code)} · ${esc(g.name)}</option>`).join("") + `<option value="${NONE}" ${cur === NONE ? "selected" : ""}>Unassigned</option>`; })()}</select><span class="h">Saved straight away for everyone</span></label>
+          <label class="fld" for="pfCity">City<input id="pfCity" data-e="city" value="${esc(L.city)}"></label><label class="fld" for="pfGst">GSTIN<input id="pfGst" data-e="gstin" value="${esc(L.gstin)}" maxlength="15" style="text-transform:uppercase"></label></div>
         <label class="fld" for="pfNotes">Notes<textarea id="pfNotes" data-e="notes" style="min-height:70px">${esc(L.notes)}</textarea></label>
       </div>
       <details><summary class="muted" style="cursor:pointer;font-size:12.5px">As found in uploaded reports (${plural(dd.reports.size, "report")})</summary>
@@ -2456,6 +2575,12 @@ function wireProfile(){
   });
   sh.querySelectorAll("[data-rm]").forEach(b => b.onclick = () => { const [k, i] = b.dataset.rm.split("."); const wasPrimary = P.d[k][+i].primary; P.d[k].splice(+i, 1); if (wasPrimary && P.d[k].length) P.d[k][0].primary = true; P.bad.clear(); renderProfile(); });
   $("#pfSave").onclick = saveProfile;
+  $("#pfGrp").onchange = async e => {
+    const v = e.target.value, cn = P.cn;
+    if (v === "auto") delete S.gassign[cn]; else S.gassign[cn] = v;
+    render(); if (S.view === "cust") renderCustView();
+    await saveGroups(); toast(`${P ? P.name : cn} is now in ${gLabel(groupOf(cn))}`);
+  };
 }
 async function saveProfile(){
   const L = P.d; P.bad = new Set();
@@ -2568,10 +2693,89 @@ $("#fBrand").addEventListener("submit", async e => {
   render();
 });
 
+/* ---------- customer groups: bar, summary, settings ---------- */
+function groupSummary(){
+  const asOf = asOfDate(), st = S.settings, m = new Map();
+  for (const r of S.rows){
+    const g = groupOf(r.cn); let o = m.get(g);
+    if (!o){ o = {g, cs:new Set(), odc:new Set(), net:0, debit:0, overdue:0, crit:0, soon:0, n:0}; m.set(g, o); }
+    o.cs.add(r.cn); o.net += r.r; o.n++;
+    if (r.r > 0){
+      o.debit += r.r; const od = daysBetween(asOf, fromIso(r.du));
+      if (r.r >= st.minAmt){ if (od > 0){ o.overdue += r.r; o.odc.add(r.cn); if (od > st.critDays) o.crit += r.r; } else if (-od <= st.soonDays) o.soon += r.r; }
+    }
+  }
+  return [...m.values()].sort((a,b) => (a.g === NONE) - (b.g === NONE) || b.net - a.net);
+}
+function renderGbar(){
+  const bar = $("#gbar"), show = ["dash","cxo","cust","log"].includes(S.view);
+  bar.hidden = !show; if (!show) return;
+  const cnt = new Map(), useDir = S.view === "cust" || S.view === "log";
+  const src = useDir ? Object.keys(S.dir) : [...new Set(S.rows.map(r => r.cn))];
+  src.forEach(cn => { const g = groupOf(cn); cnt.set(g, (cnt.get(g) || 0) + 1); });
+  const items = [...S.groups.map(g => g.code), NONE].filter(c => cnt.get(c) || c === S.gf);
+  const b = (code, inner) => `<button type="button" data-g="${esc(code)}" aria-pressed="${S.gf === code}">${inner}</button>`;
+  $("#gbarList").innerHTML = b("", `All groups<i>${src.length}</i>`) + items.map(c => b(c, c === NONE ? `Unassigned<i>${cnt.get(c) || 0}</i>` : `<b>${esc(c)}</b>${esc(gName(c))}<i>${cnt.get(c) || 0}</i>`)).join("");
+  $("#gbarList").querySelectorAll("[data-g]").forEach(x => x.onclick = () => setGroupFilter(x.dataset.g));
+  const on = $("#gbarList [aria-pressed=true]"); if (on && S.gf) { const l = $("#gbarList"); l.scrollLeft = Math.max(0, on.offsetLeft - l.offsetLeft - 40); }
+}
+function renderGroupPanel(){
+  const list = groupSummary(), wrap = $("#grpWrap");
+  if (!list.length){ wrap.innerHTML = `<div class="empty">No customers in this report.</div>`; return; }
+  const tot = list.reduce((a, x) => (a.c += x.cs.size, a.net += x.net, a.od += x.overdue, a.cr += x.crit, a.so += x.soon, a.d += x.debit, a), {c:0, net:0, od:0, cr:0, so:0, d:0});
+  const maxD = Math.max(1, ...list.map(x => x.debit));
+  $("#grpHint").textContent = S.gf ? `Showing ${gLabel(S.gf)} only · tap it again to show all groups` : "Tap a group to filter the whole dashboard";
+  wrap.innerHTML = `<table class="gsum"><thead><tr><th>Group</th><th class="r">Cust.</th><th class="r">Net due</th><th class="r">Overdue</th><th class="r g-hide">Critical</th><th class="r g-hide">Due soon</th><th class="g-hide">Open debits · overdue share</th></tr></thead><tbody>
+    ${list.map(x => `<tr data-g="${esc(x.g)}" class="${S.gf === x.g ? "on" : ""}" tabindex="0">
+      <td><span class="gtag${x.g === NONE ? " none" : ""}">${x.g === NONE ? "—" : esc(x.g)}</span> <span class="gn">${esc(gName(x.g))}</span></td>
+      <td class="r num">${x.cs.size}${x.odc.size ? `<span class="muted g-od"> · ${x.odc.size} overdue</span>` : ""}</td>
+      <td class="r num" style="font-weight:600">${compact(x.net)}</td>
+      <td class="r num" style="color:${x.overdue ? "var(--high)" : "inherit"}">${x.overdue ? compact(x.overdue) : "–"}</td>
+      <td class="r num g-hide" style="color:${x.crit ? "var(--crit)" : "inherit"}">${x.crit ? compact(x.crit) : "–"}</td>
+      <td class="r num g-hide">${x.soon ? compact(x.soon) : "–"}</td>
+      <td class="g-hide"><div class="gbarc" style="width:${Math.max(8, x.debit / maxD * 100).toFixed(1)}%" title="Open debits ${inr(x.debit)} · overdue ${inr(x.overdue)}"><span style="width:${x.debit ? (x.overdue / x.debit * 100).toFixed(1) : 0}%;background:var(--b4)"></span><span style="flex:1;background:var(--b0)"></span></div></td></tr>`).join("")}
+    </tbody><tfoot><tr data-g="" class="${S.gf ? "" : "on"}" style="cursor:pointer"><td>All groups</td><td class="r num">${tot.c}</td><td class="r num">${compact(tot.net)}</td><td class="r num">${compact(tot.od)}</td><td class="r num g-hide">${compact(tot.cr)}</td><td class="r num g-hide">${compact(tot.so)}</td><td class="g-hide"></td></tr></tfoot></table>`;
+  wrap.querySelectorAll("tr[data-g]").forEach(tr => { const go = () => setGroupFilter(tr.dataset.g && tr.dataset.g === S.gf ? "" : tr.dataset.g); tr.onclick = go; tr.onkeydown = e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); go(); } }; });
+}
+async function saveGroups(){
+  if (!db) return;
+  try { await db.doc("settings/groups").set({list: S.groups, assign: S.gassign, updatedAt: new Date().toISOString()}); }
+  catch { toast("Saved on this screen only (no edit permission)"); }
+}
+let GE = null;
+function renderGroupEditor(){
+  if (!GE) GE = S.groups.map(g => ({...g}));
+  const cnt = new Map(); Object.keys(S.dir).forEach(cn => { const p = S.gassign[cn] || gPrefix(cn); cnt.set(p, (cnt.get(p) || 0) + 1); });
+  const codes = GE.map(g => g.code.trim().toUpperCase()), dup = c => c && codes.filter(x => x === c).length > 1;
+  $("#grpEdit").innerHTML = `<div class="gr"><span class="gh">Code</span><span class="gh">Group name</span><span class="gh n" style="text-align:right">Customers</span><span></span></div>` +
+    GE.map((g, i) => { const c = g.code.trim().toUpperCase(); return `<div class="gr"><input class="code${!/^[A-Z]{1,10}$/.test(c) || dup(c) ? " bad" : ""}" data-gi="${i}" data-gk="code" value="${esc(g.code)}" maxlength="10" aria-label="Group code" placeholder="CNI">
+      <input data-gi="${i}" data-gk="name" value="${esc(g.name)}" maxlength="60" aria-label="Group name" placeholder="Group name">
+      <span class="n">${cnt.get(c) || 0}</span><button type="button" class="rm" data-grm="${i}" aria-label="Remove group">✕</button></div>`; }).join("");
+  $("#grpEdit").querySelectorAll("[data-gi]").forEach(el => el.oninput = () => { GE[+el.dataset.gi][el.dataset.gk] = el.value; if (el.dataset.gk === "code") el.value = el.value.toUpperCase().replace(/[^A-Za-z]/g, ""), GE[+el.dataset.gi].code = el.value; });
+  $("#grpEdit").querySelectorAll("[data-grm]").forEach(b => b.onclick = () => { GE.splice(+b.dataset.grm, 1); renderGroupEditor(); });
+  const unknown = new Map(); Object.keys(S.dir).forEach(cn => { const p = gPrefix(cn); if (!S.gassign[cn] && p && !GE.some(g => g.code.toUpperCase() === p)) unknown.set(p, (unknown.get(p) || 0) + 1); });
+  const ov = Object.entries(S.gassign);
+  $("#grpOver").innerHTML = (unknown.size ? `<div class="banner warn" style="margin-top:14px">Customer codes with no matching group: ${[...unknown].map(([p, n]) => `<b class="num">${esc(p)}</b> (${n})`).join(", ")}. They show as Unassigned until you add a group with that code.</div>` : "") +
+    (ov.length ? `<h4 style="margin:16px 0 4px">Customers moved by hand</h4><div class="gover">${ov.map(([cn, g]) => `<div><span>${esc((S.dir[cn] || {}).name || cn)}</span><span class="num muted">${esc(cn)}</span>→ <span class="gtag${g === NONE ? " none" : ""}">${g === NONE ? "Unassigned" : esc(g)}</span><button class="btn sm ghost" type="button" data-gun="${esc(cn)}">Back to automatic</button></div>`).join("")}</div>` : "");
+  $("#grpOver").querySelectorAll("[data-gun]").forEach(b => b.onclick = async () => { delete S.gassign[b.dataset.gun]; render(); renderGroupEditor(); await saveGroups(); toast("Back to automatic grouping"); });
+}
+$("#grpAdd").onclick = () => { GE = GE || S.groups.map(g => ({...g})); GE.push({code:"", name:""}); renderGroupEditor(); const ins = $("#grpEdit").querySelectorAll("input.code"); ins[ins.length - 1].focus(); };
+$("#grpReset").onclick = () => { GE = DEFAULT_GROUPS.map(g => ({...g})); renderGroupEditor(); toast("Standard groups restored. Click Save groups to keep them."); };
+$("#grpSave").onclick = async () => {
+  const list = GE ? GE.map(g => ({code: g.code.trim().toUpperCase(), name: g.name.trim()})).filter(g => g.code || g.name) : S.groups;
+  const codes = list.map(g => g.code);
+  if (list.some(g => !/^[A-Z]{1,10}$/.test(g.code))){ renderGroupEditor(); toast("Each group needs a code of letters only, for example CNI."); return; }
+  if (codes.some((c, i) => codes.indexOf(c) !== i)){ toast("Two groups have the same code."); return; }
+  if (list.some(g => !g.name)){ toast("Give every group a name."); return; }
+  S.groups = list; GE = null; gIndex(); render(); renderGroupEditor();
+  await saveGroups(); toast("Customer groups saved");
+};
+
 /* ---------- report comparison ---------- */
 function repStats(rows, asOf){
-  const st = S.settings, o = {net:0, debit:0, credit:0, overdue:0, crit:0, soon:0, nd:0, a30:0, a90:0, a90p:0, custOd:new Set(), n:rows.length};
+  const st = S.settings, o = {net:0, debit:0, credit:0, overdue:0, crit:0, soon:0, nd:0, a30:0, a90:0, a90p:0, custOd:new Set(), n:0};
   for (const r of rows){
+    if (!inG(r.cn)) continue; o.n++;
     const od = daysBetween(asOf, fromIso(r.du));
     if (r.r > 0){
       o.debit += r.r;
@@ -2590,8 +2794,8 @@ function prevReport(){
 }
 function movement(prev){
   const key = r => r.cn + "|" + r.no, cur = new Map(), prv = new Map();
-  S.rows.forEach(r => { if (r.r > 0) cur.set(key(r), (cur.get(key(r)) || 0) + r.r); });
-  prev.rows.forEach(r => { if (r.r > 0) prv.set(key(r), (prv.get(key(r)) || 0) + r.r); });
+  S.rows.forEach(r => { if (r.r > 0 && inG(r.cn)) cur.set(key(r), (cur.get(key(r)) || 0) + r.r); });
+  prev.rows.forEach(r => { if (r.r > 0 && inG(r.cn)) prv.set(key(r), (prv.get(key(r)) || 0) + r.r); });
   let cleared = 0, clearedN = 0, added = 0, addedN = 0;
   prv.forEach((v, k) => { const c = cur.get(k) || 0; if (v - c > 0.5){ cleared += v - c; clearedN++; } });
   cur.forEach((v, k) => { if (!prv.has(k)){ added += v; addedN++; } });
@@ -2607,7 +2811,7 @@ function deltaChip(cur, prev, downIsGood, asText){
   const good = downIsGood == null ? null : (d < 0) === downIsGood;
   return `<span class="dchip ${good == null ? "n" : good ? "good" : "bad"}">${d > 0 ? "▲" : "▼"} ${compact(Math.abs(d))}${asText ? " " + asText : ""}</span>`;
 }
-const weekActivity = () => { const t = Date.now() - 7 * DAY; return allActivity().filter(e => new Date(e.at) >= t && e.ok !== false); };
+const weekActivity = () => { const t = Date.now() - 7 * DAY; return allActivity().filter(e => new Date(e.at) >= t && e.ok !== false && inG(e.cn)); };
 function promisedList(){
   const today = iso(todayUTC()), cur = new Map((V.list || []).map(c => [c.cn, c]));
   return Object.values(S.followups).filter(f => f.status === "promised" && f.promiseDate && f.promiseDate >= today)
@@ -2627,7 +2831,7 @@ function renderHero(){
     <div class="h-main">
       <div class="h-top"><span class="label">Net receivable</span><span class="chip ${h.c}">${h.t}</span></div>
       <div class="h-num"><span>${compact(k.net)}</span>${ps ? deltaChip(k.net, ps.net, true, "vs " + dmy(fromIso(prev.meta.asOf))) : ""}</div>
-      <div class="h-sub">${inr(k.net)} across ${plural(V.list.length, "customer")} · report dated ${dmy(V.asOf)}</div>
+      <div class="h-sub">${inr(k.net)} across ${plural(V.list.length, "customer")}${S.gf ? " in " + esc(gLabel(S.gf)) : ""} · report dated ${dmy(V.asOf)}</div>
       <div class="h-bar" role="img" aria-label="Open debits by age">${seg.map(x => x.v > 0 ? `<span style="width:${(x.v / tot * 100).toFixed(2)}%;background:${x.c}" title="${x.l}: ${inr(x.v)}"></span>` : "").join("")}</div>
       <div class="h-leg">${seg.map(x => `<span><i style="background:${x.c}"></i>${x.l}<b class="num">${compact(x.v)}</b><em>${Math.round(x.v / tot * 100)}%</em></span>`).join("")}</div>
     </div>
@@ -2668,8 +2872,8 @@ function cxoEvents(){
     else if (u.status === "failed") ev.push({at:u.at, c:"bad", t:"Upload failed", d:u.file || ""});
     else if (u.status === "deleted") ev.push({at:u.at, c:"n", t:"Report removed", d:u.asOf ? "dated " + dmy(fromIso(u.asOf)) : ""});
   }
-  for (const e of allActivity()) ev.push({at:e.at, c: e.ok === false ? "bad" : "ok", t:`${CH_LABEL[e.ch] || e.ch} ${e.ch === "voice" ? "" : "reminder "}${e.ok === false ? "failed for" : "to"} ${e.customer || (S.dir[e.cn] || {}).name || e.cn}`.replace("  ", " "), d:[e.amount ? inr(e.amount) : "", e.kind === "soon" ? "due soon" : e.kind === "od" ? "overdue" : ""].filter(Boolean).join(" · ")});
-  for (const f of Object.values(S.followups)) if (f.updatedAt && (f.status === "promised" || f.status === "disputed")){
+  for (const e of allActivity()) if (inG(e.cn)) ev.push({at:e.at, c: e.ok === false ? "bad" : "ok", t:`${CH_LABEL[e.ch] || e.ch} ${e.ch === "voice" ? "" : "reminder "}${e.ok === false ? "failed for" : "to"} ${e.customer || (S.dir[e.cn] || {}).name || e.cn}`.replace("  ", " "), d:[e.amount ? inr(e.amount) : "", e.kind === "soon" ? "due soon" : e.kind === "od" ? "overdue" : ""].filter(Boolean).join(" · ")});
+  for (const f of Object.values(S.followups)) if (f.updatedAt && inG(f.cn) && (f.status === "promised" || f.status === "disputed")){
     const nm = (S.dir[f.cn] || {}).name || f.cn;
     ev.push({at:f.updatedAt, c: f.status === "promised" ? "ok" : "warn", t: f.status === "promised" ? `${nm} promised payment` : `${nm} marked disputed`, d: f.status === "promised" && f.promiseDate ? "by " + dmy(fromIso(f.promiseDate)) : (f.note || "").slice(0, 80)});
   }
@@ -2688,7 +2892,7 @@ function renderCxo(){
   $("#cxoBody").innerHTML = `<div class="cx-wrap">
     <div class="cx-head">
       <div><div class="cx-eyebrow">Executive summary</div><div class="cx-co">${esc(S.brand.company || S.meta?.company || "")}</div></div>
-      <div class="cx-meta"><span class="chip ${h.c}">${h.t}</span><span>Report dated ${dmy(V.asOf)}</span>${prev ? `<span>Compared with ${dmy(fromIso(prev.meta.asOf))}</span>` : ""}</div>
+      <div class="cx-meta"><span class="chip ${h.c}">${h.t}</span><span>${S.gf ? "Group: " + esc(gLabel(S.gf)) : "All customer groups"}</span><span>Report dated ${dmy(V.asOf)}</span>${prev ? `<span>Compared with ${dmy(fromIso(prev.meta.asOf))}</span>` : ""}</div>
     </div>
     <div class="cx-figs">
       ${fig("Net receivable", compact(k.net), `${plural(V.list.length, "customer")} ${deltaChip(k.net, ps && ps.net, true, vs)}`)}
@@ -2843,11 +3047,11 @@ async function buildMainReport(){
   const prev = prevReport(), ps = prev ? repStats(prev.rows, fromIso(prev.meta.asOf)) : null, mv = prev ? movement(prev) : null;
   const age = V.age, tot = age.reduce((s,b) => s + b.v, 0) || 1, share = (tot - age[0].v) / tot, h = healthOf(share);
   pdfCover(ctx, "Customer Outstanding & Collections Report", ctx.company, [
-    ["Company", ctx.company], ["Report date", dmy(V.asOf)], ["Customers", String(V.list.length)], ["Open ledger entries", String(S.rows.length)],
+    ["Company", ctx.company], ["Report date", dmy(V.asOf)], ["Customer group", S.gf ? gLabel(S.gf) : "All groups"], ["Customers", String(V.list.length)], ["Open ledger entries", String(V.rows.length)],
     ["Source", S.meta?.file || "-"], ["Prepared by", `${ctx.app}${S.brand.tagline ? " · " + S.brand.tagline : ""}`]]);
   // 1 Executive summary
   doc.addPage(); let y = 26;
-  y = pdfH(ctx, y, "1. Executive summary", `Position as on ${dmy(V.asOf)}${prev ? ", compared with the report dated " + dmy(fromIso(prev.meta.asOf)) : ""}`);
+  y = pdfH(ctx, y, "1. Executive summary", `${S.gf ? gLabel(S.gf) + " · " : ""}Position as on ${dmy(V.asOf)}${prev ? ", compared with the report dated " + dmy(fromIso(prev.meta.asOf)) : ""}`);
   doc.setFont("helvetica", "normal"); doc.setFontSize(9.5); doc.setTextColor(...PC.ink);
   const para = `Net receivable stands at ${rsFull(k.net)} across ${V.list.length} customers. ${rsC(k.overdue)} is overdue across ${k.custOverdue} customers (${Math.round(share * 100)}% of open debits are past their due date), of which ${rsC(k.crit)} is more than ${st.critDays} days overdue. ${rsC(k.soon)} falls due in the next ${st.soonDays} days, and ${rsC(-k.credit)} of payments and credit notes are yet to be applied against invoices. Overall status: ${h.t}.` + (mv ? ` Since the previous report, ${rsC(mv.cleared)} across ${mv.clearedN} invoices has been cleared and ${mv.addedN} new invoices worth ${rsC(mv.added)} were added.` : "");
   const lines = doc.splitTextToSize(pt(para), W - 2 * M); doc.text(lines, M, y); y += lines.length * 4.6 + 4;
@@ -2870,6 +3074,13 @@ async function buildMainReport(){
     y = pdfH(ctx, y, "Movement since last report", `Compared with the report dated ${dmy(fromIso(prev.meta.asOf))}`);
     y = pdfTable(ctx, y, ["Measure", "Invoices", "Amount (Rs)"], [["Cleared (paid or reduced)", String(mv.clearedN), num0(mv.cleared)], ["New invoices", String(mv.addedN), num0(mv.added)], ["Net change in receivable", "", (k.net - ps.net >= 0 ? "+" : "-") + num0(Math.abs(k.net - ps.net)).replace("-", "")]], {cols: {1:{halign:"right"}, 2:{halign:"right"}}});
   }
+  if (!S.gf){
+    const gs = groupSummary();
+    y = pdfH(ctx, y, "Outstanding by customer group", "Customer groups by posting group code, largest net balance first");
+    y = pdfTable(ctx, y, ["Group", "Customers", "Net due (Rs)", "Overdue (Rs)", "Critical (Rs)", "Due soon (Rs)"], [...gs.map(x => [x.g === NONE ? "Unassigned" : x.g + " - " + gName(x.g), String(x.cs.size), num0(x.net), x.overdue ? num0(x.overdue) : "-", x.crit ? num0(x.crit) : "-", x.soon ? num0(x.soon) : "-"]),
+      [{content:"All groups", styles:{fontStyle:"bold"}}, {content:String(gs.reduce((a,x) => a + x.cs.size, 0)), styles:{fontStyle:"bold"}}, {content:num0(gs.reduce((a,x) => a + x.net, 0)), styles:{fontStyle:"bold"}}, {content:num0(gs.reduce((a,x) => a + x.overdue, 0)), styles:{fontStyle:"bold"}}, {content:num0(gs.reduce((a,x) => a + x.crit, 0)), styles:{fontStyle:"bold"}}, {content:num0(gs.reduce((a,x) => a + x.soon, 0)), styles:{fontStyle:"bold"}}]],
+      {cols: {0:{cellWidth:62}, 1:{halign:"right"}, 2:{halign:"right", fontStyle:"bold"}, 3:{halign:"right"}, 4:{halign:"right"}, 5:{halign:"right"}}});
+  }
   // 3 Alerts
   doc.addPage(); y = 26;
   y = pdfH(ctx, y, "3. Pending-due alerts", "Customers needing attention, most urgent first");
@@ -2879,11 +3090,11 @@ async function buildMainReport(){
   // 4 Customer-wise outstanding
   y = pdfH(ctx, y, "4. Customer-wise outstanding", "All customers in the report, largest net balance first");
   const cl = [...V.list].sort((a,b) => b.net - a.net);
-  y = pdfTable(ctx, y, ["Code", "Customer", "City", "Debit (Rs)", "Credit (Rs)", "Net due (Rs)", "Overdue (Rs)", "Oldest", "Status"],
-    [...cl.map(c => [c.cn, c.c, c.ci || "", c.debit ? num0(c.debit) : "-", c.credit ? num0(c.credit) : "-", num0(c.net), c.overdue ? num0(c.overdue) : "-", c.maxOd > 0 ? c.maxOd + " d" : "-", STATUS_LABEL[c.status]]),
-     [{content:`${cl.length} customers`, colSpan:3, styles:{fontStyle:"bold"}}, {content:num0(k.debit), styles:{fontStyle:"bold"}}, {content:num0(k.credit), styles:{fontStyle:"bold"}}, {content:num0(k.net), styles:{fontStyle:"bold"}}, {content:num0(cl.reduce((s,c)=>s+c.overdue,0)), styles:{fontStyle:"bold"}}, "", ""]],
-    {cols: {0:{cellWidth:16}, 1:{cellWidth:44}, 2:{cellWidth:18}, 3:{halign:"right"}, 4:{halign:"right"}, 5:{halign:"right", fontStyle:"bold"}, 6:{halign:"right"}, 7:{halign:"right", cellWidth:12}, 8:{cellWidth:18}},
-     didParseCell: d => { if (d.section === "body" && d.column.index === 8 && cl[d.row.index]) d.cell.styles.textColor = sevCol({crit:"crit", high:"high", med:"med", soon:"soon"}[cl[d.row.index].status] || "info"); }});
+  y = pdfTable(ctx, y, ["Code", "Grp", "Customer", "City", "Debit (Rs)", "Credit (Rs)", "Net due (Rs)", "Overdue (Rs)", "Oldest", "Status"],
+    [...cl.map(c => [c.cn, groupOf(c.cn) === NONE ? "-" : groupOf(c.cn), c.c, c.ci || "", c.debit ? num0(c.debit) : "-", c.credit ? num0(c.credit) : "-", num0(c.net), c.overdue ? num0(c.overdue) : "-", c.maxOd > 0 ? c.maxOd + " d" : "-", STATUS_LABEL[c.status]]),
+     [{content:`${cl.length} customers`, colSpan:4, styles:{fontStyle:"bold"}}, {content:num0(k.debit), styles:{fontStyle:"bold"}}, {content:num0(k.credit), styles:{fontStyle:"bold"}}, {content:num0(k.net), styles:{fontStyle:"bold"}}, {content:num0(cl.reduce((s,c)=>s+c.overdue,0)), styles:{fontStyle:"bold"}}, "", ""]],
+    {cols: {0:{cellWidth:16}, 1:{cellWidth:10}, 2:{cellWidth:38}, 3:{cellWidth:16}, 4:{halign:"right"}, 5:{halign:"right"}, 6:{halign:"right", fontStyle:"bold"}, 7:{halign:"right"}, 8:{halign:"right", cellWidth:12}, 9:{cellWidth:17}},
+     didParseCell: d => { if (d.section === "body" && d.column.index === 9 && cl[d.row.index]) d.cell.styles.textColor = sevCol({crit:"crit", high:"high", med:"med", soon:"soon"}[cl[d.row.index].status] || "info"); }});
   // 5 Overdue register
   const odr = V.rows.filter(r => r.r >= st.minAmt && r.od > 0).sort((a,b) => b.od - a.od);
   y = pdfH(ctx, y, "5. Overdue invoice register", `${odr.length} invoices of ${rsC(st.minAmt)} or more past their due date`);
@@ -2901,18 +3112,18 @@ async function buildMainReport(){
   // notes
   y = pdfH(ctx, y, "Notes");
   doc.setFont("helvetica", "normal"); doc.setFontSize(8.5); doc.setTextColor(...PC.muted);
-  doc.text(doc.splitTextToSize(pt(`Figures are based on the customer outstanding report dated ${dmy(V.asOf)}${S.meta?.file ? " (" + S.meta.file + ")" : ""}. Alerts consider balances of ${rsC(st.minAmt)} or more; smaller balances are treated as residuals. "Critical" means more than ${st.critDays} days past the due date. Amounts are in Indian Rupees.`), W - 2 * M), M, y);
+  doc.text(doc.splitTextToSize(pt(`Figures are based on the customer outstanding report dated ${dmy(V.asOf)}${S.meta?.file ? " (" + S.meta.file + ")" : ""}. Alerts consider balances of ${rsC(st.minAmt)} or more; smaller balances are treated as residuals. "Critical" means more than ${st.critDays} days past the due date. Amounts are in Indian Rupees.${S.gf ? " This report covers customer group " + gLabel(S.gf) + " only." : " Customer groups follow the customer code prefix (posting group)."}`), W - 2 * M), M, y);
   pdfChrome(ctx, "Receivables report");
-  await pdfSave(ctx, `${ctx.company} Receivables Report ${dmy(V.asOf)}`);
+  await pdfSave(ctx, `${ctx.company} Receivables Report ${dmy(V.asOf)}${S.gf ? " " + (S.gf === NONE ? "Unassigned" : S.gf) : ""}`);
 }
 
 async function buildCxoReport(){
   const ctx = await pdfBase("cxo"), {doc, M, W} = ctx, k = V.k, st = S.settings;
   const prev = prevReport(), ps = prev ? repStats(prev.rows, fromIso(prev.meta.asOf)) : null, mv = prev ? movement(prev) : null;
   const age = V.age, tot = age.reduce((s,b) => s + b.v, 0) || 1, share = (tot - age[0].v) / tot, h = healthOf(share), wk = weekActivity();
-  pdfCover(ctx, "Executive Summary", ctx.company, [["Company", ctx.company], ["Report date", dmy(V.asOf)], ["Compared with", prev ? dmy(fromIso(prev.meta.asOf)) : "No earlier report"], ["Overall status", `${h.t} · ${Math.round(share * 100)}% of open debits past due`], ["Prepared by", `${ctx.app}${S.brand.tagline ? " · " + S.brand.tagline : ""}`]]);
+  pdfCover(ctx, "Executive Summary", ctx.company, [["Company", ctx.company], ["Report date", dmy(V.asOf)], ["Customer group", S.gf ? gLabel(S.gf) : "All groups"], ["Compared with", prev ? dmy(fromIso(prev.meta.asOf)) : "No earlier report"], ["Overall status", `${h.t} · ${Math.round(share * 100)}% of open debits past due`], ["Prepared by", `${ctx.app}${S.brand.tagline ? " · " + S.brand.tagline : ""}`]]);
   doc.addPage(); let y = 26;
-  y = pdfH(ctx, y, "Key numbers", `As on ${dmy(V.asOf)}`);
+  y = pdfH(ctx, y, "Key numbers", `${S.gf ? gLabel(S.gf) + " · " : ""}As on ${dmy(V.asOf)}`);
   const dl = (c, p) => p == null ? "" : (Math.abs(c - p) < 1 ? "no change" : (c > p ? "+" : "-") + rsC(Math.abs(c - p)));
   const dcol = (c, p) => p == null || Math.abs(c - p) < 1 ? PC.muted : (c < p ? PC.ok : PC.crit);
   const byCh = ch => wk.filter(e => e.ch === ch).length;
@@ -2936,7 +3147,7 @@ async function buildCxoReport(){
   y = pdfH(ctx, y, "Status updates");
   if (ev.length) y = pdfTable(ctx, y, ["Date & time", "Update", "Details"], ev.map(e => [fmtWhen(e.at), e.t, e.d]), {cols: {0:{cellWidth:32}}});
   pdfChrome(ctx, "Executive summary");
-  await pdfSave(ctx, `${ctx.company} Executive Summary ${dmy(V.asOf)}`);
+  await pdfSave(ctx, `${ctx.company} Executive Summary ${dmy(V.asOf)}${S.gf ? " " + (S.gf === NONE ? "Unassigned" : S.gf) : ""}`);
 }
 async function runReport(fn, btn){
   if (!dl){ toast("Downloads are not available in this view"); return; }
@@ -3092,17 +3303,128 @@ async function saveFile(filename, data){
   if (!dl){ toast("Downloads are not available in this view"); return; }
   try { await dl.save({filename, data}); } catch(e){ if (e && e.code !== "declined") toast(e.code === "rate_limited" ? "A download prompt is already open" : "The file could not be saved"); }
 }
-$("#btnExport").onclick = async () => {
-  const st = S.settings;
-  const alertRows = V.alerts.filter(a => a.cust).map(a => ({Severity: SEV_LABEL[a.sev], "Customer No": a.cn, Customer: a.title, City: a.cust.ci, Contact: a.cust.ct, Phone: a.cust.ph, "Amount (₹)": Math.round(a.amt*100)/100, Detail: a.desc, "Follow-up": a.fu ? a.fu.status : "", "Promised date": a.fu ? a.fu.promiseDate : "", Note: a.fu ? a.fu.note : ""}));
-  const inv = V.rows.filter(r => r.r >= st.minAmt && r.od > -st.soonDays - 1).sort((a,b) => b.od - a.od).map(r => ({"Customer No": r.cn, Customer: r.c, Contact: r.ct, Phone: r.ph, Document: r.no, "Ext. doc": r.ex, Posted: dmy(fromIso(r.d)), Due: dmy(fromIso(r.du)), "Days past due": r.od, "Remaining (₹)": r.r}));
-  if (typeof XLSX === "undefined"){ toast("Spreadsheet library did not load"); return; }
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(alertRows), "Alerts");
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(inv), "Overdue & due soon");
-  const out = XLSX.write(wb, {bookType:"xlsx", type:"array"});
-  await saveFile(`Pending dues alerts ${dmy(V.asOf)}.xlsx`, new Blob([out]));
-};
+const EXCELJS_URL = "https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js";
+async function loadExcel(){
+  if (!window.ExcelJS) await loadScript(EXCELJS_URL);
+  if (!window.ExcelJS) throw new Error("The Excel library could not be loaded. Check the internet connection and try again.");
+  return window.ExcelJS;
+}
+const XL_FMT = {money:'#,##0.00;[Red]-#,##0.00', int:'#,##0', date:'dd-mm-yyyy', pct:'0%', dt:'dd-mm-yyyy hh:mm'};
+const argb = h => "FF" + (hexOk(h) ? h : DEFAULT_BRAND.color).slice(1).toUpperCase();
+const xlThin = {style:"thin", color:{argb:"FFD5D9D2"}};
+/* cols: [{h, w, t}] · rows: arrays · opt: {title, sub, total:{label, cols:[indexes]}, tab} */
+function xlTable(wb, name, cols, rows, opt = {}){
+  const brand = S.brand.color, ws = wb.addWorksheet(name, {properties:{tabColor:{argb: opt.tab || argb(brand)}}});
+  let r = 1;
+  if (opt.title){
+    ws.getCell(1, 1).value = opt.title; ws.getCell(1, 1).font = {bold:true, size:14, color:{argb:"FF1A2320"}};
+    ws.getCell(2, 1).value = opt.sub || ""; ws.getCell(2, 1).font = {size:10, color:{argb:"FF5B655F"}};
+    r = 4;
+  }
+  const hr = ws.getRow(r);
+  cols.forEach((c, i) => { const cell = hr.getCell(i + 1); cell.value = c.h; cell.font = {bold:true, color:{argb: inkFor(hexOk(brand) ? brand : DEFAULT_BRAND.color) === "#FFFFFF" ? "FFFFFFFF" : "FF1A2320"}};
+    cell.fill = {type:"pattern", pattern:"solid", fgColor:{argb: argb(brand)}}; cell.alignment = {vertical:"middle", horizontal: ["money","int","pct","num"].includes(c.t) ? "right" : "left", wrapText:true}; cell.border = {bottom:xlThin}; });
+  hr.height = 22;
+  rows.forEach((vals, j) => {
+    const row = ws.getRow(r + 1 + j);
+    vals.forEach((v, i) => { const cell = row.getCell(i + 1); cell.value = v === "" || v == null ? null : v; const t = cols[i] && cols[i].t; if (XL_FMT[t]) cell.numFmt = XL_FMT[t]; if (cols[i] && cols[i].wrap) cell.alignment = {wrapText:true, vertical:"top"}; cell.border = {bottom:xlThin}; });
+    if (j % 2 === 1) vals.forEach((v, i) => row.getCell(i + 1).fill = {type:"pattern", pattern:"solid", fgColor:{argb:"FFF8F9F7"}});
+  });
+  if (opt.total && rows.length){
+    const tr = ws.getRow(r + rows.length + 1);
+    tr.getCell(1).value = opt.total.label;
+    opt.total.cols.forEach(i => { const L = ws.getColumn(i + 1).letter; tr.getCell(i + 1).value = {formula:`SUBTOTAL(9,${L}${r + 1}:${L}${r + rows.length})`, result: xlR(rows.reduce((t, v) => t + (typeof v[i] === "number" ? v[i] : 0), 0))}; tr.getCell(i + 1).numFmt = XL_FMT[cols[i].t] || XL_FMT.money; });
+    cols.forEach((c, i) => { const cell = tr.getCell(i + 1); cell.font = {bold:true}; cell.border = {top:{style:"medium", color:{argb:"FF1A2320"}}}; cell.fill = {type:"pattern", pattern:"solid", fgColor:{argb:"FFEEF0EC"}}; });
+  }
+  cols.forEach((c, i) => ws.getColumn(i + 1).width = c.w || 14);
+  ws.views = [{state:"frozen", ySplit:r, xSplit: opt.freezeCols || 0, showGridLines:false}];
+  if (rows.length) ws.autoFilter = {from:{row:r, column:1}, to:{row:r + rows.length, column:cols.length}};
+  ws.pageSetup = {orientation:"landscape", fitToPage:true, fitToWidth:1, fitToHeight:0, paperSize:9, printTitlesRow:`${r}:${r}`};
+  return ws;
+}
+const xlDate = s => s ? fromIso(s) : null;
+const xlR = n => Math.round((n || 0) * 100) / 100;
+const bucketOf = od => (BUCKETS.find(b => b.test(od)) || {}).label || "";
+const xlGroup = cn => { const g = groupOf(cn); return [g === NONE ? "" : g, gName(g)]; };
+async function saveWorkbook(wb, name){
+  const buf = await wb.xlsx.writeBuffer();
+  await saveFile(name.replace(/[\\/:*?"<>|]+/g, " ").replace(/\s+/g, " ").trim() + ".xlsx", new Blob([buf], {type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}));
+}
+function newBook(Excel){ const wb = new Excel.Workbook(); wb.creator = S.brand.appName || "Credit Control Desk"; wb.company = S.brand.company || ""; wb.created = new Date(); return wb; }
+async function buildWorkbook(){
+  const Excel = await loadExcel(), wb = newBook(Excel), st = S.settings, k = V.k, company = S.brand.company || S.meta?.company || "";
+  const grpTxt = S.gf ? gLabel(S.gf) : "All customer groups", last = lastActivityMap();
+  const sub = `${grpTxt} · report dated ${dmy(V.asOf)}${S.meta?.file ? " · " + S.meta.file : ""}`;
+  const age = V.age, tot = age.reduce((a, b) => a + b.v, 0) || 1, share = (tot - age[0].v) / tot;
+  const prev = prevReport(), ps = prev ? repStats(prev.rows, fromIso(prev.meta.asOf)) : null, mv = prev ? movement(prev) : null;
+  // Summary
+  const ws = wb.addWorksheet("Summary", {properties:{tabColor:{argb: argb(S.brand.color)}}});
+  ws.columns = [{width:40}, {width:20}, {width:14}, {width:14}];
+  ws.mergeCells("A1:D1"); ws.getCell("A1").value = company; ws.getCell("A1").font = {bold:true, size:16, color:{argb: argb(S.brand.color)}};
+  ws.getCell("A2").value = "Customer Outstanding & Collections"; ws.getCell("A2").font = {bold:true, size:12};
+  const info = [["Report date", xlDate(iso(V.asOf))], ["Customer group", grpTxt], ["Source", S.meta?.file || ""], ["Compared with", prev ? xlDate(prev.meta.asOf) : "No earlier report"], ["Exported", new Date()]];
+  info.forEach(([l, v], i) => { const row = ws.getRow(4 + i); row.getCell(1).value = l; row.getCell(1).font = {color:{argb:"FF5B655F"}}; row.getCell(2).value = v; if (v instanceof Date) row.getCell(2).numFmt = l === "Exported" ? XL_FMT.dt : XL_FMT.date; row.getCell(2).alignment = {horizontal:"left"}; });
+  const head = (r, labels) => { const row = ws.getRow(r); labels.forEach((t, i) => { const c = row.getCell(i + 1); c.value = t; c.font = {bold:true, color:{argb:"FFFFFFFF"}}; c.fill = {type:"pattern", pattern:"solid", fgColor:{argb: argb(S.brand.color)}}; c.alignment = {horizontal: i ? "right" : "left"}; }); };
+  let r = 11; head(r, ["Key figures", "Amount (₹)", "Invoices", "Customers"]);
+  const kf = [["Net receivable", k.net, V.rows.length, V.list.length], ["Open debits", k.debit, V.rows.filter(x => x.r > 0).length, ""], ["Overdue", k.overdue, k.overdueN, k.custOverdue],
+    [`Critical (over ${st.critDays} days)`, k.crit, k.critN, k.custCrit], [`Due in ${st.soonDays} days`, k.soon, k.soonN, k.custSoon], ["Unapplied credits", -k.credit, k.creditN, ""], ["Share of open debits past due", share, "", ""]];
+  if (mv) kf.push(["Cleared since " + dmy(fromIso(prev.meta.asOf)), mv.cleared, mv.clearedN, ""], ["New invoices since " + dmy(fromIso(prev.meta.asOf)), mv.added, mv.addedN, ""], ["Change in net receivable", k.net - ps.net, "", ""]);
+  kf.forEach((v, i) => { const row = ws.getRow(r + 1 + i); v.forEach((x, j) => { const c = row.getCell(j + 1); c.value = x === "" ? null : x; if (j === 1) c.numFmt = typeof x === "number" && x <= 1 && x >= 0 && v[0].startsWith("Share") ? XL_FMT.pct : XL_FMT.money; if (j > 1) c.numFmt = XL_FMT.int; c.border = {bottom:xlThin}; }); });
+  r += kf.length + 3; head(r, ["Ageing of open debits", "Amount (₹)", "Invoices", "Share"]);
+  age.forEach((b, i) => { const row = ws.getRow(r + 1 + i); row.getCell(1).value = b.label === "Not due" ? "Not yet due" : b.label + " days past due"; row.getCell(2).value = xlR(b.v); row.getCell(2).numFmt = XL_FMT.money; row.getCell(3).value = b.n; row.getCell(4).value = b.v / tot; row.getCell(4).numFmt = XL_FMT.pct; [1,2,3,4].forEach(j => row.getCell(j).border = {bottom:xlThin}); });
+  const tr = ws.getRow(r + age.length + 1); tr.getCell(1).value = "Total"; tr.getCell(2).value = xlR(tot); tr.getCell(2).numFmt = XL_FMT.money; tr.getCell(3).value = age.reduce((a, b) => a + b.n, 0); tr.getCell(4).value = 1; tr.getCell(4).numFmt = XL_FMT.pct; [1,2,3,4].forEach(j => { tr.getCell(j).font = {bold:true}; tr.getCell(j).border = {top:{style:"medium"}}; });
+  r += age.length + 4;
+  ws.getCell(`A${r}`).value = `Alerts consider balances of ₹${st.minAmt.toLocaleString("en-IN")} or more. Critical means more than ${st.critDays} days past due. Customer groups follow the customer code prefix (posting group) unless moved by hand.`;
+  ws.getCell(`A${r}`).font = {italic:true, size:9, color:{argb:"FF5B655F"}}; ws.mergeCells(`A${r}:D${r}`); ws.getCell(`A${r}`).alignment = {wrapText:true, vertical:"top"}; ws.getRow(r).height = 42;
+  ws.views = [{showGridLines:false}]; ws.pageSetup = {orientation:"portrait", fitToPage:true, fitToWidth:1, fitToHeight:0, paperSize:9};
+  // Customers
+  const cl = [...V.list].sort((a, b) => b.net - a.net);
+  xlTable(wb, "Customers", [{h:"Code", w:12}, {h:"Customer", w:38}, {h:"Group", w:8}, {h:"Group name", w:22}, {h:"City", w:14}, {h:"Debit (₹)", w:15, t:"money"}, {h:"Credit (₹)", w:15, t:"money"}, {h:"Net due (₹)", w:15, t:"money"}, {h:"Overdue (₹)", w:15, t:"money"}, {h:`Due in ${st.soonDays} days (₹)`, w:15, t:"money"}, {h:"Oldest (days)", w:10, t:"int"}, {h:"Status", w:12}, {h:"Follow-up", w:12}, {h:"Promised by", w:12, t:"date"}, {h:"Last reminder", w:24}],
+    cl.map(c => { const fu = S.followups[safeId(c.cn)], l = last[c.cn]; return [c.cn, c.c, ...xlGroup(c.cn), c.ci || "", xlR(c.debit), xlR(c.credit), xlR(c.net), xlR(c.overdue), xlR(c.soon), c.maxOd > 0 ? c.maxOd : null, STATUS_LABEL[c.status], fu && fu.status && fu.status !== "open" ? fu.status[0].toUpperCase() + fu.status.slice(1) : "", fu && fu.status === "promised" ? xlDate(fu.promiseDate) : null, l ? `${CH_LABEL[l.ch]} · ${fmtWhen(l.at)}` : ""]; }),
+    {title: company + " · Customer-wise outstanding", sub, total:{label:`${cl.length} customers`, cols:[5,6,7,8,9]}, freezeCols:2});
+  // Ledger
+  const led = [...V.rows].sort((a, b) => a.c.localeCompare(b.c) || b.od - a.od);
+  const ledCols = [{h:"Code", w:12}, {h:"Customer", w:34}, {h:"Group", w:8}, {h:"City", w:13}, {h:"Type", w:12}, {h:"Document", w:18}, {h:"Ext. doc / PO", w:16}, {h:"Posting date", w:12, t:"date"}, {h:"Due date", w:12, t:"date"}, {h:"Days past due", w:10, t:"int"}, {h:"Ageing", w:10}, {h:"Amount (₹)", w:15, t:"money"}, {h:"Remaining (₹)", w:15, t:"money"}];
+  const ledRow = x => [x.cn, x.c, xlGroup(x.cn)[0], x.ci || "", x.t || "", x.no || "", /^e-?mail$/i.test(x.ex || "") ? "" : x.ex || "", xlDate(x.d), xlDate(x.du), x.r > 0 ? x.od : null, x.r > 0 ? bucketOf(x.od) : "Credit", xlR(x.a), xlR(x.r)];
+  xlTable(wb, "Ledger", ledCols, led.map(ledRow), {title: company + " · Open ledger entries", sub, total:{label:`${led.length} entries`, cols:[12]}, freezeCols:2});
+  // Overdue
+  const odr = V.rows.filter(x => x.r >= st.minAmt && x.od > 0).sort((a, b) => b.od - a.od);
+  xlTable(wb, "Overdue", [...ledCols.slice(0, 10), {h:"Priority", w:10}, ledCols[12]], odr.map(x => { const v = ledRow(x); return [...v.slice(0, 10), x.od > st.critDays ? "Critical" : x.od > 30 ? "High" : "Overdue", v[12]]; }),
+    {title: company + " · Overdue invoices", sub: `${sub} · ${odr.length} invoices of ₹${st.minAmt.toLocaleString("en-IN")} or more past due`, total:{label:`${odr.length} invoices`, cols:[11]}, freezeCols:2, tab:"FFB42318"});
+  // Due soon
+  const sr = V.rows.filter(x => x.r >= st.minAmt && x.od <= 0 && -x.od <= st.soonDays).sort((a, b) => b.od - a.od);
+  xlTable(wb, "Due soon", [...ledCols.slice(0, 9), {h:"Due in (days)", w:10, t:"int"}, ledCols[12]], sr.map(x => { const v = ledRow(x); return [...v.slice(0, 9), -x.od, v[12]]; }),
+    {title: company + ` · Invoices due in the next ${st.soonDays} days`, sub, total:{label:`${sr.length} invoices`, cols:[10]}, freezeCols:2, tab:"FF1F4E9A"});
+  // Alerts
+  const al = V.alerts.filter(a => a.cust);
+  xlTable(wb, "Alerts", [{h:"Priority", w:10}, {h:"Code", w:12}, {h:"Customer", w:34}, {h:"Group", w:8}, {h:"City", w:13}, {h:"Amount (₹)", w:15, t:"money"}, {h:"Detail", w:60, wrap:true}, {h:"Follow-up", w:12}, {h:"Promised by", w:12, t:"date"}, {h:"Note", w:30, wrap:true}, {h:"Last reminder", w:24}],
+    al.map(a => { const l = last[a.cn]; return [SEV_LABEL[a.sev], a.cn, a.title, xlGroup(a.cn)[0], a.cust.ci || "", xlR(a.amt), a.desc, a.fu && a.fu.status ? a.fu.status[0].toUpperCase() + a.fu.status.slice(1) : "", a.fu && a.fu.status === "promised" ? xlDate(a.fu.promiseDate) : null, a.fu ? a.fu.note || "" : "", l ? `${CH_LABEL[l.ch]} · ${fmtWhen(l.at)}` : ""]; }),
+    {title: company + " · Pending-due alerts", sub, freezeCols:3, tab:"FFC2410C"});
+  // Ageing by group
+  const groupsInRows = [...new Set(V.rows.map(x => groupOf(x.cn)))].sort((a, b) => (a === NONE) - (b === NONE) || a.localeCompare(b));
+  const agRows = groupsInRows.map(g => { const v = BUCKETS.map(() => 0); V.rows.forEach(x => { if (x.r > 0 && groupOf(x.cn) === g){ const i = BUCKETS.findIndex(b => b.test(x.od)); if (i >= 0) v[i] += x.r; } }); return [g === NONE ? "Unassigned" : g + " · " + gName(g), ...v.map(xlR), xlR(v.reduce((a, b) => a + b, 0))]; });
+  xlTable(wb, "Ageing", [{h:"Customer group", w:34}, ...BUCKETS.map(b => ({h: b.label === "Not due" ? "Not yet due (₹)" : b.label + " days (₹)", w:15, t:"money"})), {h:"Total open debits (₹)", w:17, t:"money"}], agRows,
+    {title: company + " · Ageing of open debits by customer group", sub, total:{label:"Total", cols: BUCKETS.map((b, i) => i + 1).concat([BUCKETS.length + 1])}});
+  // Groups (all groups, regardless of filter)
+  const gs = groupSummary();
+  xlTable(wb, "Groups", [{h:"Code", w:9}, {h:"Customer group", w:28}, {h:"Customers", w:11, t:"int"}, {h:"With overdue", w:12, t:"int"}, {h:"Open debits (₹)", w:16, t:"money"}, {h:"Net due (₹)", w:16, t:"money"}, {h:"Overdue (₹)", w:16, t:"money"}, {h:"Critical (₹)", w:16, t:"money"}, {h:`Due in ${st.soonDays} days (₹)`, w:16, t:"money"}, {h:"Overdue share", w:12, t:"pct"}],
+    gs.map(x => [x.g === NONE ? "" : x.g, gName(x.g), x.cs.size, x.odc.size, xlR(x.debit), xlR(x.net), xlR(x.overdue), xlR(x.crit), xlR(x.soon), x.debit ? x.overdue / x.debit : 0]),
+    {title: company + " · Outstanding by customer group (all groups)", sub: `Report dated ${dmy(V.asOf)}`, total:{label:"All groups", cols:[2,3,4,5,6,7,8]}});
+  // Activity
+  const act = allActivity().filter(e => inG(e.cn));
+  xlTable(wb, "Activity", [{h:"Date & time", w:17, t:"dt"}, {h:"Code", w:12}, {h:"Customer", w:32}, {h:"Group", w:8}, {h:"Channel", w:14}, {h:"Reminder", w:10}, {h:"Sent to", w:26}, {h:"Invoices", w:30, wrap:true}, {h:"Amount (₹)", w:15, t:"money"}, {h:"Status", w:20}, {h:"Error", w:30, wrap:true}],
+    act.map(e => [new Date(e.at), e.cn, e.customer || (S.dir[e.cn] || {}).name || "", xlGroup(e.cn)[0], CH_LABEL[e.ch] || e.ch, e.kind === "soon" ? "Due soon" : e.kind === "od" ? "Overdue" : "", e.ch === "email" ? e.to || "" : e.to ? fmtPhone(e.to) : "", (e.invoices || []).join(", "), e.amount ? xlR(e.amount) : null, statusOf(e).t, e.error || ""]),
+    {title: company + " · Reminder activity", sub: grpTxt, freezeCols:1, tab:"FF6B42C4"});
+  await saveWorkbook(wb, `${company} Receivables ${dmy(V.asOf)}${S.gf ? " " + (S.gf === NONE ? "Unassigned" : S.gf) : ""}`);
+}
+async function runExcel(btn){
+  if (!dl){ toast("Downloads are not available in this view"); return; }
+  const lab = btn.innerHTML; btn.disabled = true; toast("Preparing the Excel workbook…");
+  try { await buildWorkbook(); } catch(e){ console.error(e); toast(e.message || "The workbook could not be created."); }
+  btn.disabled = false; btn.innerHTML = lab;
+}
+$("#btnExport").onclick = e => runExcel(e.currentTarget);
+$("#btnCxoXls").onclick = e => runExcel(e.currentTarget);
 $("#btnTemplate2").onclick = async () => {
   if (typeof XLSX === "undefined"){ toast("Spreadsheet library did not load"); return; }
   const head = ["Posting Date","Customer No","Customer Name","City","Contact Person","Phone","Document Type","Document No","External Document No","Due Date","Amount","Remaining Amount"];
@@ -3141,20 +3463,69 @@ $("#tabLedger").onclick = () => { S.tab = "ledger"; renderTable(); };
 $("#q").addEventListener("input", () => renderTable());
 $("#fStatus").onchange = e => { e.target.dataset.v = e.target.value; renderTable(); };
 
+/* ---------- install app prompt (phones and tablets, self-hosted app) ---------- */
+const INST_KEY = "ccd_install_later";
+let instEvt = null, instTimer = null, instDone = false;
+const isStandalone = () => { try { return matchMedia("(display-mode: standalone)").matches || matchMedia("(display-mode: fullscreen)").matches || navigator.standalone === true; } catch { return false; } };
+const isIOS = () => /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+const isAndroid = () => /Android/i.test(navigator.userAgent);
+const isHandheld = () => isIOS() || isAndroid() || (matchMedia("(pointer: coarse)").matches && Math.min(screen.width, screen.height) <= 1024);
+/* "Not now" snoozes for 14 days; "Got it" or installing snoozes for 60 */
+function instLater(){ try { return Date.now() < (+localStorage.getItem(INST_KEY) || 0); } catch { return false; } }
+function hideInstall(days){ const el = $("#inst"); el.hidden = true; el.innerHTML = ""; if (days) try { localStorage.setItem(INST_KEY, String(Date.now() + days * DAY)); } catch {} }
+const SHARE_IC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Share"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg>';
+const ADD_IC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-label="Add"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/></svg>';
+const DOTS_IC = '<svg viewBox="0 0 24 24" fill="currentColor" aria-label="Menu"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>';
+const TICK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>';
+function showInstall(force){
+  if (!SERVER || instDone || isStandalone() || !window.__ccdAuthed) return;
+  if (!force && (instLater() || !isHandheld())) return;
+  const ios = isIOS(), app = S.brand.appName || "Credit Control Desk", el = $("#inst");
+  if (!force && !instEvt && !ios) return;
+  const mode = instEvt ? "prompt" : ios ? "ios" : "menu";
+  const top = `<div class="top"><img class="ico" src="/share/icon-192.png" alt=""><div><b>Install ${esc(app)}</b><span>${esc(S.brand.company || "")}</span></div><button type="button" class="x" id="instX" aria-label="Close">✕</button></div>`;
+  const perks = `<ul><li>${TICK}Opens full screen from your home screen</li><li>${TICK}One tap to alerts, customers and reminders</li><li>${TICK}No app store needed · always up to date</li></ul>`;
+  el.innerHTML = `<div class="card" role="dialog" aria-modal="false" aria-label="Install app">${top}${
+    mode === "prompt" ? perks + `<div class="bt"><button type="button" class="btn ghost" id="instLater">Not now</button><button type="button" class="btn primary" id="instGo">Install app</button></div>`
+    : mode === "ios" ? `<ol><li><em>1</em><span>Tap the Share button ${SHARE_IC} in the browser bar</span></li><li><em>2</em><span>Scroll and choose <b>Add to Home Screen</b> ${ADD_IC}</span></li><li><em>3</em><span>Tap <b>Add</b>. The app appears on your home screen.</span></li></ol><div class="bt"><button type="button" class="btn ghost" id="instLater">Not now</button><button type="button" class="btn primary" id="instOk">Got it</button></div>`
+    : `<ol><li><em>1</em><span>Open the browser menu ${DOTS_IC}</span></li><li><em>2</em><span>Tap <b>Install app</b> or <b>Add to Home screen</b></span></li><li><em>3</em><span>Confirm. The app appears on your home screen.</span></li></ol><div class="bt"><button type="button" class="btn ghost" id="instLater">Not now</button><button type="button" class="btn primary" id="instOk">Got it</button></div>`}</div>`;
+  el.hidden = false;
+  $("#instX").onclick = () => hideInstall(14);
+  $("#instLater").onclick = () => hideInstall(14);
+  const ok = $("#instOk"); if (ok) ok.onclick = () => hideInstall(60);
+  const go = $("#instGo"); if (go) go.onclick = async () => {
+    const ev = instEvt; instEvt = null; syncInstallBtn(); if (!ev){ hideInstall(0); return; }
+    try { ev.prompt(); const ch = await ev.userChoice; const ok = ch && ch.outcome === "accepted"; hideInstall(ok ? 60 : 14); if (ok) toast("Installing the app…"); }
+    catch { hideInstall(0); }
+  };
+}
+window.__ccdShowInstall = () => showInstall(true);
+function syncInstallBtn(){ const b = $("#btnInstall"); if (b) b.hidden = !(SERVER && !instDone && !isStandalone() && (instEvt || isHandheld())); }
+$("#btnInstall").onclick = () => showInstall(true);
+if (SERVER){
+  if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => {}));
+  syncInstallBtn();
+  window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); instEvt = e; syncInstallBtn(); if (window.__ccdAuthed && !instTimer) showInstall(); });
+  window.addEventListener("appinstalled", () => { instDone = true; instEvt = null; hideInstall(60); syncInstallBtn(); toast("App installed. Open it from your home screen."); });
+  const arm = () => { clearTimeout(instTimer); instTimer = setTimeout(() => { instTimer = null; showInstall(); }, 2500); };
+  window.addEventListener("ccd:authed", arm); if (window.__ccdAuthed) arm();
+}
+
 /* ---------- boot ---------- */
 const smp = sampleData(); S.meta = smp.meta; S.rows = smp.rows; renderSettings(); render();
 
 async function boot(){
   if (SERVER){ db = restDb(); dl = localDownloads; }
   else {
-    if (!window.claude || !window.claude.use) { $("#btnExport").hidden = true; $("#btnTemplate2").hidden = true; $("#btnReport").hidden = true; $("#btnCxoPdf").hidden = true; return; }
+    if (!window.claude || !window.claude.use) { $("#btnExport").hidden = true; $("#btnCxoXls").hidden = true; $("#btnTemplate2").hidden = true; $("#btnReport").hidden = true; $("#btnCxoPdf").hidden = true; return; }
     const [d, x] = await Promise.all([window.claude.use("db"), window.claude.use("downloads")]);
-    dl = x; if (!dl){ $("#btnExport").hidden = true; $("#btnTemplate2").hidden = true; $("#btnReport").hidden = true; $("#btnCxoPdf").hidden = true; }
+    dl = x; if (!dl){ $("#btnExport").hidden = true; $("#btnCxoXls").hidden = true; $("#btnTemplate2").hidden = true; $("#btnReport").hidden = true; $("#btnCxoPdf").hidden = true; }
     db = d; if (!db) return;
   }
   const stopErr = () => {};
   db.doc("settings/alerts").onSnapshot(s => { if (s.exists){ S.settings = {...DEFAULT_SETTINGS, ...s.data()}; renderSettings(); render(); } }, stopErr);
   db.doc("settings/branding").onSnapshot(s => { if (s.exists) setBrand(s.data(), true); }, stopErr);
+  db.doc("settings/groups").onSnapshot(s => { if (s.exists){ const d = s.data() || {}; S.groups = Array.isArray(d.list) && d.list.length ? d.list : DEFAULT_GROUPS.map(g => ({...g})); S.gassign = d.assign || {}; gIndex(); render(); if (S.view === "cust") renderCustView(); if (S.view === "log") renderLogView(); if (S.view === "settings" && !GE) renderGroupEditor(); } }, stopErr);
   db.doc("settings/comms").onSnapshot(s => { if (s.exists){ S.comms = mergeComms(s.data()); renderComms(); } }, stopErr);
   db.collection("followups").onSnapshot(s => { const m = {}; s.docs.forEach(doc => m[doc.id] = doc.data()); S.followups = m; render(); if (C) renderCompose(); }, stopErr);
   db.collection("bccustomers").onSnapshot(s => { const m = {}; s.docs.forEach(doc => m[doc.id] = doc.data()); S.bc = m; buildDir(); if (S.view === "cust") renderCustView(); }, stopErr);

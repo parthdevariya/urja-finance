@@ -131,7 +131,8 @@ function shareHead(req) {
     m('twitter:card', 'summary_large_image'), m('twitter:title', title), m('twitter:description', desc), m('twitter:image', img), m('twitter:image:alt', alt),
     `<link rel="icon" href="/favicon.ico" sizes="any">`, `<link rel="icon" type="image/png" sizes="32x32" href="/share/favicon-32.png">`,
     `<link rel="apple-touch-icon" href="/apple-touch-icon.png">`, `<link rel="manifest" href="/site.webmanifest">`,
-    m('apple-mobile-web-app-title', app), m('application-name', app)
+    m('apple-mobile-web-app-title', app), m('application-name', app),
+    m('apple-mobile-web-app-capable', 'yes'), m('mobile-web-app-capable', 'yes'), m('apple-mobile-web-app-status-bar-style', 'default')
   ].join('');
 }
 app.use('/share', express.static(SHARE_DIR, { maxAge: '7d' }));
@@ -141,10 +142,19 @@ app.get('/site.webmanifest', (req, res) => {
   const b = (store['settings/branding'] && store['settings/branding'].data) || {};
   res.type('application/manifest+json').send(JSON.stringify({
     name: `${b.appName || 'Credit Control Desk'} – ${b.company || 'Urja Products Private Limited'}`, short_name: b.appName || 'Credit Desk',
-    start_url: '/', display: 'standalone', background_color: '#F3F4F1', theme_color: b.color || '#E96B17',
+    id: '/', start_url: '/', scope: '/', display: 'standalone', orientation: 'any', background_color: '#F3F4F1', theme_color: b.color || '#E96B17',
+    description: `Receivables, pending-due alerts and reminders for ${b.company || 'Urja Products Private Limited'}`,
     icons: [{ src: '/share/icon-192.png', sizes: '192x192', type: 'image/png' }, { src: '/share/icon-512.png', sizes: '512x512', type: 'image/png' }]
   }));
 });
+
+/* service worker: lets phones install the app; pages always come from the network, with an offline notice */
+const SW_JS = `const V='ccd-sw-1';
+const OFFLINE='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Offline</title><style>body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#F3F4F1;color:#1A2320;text-align:center;padding:24px}b{display:block;font-size:19px;margin-bottom:6px}button{margin-top:16px;border:0;border-radius:8px;padding:10px 18px;background:#E96B17;color:#fff;font:inherit;font-weight:600}</style></head><body><div><b>You are offline</b>Credit Control Desk needs an internet connection.<br><button onclick="location.reload()">Try again</button></div></body></html>';
+self.addEventListener('install',e=>self.skipWaiting());
+self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));
+self.addEventListener('fetch',e=>{const r=e.request;if(r.method==='GET'&&r.mode==='navigate'){e.respondWith(fetch(r).catch(()=>new Response(OFFLINE,{headers:{'Content-Type':'text/html; charset=utf-8'}})));}});`;
+app.get('/sw.js', (req, res) => { res.set('Cache-Control', 'no-cache'); res.set('Service-Worker-Allowed', '/'); res.type('application/javascript').send(SW_JS); });
 
 app.get('/', (req, res) => {
   const page = fs.readFileSync(DASHBOARD, 'utf8');

@@ -1,19 +1,21 @@
-Credit Control Desk - link preview update
-=========================================
-Copy these into your repository root (same folders), commit, push, redeploy:
+Credit Control Desk – update (customer groups, Excel export, install app)
 
-  server.js                        (replaces yours - adds link-preview tags and icons)
-  Dockerfile                       (replaces yours - copies all .js modules; fixes "Cannot find module './bc'")
-  public/share/og-image.jpg        (new - 1200x630 preview image)
-  public/share/favicon.ico         (new)
-  public/share/favicon-32.png      (new)
-  public/share/apple-touch-icon.png(new)
-  public/share/icon-192.png        (new)
-  public/share/icon-512.png        (new)
+Replace these files in your repository (same folders), commit and push. Render redeploys automatically.
 
-Do NOT replace public/dashboard.html or bc.js - they are unchanged.
+  server.js                 – adds /sw.js (needed for "Install app") and home-screen meta tags
+  Dockerfile                – unchanged from the last fix (COPY *.js ./), included for completeness
+  public/dashboard.html     – the dashboard with all new features
+  public/share/*            – icons and link-preview image (unchanged)
 
-Optional Render environment variables:
-  PUBLIC_URL=https://urja-finance.onrender.com   (only needed if you add a custom domain)
-  SHARE_TITLE / SHARE_DESCRIPTION                 (override the preview text)
-  SHARE_IMAGE_VERSION=2                           (change after replacing og-image.jpg so apps refetch it)
+No new environment variables. Existing data, contacts and logs are kept.
+
+What's new
+  1. Customer groups (CBF, CCA, CFA, CFF, CFG, CNI, COD, COT, CPP, CPT) assigned automatically
+     from the customer code prefix. Filter bar on Dashboard, CXO view, Customers and Activity log;
+     "By customer group" panel on the Dashboard. Edit groups in Settings → Customer groups;
+     move a single customer from its profile.
+  2. Export to Excel: full formatted workbook (Summary, Customers, Ledger, Overdue, Due soon,
+     Alerts, Ageing by group, Groups, Activity) from the Dashboard and CXO view. Respects the
+     selected group. Customers and Activity log exports now include the group.
+  3. Install app pop-up on phones and tablets after sign-in (Android: one-tap Install;
+     iPhone/iPad: Share → Add to Home Screen steps). "Install app" button in the top bar.
