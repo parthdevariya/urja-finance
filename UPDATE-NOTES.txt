@@ -1,14 +1,12 @@
-Credit Control Desk – update v3 (filter row, customer categories)
+Credit Control Desk – update v4 (reply-to by customer category)
 
 Replace these files in your repository (same folders), commit and push. Render redeploys automatically.
   server.js, bc.js, Dockerfile, public/dashboard.html, public/share/*
-No new environment variables. Existing data, contacts, logs and categories are kept.
+No new environment variables. Includes everything from v3.
 
-Changes
-  1. Removed the "Sample data / Company / File / Entries" strip from the dashboard.
-  2. One filter row: Customer category (dropdown) + Report + Ageing as of (calendar).
-     The category dropdown is also on the CXO view, Customers and Activity log.
-  3. Settings → Customer categories: add, rename or remove categories at any time.
-  4. Categories are captured automatically from each upload and Business Central sync
-     (Customer Posting Group / Category column, or the customer code prefix such as CNI-0006 → CNI).
-     New ones are added and marked "New" in Settings so you can name them.
+Settings → Email
+  - One sender (Sender name + Sender email) for every reminder.
+  - "Reply-to by customer category": one or more reply-to addresses for each category (comma separated).
+  - "Default reply-to": used for Unassigned customers and any category left blank.
+  - The message window shows the reply-to picked for the customer's category; it can be changed for that one email.
+  - The reply-to used is recorded in the Activity log.

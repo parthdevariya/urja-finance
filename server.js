@@ -253,15 +253,18 @@ function mailer() {
 function httpErr(status, msg) { const e = new Error(msg); e.status = status; return e; }
 const escHtml = s => String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
 
-async function sendEmail({ to, cc, subject, body }) {
-  const tos = splitList(to), ccs = splitList(cc);
+async function sendEmail({ to, cc, subject, body, replyTo, category }) {
+  const tos = splitList(to), ccs = splitList(cc), rts = splitList(replyTo);
+  if (!rts.every(isEmail)) throw httpErr(400, 'Check the Reply-to email address.');
   if (!tos.length || !tos.every(isEmail) || !ccs.every(isEmail)) throw httpErr(400, 'Check the To and CC email addresses.');
   if (!subject || !body) throw httpErr(400, 'Subject and message are required.');
   const { c, t } = mailer(), e = comms().email;
   const fromAddr = e.fromEmail || c.smtpUser;
   const info = await t.sendMail({
     from: e.fromName ? { name: e.fromName, address: fromAddr } : fromAddr,
-    to: tos, cc: ccs.length ? ccs : undefined, replyTo: e.replyTo || undefined,
+    to: tos, cc: ccs.length ? ccs : undefined,
+    // reply-to: as chosen in the message window, else the address set for the customer's category, else the default
+    replyTo: rts.length ? rts : (category && e.replyToByCat && splitList(e.replyToByCat[category]).filter(isEmail).length ? splitList(e.replyToByCat[category]).filter(isEmail) : (e.replyTo || undefined)),
     subject, text: body,
     html: '<div style="font-family:Arial,sans-serif;font-size:14px;line-height:1.5">' + escHtml(body).replace(/\n/g, '<br>') + '</div>'
   });

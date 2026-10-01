@@ -538,6 +538,13 @@ tr.clickrow:hover td{background:var(--surface-2)}
 .ff .dwrap{display:flex;gap:6px;min-width:0}
 .ff .rs{flex:none;width:38px;height:38px;border:1px solid var(--line-strong);border-radius:8px;background:var(--surface);color:var(--ink-2);font-size:16px}
 .ff .rs:hover{border-color:var(--brand);color:var(--brand-deep)}
+.rtcats{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:8px 16px}
+.rtcats label{display:grid;grid-template-columns:150px minmax(0,1fr);gap:10px;align-items:center;font-size:12.5px;color:var(--ink-2)}
+.rtcats label b{display:flex;flex-direction:column;font-weight:500;color:var(--ink);min-width:0}
+.rtcats label b em{font-style:normal;font-size:11px;color:var(--ink-3);font-weight:400;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rtcats input{border:1px solid var(--line-strong);background:var(--surface);border-radius:6px;padding:7px 9px;font-size:13.5px;width:100%;min-width:0}
+.rtcats input.bad,#emReply.bad,#cmReply.bad{border-color:var(--crit);background:var(--crit-soft)}
+@media (max-width:700px){.rtcats{grid-template-columns:1fr}.rtcats label{grid-template-columns:110px minmax(0,1fr)}}
 .gnew{font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--brand-deep);background:color-mix(in srgb,var(--brand) 14%,transparent);border-radius:4px;padding:1px 5px;margin-left:6px}
 .gtag{display:inline-flex;align-items:center;font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.03em;border:1px solid var(--line-strong);border-radius:4px;padding:0 5px;color:var(--ink-2);background:var(--surface-2);vertical-align:1px}
 .gtag.none{color:var(--ink-3);border-style:dashed}
@@ -903,9 +910,12 @@ tr.clickrow:hover td{background:var(--surface-2)}
         <div class="frow">
           <label class="fld" for="emFromName">Sender name<input id="emFromName" data-k="email.fromName" placeholder="Accounts – Urja Products"></label>
           <label class="fld" for="emFrom">Sender email<input id="emFrom" data-k="email.fromEmail" type="email" placeholder="accounts@urjaproducts.com"></label>
-          <label class="fld" for="emReply">Reply-to<input id="emReply" data-k="email.replyTo" type="email" placeholder="collections@urjaproducts.com"></label>
           <label class="fld" for="emCc">Always CC<input id="emCc" data-k="email.cc" placeholder="sales@…, manager@…"></label>
         </div>
+        <div class="banner">Every reminder is sent from the one sender address above. When the customer replies, the reply goes to the address set for that customer's category below.</div>
+        <h4>Reply-to by customer category</h4>
+        <div class="rtcats" id="emReplyCats"></div>
+        <label class="fld" for="emReply" style="max-width:520px">Default reply-to<input id="emReply" data-k="email.replyTo" placeholder="collections@urjaproducts.com"><span class="h">Used for Unassigned customers and any category left blank above. Separate several addresses with commas.</span></label>
         <label class="fld" for="emSig">Signature<textarea id="emSig" data-k="email.signature" style="min-height:80px"></textarea></label>
         <h4>Overdue reminder</h4>
         <label class="fld" for="emSubOd">Subject<input id="emSubOd" data-k="email.subjOd"></label>
@@ -1958,7 +1968,7 @@ const localDownloads = {async save({filename, data}){ const blob = data instance
 /* ---------- communication settings & templates ---------- */
 const DEFAULT_COMMS = {
   email: {
-    fromName: "Accounts – Urja Products", fromEmail: "", replyTo: "", cc: "",
+    fromName: "Accounts – Urja Products", fromEmail: "", replyTo: "", replyToByCat: {}, cc: "",
     signature: "Regards,\nAccounts Receivable\n{company}",
     subjOd: "Payment reminder: {total} overdue – {customer}",
     bodyOd: "Dear {contact},\n\nGreetings from {company}.\n\nAs per our records as on {as_of}, the following invoice(s) are overdue for payment:\n\n{invoices}\n\nTotal outstanding: {total}\n\nWe request you to release the payment at the earliest and share the UTR / payment details for our reconciliation. If the payment has already been made, please ignore this reminder and send us the details.\n\n{signature}",
@@ -2069,7 +2079,7 @@ function openCompose(cn, ch, kind, key){
   const cands = c.rows.filter(r => r.r >= st.minAmt);
   const sel = new Set(key ? cands.filter(r => rowKey(r) === key).map(rowKey)
     : cands.filter(r => kind === "od" ? r.od > 0 : (r.od <= 0 && -r.od <= st.soonDays)).map(rowKey));
-  C = {cn, c, ch: ch || "email", kind, sel, cands, phones: [], emails: [], dirty:{}, f:{cc: S.comms.email.cc || "", result: null}};
+  C = {cn, c, ch: ch || "email", kind, sel, cands, phones: [], emails: [], dirty:{}, f:{cc: S.comms.email.cc || "", replyTo: replyFor(cn).addr, result: null}};
   refreshComposeContacts(true);
   regen("email"); regen("wa"); regen("voice");
   $("#compose").hidden = false; document.body.style.overflow = "hidden";
@@ -2115,6 +2125,7 @@ function renderCompose(){
   if (C.ch === "email"){
     const mailto = C.f.to ? `mailto:${encodeURIComponent(C.f.to).replace(/%40/g,"@").replace(/%2C/gi,",")}?${C.f.cc ? "cc=" + encodeURIComponent(C.f.cc) + "&" : ""}subject=${encodeURIComponent(C.f.subj)}&body=${encodeURIComponent(C.f.body)}` : "";
     body = `<div class="frow">${kindSel}<label class="fld" for="cmTo">To<input id="cmTo" data-f="to" type="email" value="${esc(C.f.to)}" placeholder="accounts@customer.com" data-first></label><label class="fld" for="cmCc">CC<input id="cmCc" data-f="cc" value="${esc(C.f.cc)}"></label></div>
+      ${(() => { const rf = replyFor(C.cn); return `<div class="frow"><label class="fld" for="cmReply">Reply-to <span class="h">${rf.own ? "for category " + esc(gLabel(rf.cat)) : "default · no address set for " + esc(gLabel(rf.cat))}</span><input id="cmReply" data-f="replyTo" value="${esc(C.f.replyTo)}" placeholder="Set in Settings → Email" class="${emailsOk(C.f.replyTo) ? "" : "bad"}"></label><div class="fld"><span>From</span><div class="muted" style="padding:8px 0;font-size:13px;overflow-wrap:anywhere">${esc(S.comms.email.fromName || "")}${S.comms.email.fromEmail ? " &lt;" + esc(S.comms.email.fromEmail) + "&gt;" : SERVER ? " (SMTP account on the server)" : ""}</div></div></div>`; })()}
       ${C.emails.length > 1 ? `<div class="emchips" aria-label="Saved email addresses">${C.emails.map(m => `<label><input type="checkbox" data-em="${esc(m.email)}" ${C.f.to.split(/\s*[,;]\s*/).includes(m.email) ? "checked" : ""}>${esc(m.email)}${m.label ? ` <span class="muted">· ${esc(m.label)}</span>` : ""}</label>`).join("")}</div>` : ""}
       ${!C.emails.length && !C.f.to ? `<div class="banner warn">No email saved for this customer. Type one above, or add it with <button type="button" class="klink" data-profile="${esc(C.cn)}">Edit contacts</button> so it's kept.</div>` : ""}
       ${pick}
@@ -2122,7 +2133,7 @@ function renderCompose(){
       <label class="fld" for="cmBody">Message ${regenBtn("email")}<textarea id="cmBody" data-f="body" data-dirty="email" style="min-height:260px">${esc(C.f.body)}</textarea></label>`;
     foot = SERVER
       ? `<span class="note">Sent from ${esc(S.comms.email.fromEmail || "the SMTP account on your server")}</span><button class="btn primary" type="button" id="cmSend" ${!C.f.to || !rows.length ? "disabled" : ""}>${ICON.mail} Send email</button>`
-      : `<span class="note">Sending is manual here. The "Open in mail app" link may not work in every browser; use "Copy email" if it doesn't.</span>${srvLink}<button class="btn" type="button" id="cmCopy">Copy email</button>${mailto ? `<a class="btn" href="${esc(mailto)}" id="cmMailto">Open in mail app</a>` : ""}<button class="btn primary" type="button" id="cmMark">Mark as sent</button>`;
+      : `<span class="note">Sending is manual here.${C.f.replyTo ? " Set Reply-to to " + esc(C.f.replyTo) + " in your mail app." : ""} Use "Copy email" if the mail-app link doesn't open.</span>${srvLink}<button class="btn" type="button" id="cmCopy">Copy email</button>${mailto ? `<a class="btn" href="${esc(mailto)}" id="cmMailto">Open in mail app</a>` : ""}<button class="btn primary" type="button" id="cmMark">Mark as sent</button>`;
   } else if (C.ch === "wa"){
     const n = C.f.waTo || ""; const ph = C.phones.find(p => p.num === n);
     const params = waParams();
@@ -2192,11 +2203,11 @@ function wireCompose(){
   sh.querySelectorAll("[data-regen]").forEach(b => b.onclick = () => { C.dirty[b.dataset.regen] = false; regen(b.dataset.regen); renderCompose(); });
   const amount = () => selRows().reduce((s,r) => s + r.r, 0);
   const cp = $("#cmCopy"); if (cp) cp.onclick = () => {
-    if (C.ch === "email") copyText(`To: ${C.f.to}\n${C.f.cc ? "CC: " + C.f.cc + "\n" : ""}Subject: ${C.f.subj}\n\n${C.f.body}`);
+    if (C.ch === "email") copyText(`To: ${C.f.to}\n${C.f.cc ? "CC: " + C.f.cc + "\n" : ""}${C.f.replyTo ? "Reply-To: " + C.f.replyTo + "\n" : ""}Subject: ${C.f.subj}\n\n${C.f.body}`);
     else if (C.ch === "wa") copyText(C.f.waMsg);
     else { const o = callContext(C.c, selRows(), C.kind); o.instructions = C.f.voInstr; copyText(JSON.stringify(o, null, 2)); }
   };
-  const mk = $("#cmMark"); if (mk) mk.onclick = async () => { await logActivity(C.cn, {ch: C.ch, mode:"manual", ok:true, to: C.ch === "email" ? C.f.to : C.f.voTo, amount: amount()}); toast("Logged in reminder history"); renderCompose(); };
+  const mk = $("#cmMark"); if (mk) mk.onclick = async () => { await logActivity(C.cn, {ch: C.ch, mode:"manual", ok:true, to: C.ch === "email" ? C.f.to : C.f.voTo, ...(C.ch === "email" ? {replyTo: C.f.replyTo} : {}), amount: amount()}); toast("Logged in reminder history"); renderCompose(); };
   const wl = $("#cmWaLink"); if (wl && !SERVER) wl.addEventListener("click", () => { logActivity(C.cn, {ch:"wa", mode:"manual", ok:true, to: C.f.waTo, amount: amount()}).then(() => renderCompose()); });
   sh.querySelectorAll("[data-em]").forEach(cb => cb.onchange = () => {
     const cur = C.f.to.split(/\s*[,;]\s*/).filter(Boolean).filter(x => x !== cb.dataset.em);
@@ -2208,8 +2219,9 @@ function wireCompose(){
     try{
       let r, entry;
       if (C.ch === "email"){
-        r = await api("POST", "/api/send/email", {cn: C.cn, to: C.f.to, cc: C.f.cc, subject: C.f.subj, body: C.f.body});
-        entry = {ch:"email", mode:"api", ok:true, to: C.f.to, amount: amt, ref: r.id || ""};
+        if (!emailsOk(C.f.replyTo)) throw new Error("Check the Reply-to email address.");
+        r = await api("POST", "/api/send/email", {cn: C.cn, to: C.f.to, cc: C.f.cc, replyTo: C.f.replyTo, category: groupOf(C.cn), subject: C.f.subj, body: C.f.body});
+        entry = {ch:"email", mode:"api", ok:true, to: C.f.to, replyTo: C.f.replyTo, amount: amt, ref: r.id || ""};
         C.f.result = {ok:true, msg:`Email sent to ${C.f.to}.`};
       } else if (C.ch === "wa"){
         r = await api("POST", "/api/send/whatsapp", {cn: C.cn, to: C.f.waTo.replace(/\D/g,""), text: C.f.waMsg, params: waParams()});
@@ -2239,9 +2251,21 @@ $("#stabs").querySelectorAll("[data-st]").forEach(b => b.onclick = () => {
   if (b.dataset.st === "server" && SERVER) loadServerConfig();
   if (b.dataset.st === "bc" && SERVER) loadBc();
   if (b.dataset.st === "groups") renderGroupEditor();
+  if (b.dataset.st === "email") renderReplyCats();
 });
 document.querySelectorAll("#settingsPanel [data-ph]").forEach(el => el.innerHTML = "Placeholders: " + PLACEHOLDERS.map(([k,d]) => `<code>${k}</code> ${d}`).join(" · "));
+const emailList = v => String(v || "").split(/[,;]/).map(x => x.trim()).filter(Boolean);
+const emailsOk = v => emailList(v).every(x => EMAIL_RE.test(x));
+function replyFor(cn){ const m = S.comms.email.replyToByCat || {}, g = groupOf(cn); return { addr: (m[g] || "").trim() || S.comms.email.replyTo || "", cat: g, own: !!(m[g] || "").trim() }; }
+function renderReplyCats(){
+  const el = $("#emReplyCats"); if (!el) return;
+  const m = S.comms.email.replyToByCat || {}, ph = S.comms.email.replyTo || "Uses the default reply-to";
+  el.innerHTML = S.groups.map(g => `<label for="rt_${esc(g.code)}"><b>${esc(g.code)}<em>${esc(g.name)}</em></b><input id="rt_${esc(g.code)}" data-rk="${esc(g.code)}" value="${esc(m[g.code] || "")}" placeholder="${esc(ph)}" autocomplete="off"></label>`).join("")
+    || `<div class="muted">Add customer categories in Settings → Customer categories.</div>`;
+  el.querySelectorAll("[data-rk]").forEach(i => i.addEventListener("input", () => i.classList.toggle("bad", !emailsOk(i.value))));
+}
 function renderComms(){
+  if (!document.activeElement || !document.activeElement.dataset || document.activeElement.dataset.rk === undefined) renderReplyCats();
   document.querySelectorAll("#settingsPanel [data-k]").forEach(el => { if (document.activeElement !== el) el.value = getPath(S.comms, el.dataset.k) ?? ""; });
   $("#srvArtifact").hidden = SERVER; $("#srvServer").hidden = !SERVER;
   $("#bcHosted").hidden = SERVER; $("#bcServer").hidden = !SERVER;
@@ -2249,6 +2273,14 @@ function renderComms(){
 ["fEmail","fWa","fVoice","fServer"].forEach(id => $("#" + id).addEventListener("submit", async e => {
   e.preventDefault();
   if (id === "fServer" && SERVER){ await saveServerConfig(); return; }
+  if (id === "fEmail"){
+    const bad = [...$("#fEmail").querySelectorAll("[data-rk]"), $("#emReply")].filter(i => !emailsOk(i.value));
+    $("#fEmail").querySelectorAll("[data-rk],#emReply").forEach(i => i.classList.toggle("bad", bad.includes(i)));
+    if (bad.length){ toast("Check the highlighted reply-to address"); bad[0].focus(); return; }
+    const m = {}; $("#fEmail").querySelectorAll("[data-rk]").forEach(i => { const v = emailList(i.value).join(", "); if (v) m[i.dataset.rk] = v; });
+    const old = S.comms.email.replyToByCat || {}; Object.keys(old).forEach(k => { if (!S.groups.some(g => g.code === k) && !(k in m)) m[k] = old[k]; });
+    S.comms.email.replyToByCat = m;
+  }
   $("#" + id).querySelectorAll("[data-k]").forEach(el => setPath(S.comms, el.dataset.k, el.value.trim ? (el.tagName === "TEXTAREA" ? el.value : el.value.trim()) : el.value));
   if (db){ try { await db.doc("settings/comms").set(S.comms); toast("Settings saved for everyone"); } catch { toast("Saved on this screen only (no edit permission)"); } }
   else toast("Settings saved on this screen");
@@ -2491,6 +2523,7 @@ function renderLogView(){
         ${e.subject ? `<div><span class="label">Subject</span> ${esc(e.subject)}</div>` : ""}
         ${e.preview ? `<pre style="white-space:pre-wrap;font-family:var(--sans);margin:0;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:10px;max-height:260px;overflow:auto">${esc(e.preview)}</pre>` : `<div class="muted">No message text was stored for this entry.</div>`}
         ${e.error ? `<div style="color:var(--crit)">Error: ${esc(e.error)}</div>` : ""}
+        ${e.replyTo ? `<div><span class="label">Reply-to</span> ${esc(e.replyTo)}</div>` : ""}
         <div class="muted num">${e.ref ? "Reference: " + esc(e.ref) + " · " : ""}${e.reportAsOf ? "Report dated " + esc(dmy(fromIso(e.reportAsOf))) : ""}${inv.length ? " · Invoices: " + esc(inv.join(", ")) : ""}</div>
       </div></td></tr>` : ""}`; }).join("")}
     </tbody></table>`;
