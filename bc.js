@@ -24,6 +24,7 @@ const FIELDS = {
   du: ['duedate'],
   a: ['originalamount', 'originalamtlcy', 'amount', 'amountlcy'],
   r: ['remainingamount', 'remainingamtlcy', 'remainingamountlcy'],
+  g: ['customerpostinggroup', 'custpostinggroup', 'postinggroup'],
   open: ['open']
 };
 function fieldMap(sample) {
@@ -143,7 +144,8 @@ module.exports = function createBC({ getConfig, store, persist }) {
         const r = round2(e[map.r]); if (!du || !r) continue;
         const a = map.a ? round2(e[map.a]) : r;
         rows.push({ d, cn, c: String((map.c && e[map.c]) || cu.displayName || cn).trim(), ci: String(cu.city || '').trim(), ct: '', ph: String(cu.phoneNumber || '').trim(),
-          t: String((map.t && e[map.t]) || (r < 0 ? 'Payment' : 'Invoice')).replace(/_/g, ' ').trim(), no: String((map.no && e[map.no]) || '').trim(), ex: String((map.ex && e[map.ex]) || '').trim(), du, a, r });
+          t: String((map.t && e[map.t]) || (r < 0 ? 'Payment' : 'Invoice')).replace(/_/g, ' ').trim(), no: String((map.no && e[map.no]) || '').trim(), ex: String((map.ex && e[map.ex]) || '').trim(), du, a, r,
+          ...(map.g && e[map.g] ? { g: String(e[map.g]).trim().toUpperCase() } : {}) });
       }
       const asOf = todayLocal(), cs = new Set(); let debit = 0, credit = 0;
       rows.forEach(r => { cs.add(r.cn); if (r.r > 0) debit += r.r; else credit += r.r; });

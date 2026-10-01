@@ -1,21 +1,14 @@
-Credit Control Desk – update (customer groups, Excel export, install app)
+Credit Control Desk – update v3 (filter row, customer categories)
 
 Replace these files in your repository (same folders), commit and push. Render redeploys automatically.
+  server.js, bc.js, Dockerfile, public/dashboard.html, public/share/*
+No new environment variables. Existing data, contacts, logs and categories are kept.
 
-  server.js                 – adds /sw.js (needed for "Install app") and home-screen meta tags
-  Dockerfile                – unchanged from the last fix (COPY *.js ./), included for completeness
-  public/dashboard.html     – the dashboard with all new features
-  public/share/*            – icons and link-preview image (unchanged)
-
-No new environment variables. Existing data, contacts and logs are kept.
-
-What's new
-  1. Customer groups (CBF, CCA, CFA, CFF, CFG, CNI, COD, COT, CPP, CPT) assigned automatically
-     from the customer code prefix. Filter bar on Dashboard, CXO view, Customers and Activity log;
-     "By customer group" panel on the Dashboard. Edit groups in Settings → Customer groups;
-     move a single customer from its profile.
-  2. Export to Excel: full formatted workbook (Summary, Customers, Ledger, Overdue, Due soon,
-     Alerts, Ageing by group, Groups, Activity) from the Dashboard and CXO view. Respects the
-     selected group. Customers and Activity log exports now include the group.
-  3. Install app pop-up on phones and tablets after sign-in (Android: one-tap Install;
-     iPhone/iPad: Share → Add to Home Screen steps). "Install app" button in the top bar.
+Changes
+  1. Removed the "Sample data / Company / File / Entries" strip from the dashboard.
+  2. One filter row: Customer category (dropdown) + Report + Ageing as of (calendar).
+     The category dropdown is also on the CXO view, Customers and Activity log.
+  3. Settings → Customer categories: add, rename or remove categories at any time.
+  4. Categories are captured automatically from each upload and Business Central sync
+     (Customer Posting Group / Category column, or the customer code prefix such as CNI-0006 → CNI).
+     New ones are added and marked "New" in Settings so you can name them.

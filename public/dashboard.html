@@ -525,18 +525,20 @@ tr.clickrow:hover td{background:var(--surface-2)}
   .pe input[type=checkbox],.pe input[type=radio],.invpick input,.emchips input{width:18px;height:18px}
 }
 
-/* ---------- customer groups ---------- */
-.gbar{display:flex;align-items:center;gap:10px;min-width:0}
-.gbar .gl{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);font-weight:600;flex:none;display:flex;align-items:center;gap:5px}
-.gbar .gl svg{width:14px;height:14px}
-.gbar .gs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;min-width:0;padding:2px 0;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);padding-right:24px}
-.gbar .gs::-webkit-scrollbar{display:none}
-.gbar button{flex:none;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line-strong);background:var(--surface);border-radius:999px;padding:5px 11px;font-size:12.5px;color:var(--ink-2);white-space:nowrap}
-.gbar button b{font-family:var(--mono);font-weight:600;font-size:11px;color:var(--ink-3)}
-.gbar button i{font-style:normal;font-family:var(--mono);font-size:10.5px;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:0 6px;color:var(--ink-3)}
-.gbar button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--surface)}
-.gbar button[aria-pressed="true"] b,.gbar button[aria-pressed="true"] i{color:var(--surface);background:transparent;border-color:rgba(255,255,255,.35)}
-.gbar .gsel{display:none}
+/* ---------- customer categories ---------- */
+.fbar{display:flex;align-items:flex-end;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px;box-shadow:0 1px 2px rgba(20,30,25,.04);min-width:0}
+.ff{display:flex;flex-direction:column;gap:4px;min-width:0}
+.ff>span{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);font-weight:600;display:flex;gap:5px;align-items:center;white-space:nowrap}
+.ff>span svg{width:12px;height:12px;flex:none}
+.ff select,.ff input{border:1px solid var(--line-strong);background:var(--surface);border-radius:8px;padding:0 10px;font-size:13.5px;min-width:0;width:100%;height:38px;color:var(--ink)}
+.ff select.on{border-color:var(--brand);background:color-mix(in srgb,var(--brand) 9%,var(--surface));font-weight:600}
+.ff-cat{flex:0 1 320px}
+.ff-rep{flex:0 1 250px}
+.ff-date{flex:0 0 190px;margin-left:auto}
+.ff .dwrap{display:flex;gap:6px;min-width:0}
+.ff .rs{flex:none;width:38px;height:38px;border:1px solid var(--line-strong);border-radius:8px;background:var(--surface);color:var(--ink-2);font-size:16px}
+.ff .rs:hover{border-color:var(--brand);color:var(--brand-deep)}
+.gnew{font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--brand-deep);background:color-mix(in srgb,var(--brand) 14%,transparent);border-radius:4px;padding:1px 5px;margin-left:6px}
 .gtag{display:inline-flex;align-items:center;font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.03em;border:1px solid var(--line-strong);border-radius:4px;padding:0 5px;color:var(--ink-2);background:var(--surface-2);vertical-align:1px}
 .gtag.none{color:var(--ink-3);border-style:dashed}
 .gsum{width:100%;border-collapse:collapse;font-size:13px}
@@ -654,8 +656,10 @@ tr.clickrow:hover td{background:var(--surface-2)}
   .seg::-webkit-scrollbar{display:none}
   .seg button{flex:none}
   .alerts{max-height:none}
-  .gbar{flex-direction:column;align-items:stretch;gap:6px}
-  .gbar .gs{margin:0 -12px;padding:2px 36px 2px 12px}
+  .fbar{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:8px;padding:10px 12px}
+  .ff-date{margin-left:0}
+  .ff>span{font-size:10px}
+  .ff select,.ff input{padding:0 8px;font-size:16px}
   .gsum .g-hide,.gsum .g-od{display:none}
   .gsum .gn{display:block;font-size:12.5px;line-height:1.3;margin-top:2px}
   .gsum{font-size:12.5px}
@@ -822,14 +826,14 @@ tr.clickrow:hover td{background:var(--surface-2)}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 8V3h10v5M7 17H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="7" y="14" width="10" height="7"/></svg><span class="bt">Download report</span></button>
       <button class="btn primary offview" id="btnCxoPdf" type="button" data-only="cxo" aria-label="Download executive summary (PDF)" title="Download the executive summary as a PDF to print or share">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 8V3h10v5M7 17H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="7" y="14" width="10" height="7"/></svg><span class="bt">Download PDF</span></button>
-      <button class="btn" id="btnExport" type="button" data-only="dash" aria-label="Export to Excel" title="Download a full Excel workbook: summary, customers, ledger, overdue, due soon, alerts, ageing, groups and activity">
+      <button class="btn" id="btnExport" type="button" data-only="dash" aria-label="Export to Excel" title="Download a full Excel workbook: summary, customers, ledger, overdue, due soon, alerts, ageing, categories and activity">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg><span class="bt">Export to Excel</span></button>
       <button class="btn offview" id="btnCxoXls" type="button" data-only="cxo" aria-label="Export to Excel" title="Download the full Excel workbook">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg><span class="bt">Excel</span></button>
       <input type="file" id="file" accept=".xml,.xlsx,.xls,.csv,.pdf" hidden>
     </div>
   </header>
-  <div class="gbar" id="gbar" role="group" aria-label="Customer group filter"><span class="gl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h18l-7 8v6l-4-2v-4z"/></svg>Customer group</span><div class="gs" id="gbarList"></div></div>
+  <div class="fbar" id="gbar" role="group" aria-label="Filters"></div>
 
   <div id="viewSettings" class="view" hidden>
   <section class="panel" id="settingsPanel">
@@ -837,7 +841,7 @@ tr.clickrow:hover td{background:var(--surface-2)}
       <div class="stabs" role="tablist" id="stabs">
         <button role="tab" type="button" data-st="brand" aria-selected="true">Company &amp; branding</button>
         <button role="tab" type="button" data-st="rules" aria-selected="false">Alert rules</button>
-        <button role="tab" type="button" data-st="groups" aria-selected="false">Customer groups</button>
+        <button role="tab" type="button" data-st="groups" aria-selected="false">Customer categories</button>
         <button role="tab" type="button" data-st="email" aria-selected="false">Email</button>
         <button role="tab" type="button" data-st="wa" aria-selected="false">WhatsApp</button>
         <button role="tab" type="button" data-st="voice" aria-selected="false">Voice AI (OmniDim)</button>
@@ -944,13 +948,13 @@ tr.clickrow:hover td{background:var(--surface-2)}
       </form>
 
       <form class="spane" data-sp="groups" hidden id="fGroups" novalidate>
-        <div class="ph-help">Customers are grouped automatically by the letters at the start of their customer code (the Business Central customer posting group), for example <span class="num">CNI-0006</span> → <b>CNI</b>. Codes that match no group are shown as <b>Unassigned</b>. You can move a single customer to another group from its profile in Customers.</div>
+        <div class="ph-help">Categories are picked up automatically from every upload and Business Central sync: the <b>Customer Posting Group</b> (or a Category column in Excel/CSV) when the file has one, otherwise the letters at the start of the customer code, for example <span class="num">CNI-0006</span> → <b>CNI</b>. A category seen for the first time is added here marked <b>New</b>; give it a name and save. You can also add categories yourself, and move a single customer to another category from its profile in Customers.</div>
         <div class="grpedit" id="grpEdit"></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
-          <button class="btn sm" type="button" id="grpAdd">+ Add group</button>
-          <button class="btn sm ghost" type="button" id="grpReset">Restore the 10 standard groups</button>
+          <button class="btn sm" type="button" id="grpAdd">+ Add category</button>
+          <button class="btn sm ghost" type="button" id="grpReset">Restore the 10 standard categories</button>
           <span style="flex:1"></span>
-          <button class="btn primary" type="button" id="grpSave">Save groups</button>
+          <button class="btn primary" type="button" id="grpSave">Save categories</button>
         </div>
         <div id="grpOver"></div>
       </form>
@@ -1037,7 +1041,6 @@ tr.clickrow:hover td{background:var(--surface-2)}
   </div>
 
   <div id="viewDash" class="view">
-  <div class="source" id="source"></div>
 
   <section class="hero" id="hero"></section>
   <div class="kpis" id="kpis"></div>
@@ -1063,7 +1066,7 @@ tr.clickrow:hover td{background:var(--surface-2)}
   </div>
 
   <section class="panel" id="grpPanel">
-    <div class="ph"><h2>By customer group</h2><span class="muted" style="font-size:12px" id="grpHint">Tap a group to filter the whole dashboard</span></div>
+    <div class="ph"><h2>By customer category</h2><span class="muted" style="font-size:12px" id="grpHint">Tap a category to filter the whole dashboard</span></div>
     <div class="tw" id="grpWrap"></div>
   </section>
 
@@ -1285,7 +1288,7 @@ const S = {
 };
 let db = null, dl = null;
 
-/* ---------- customer groups ---------- */
+/* ---------- customer categories ---------- */
 const DEFAULT_GROUPS = [["CBF","Basket, Filter & Rolls"],["CCA","Carbon & Aramid"],["CFA","Customer - Fixed Asset"],["CFF","Ceramic Foam Filter"],["CFG","Fiber Glass Fabrics"],
   ["CNI","NMEJ & Insulation"],["COD","Customer of Defence"],["COT","Others"],["CPP","PPGL"],["CPT","PTFE Cutting & Belting"]].map(([code, name]) => ({code, name}));
 const NONE = "_none";
@@ -1295,11 +1298,27 @@ let gMap = new Map();
 function gIndex(){ gMap = new Map(S.groups.map(g => [g.code, g.name])); if (S.gf && S.gf !== NONE && !gMap.has(S.gf)) S.gf = ""; }
 gIndex();
 const gPrefix = cn => ((String(cn || "").trim().match(/^([A-Za-z]+)/) || [])[1] || "").toUpperCase();
-function groupOf(cn){ const o = S.gassign[cn]; if (o && (o === NONE || gMap.has(o))) return o; const p = gPrefix(cn); return gMap.has(p) ? p : NONE; }
+S.rowCat = {}; S.groupsLoaded = false;
+const autoCat = cn => { const rc = S.rowCat[cn]; if (rc && gMap.has(rc)) return rc; const p = gPrefix(cn); return gMap.has(p) ? p : NONE; };
+function groupOf(cn){ const o = S.gassign[cn]; if (o && (o === NONE || gMap.has(o))) return o; return autoCat(cn); }
+/* categories found in uploaded / synced data: the category column (customer posting group) when present, otherwise the customer code prefix */
+const CODE_RE = /^([A-Za-z]{2,6})[-\/_]?\d/;
+function dataCategory(r){ if (r.g && /^[A-Z0-9_-]{1,20}$/.test(r.g)) return r.g; const m = String(r.cn || "").trim().match(CODE_RE); return m ? m[1].toUpperCase() : ""; }
+function captureCategories(){
+  if (!S.groupsLoaded) return;
+  const found = new Map();
+  const scan = rows => (rows || []).forEach(r => { const c = dataCategory(r); if (c && !gMap.has(c)) found.set(c, (found.get(c) || 0) + 1); });
+  Object.values(S.reportRows).forEach(scan); if (S.mode !== "sample") scan(S.rows);
+  if (!found.size) return;
+  [...found.keys()].sort().forEach(code => S.groups.push({code, name: code, auto: true}));
+  gIndex(); GE = null; saveGroups();
+  const names = [...found.keys()].join(", "); setTimeout(() => toast(`New customer ${found.size === 1 ? "category" : "categories"} found in your data: ${names}. Name it in Settings → Customer categories.`), 2600);
+  if (typeof render === "function" && V) render();
+}
 const gName = code => code === NONE ? "Unassigned" : (gMap.get(code) || code);
 const gLabel = code => code === NONE ? "Unassigned" : `${code} · ${gName(code)}`;
 const inG = cn => !S.gf || groupOf(cn) === S.gf;
-const gtag = cn => { const g = groupOf(cn); return `<span class="gtag${g === NONE ? " none" : ""}" title="${esc(gName(g))}">${g === NONE ? "No group" : esc(g)}</span>`; };
+const gtag = cn => { const g = groupOf(cn); return `<span class="gtag${g === NONE ? " none" : ""}" title="${esc(gName(g))}">${g === NONE ? "No category" : esc(g)}</span>`; };
 function setGroupFilter(code){
   S.gf = code || ""; try { localStorage.setItem("ccd_gf", S.gf); } catch {}
   S.open = null; render();
@@ -1356,7 +1375,8 @@ const ALIASES = {
   a:["amount","invoiceamount","billamount","originalamount","openingamount","totalamount","billvalue","invoicevalue"],
   r:["remainingamount","remaining","balance","outstanding","outstandingamount","pendingamount","pending","balanceamount","dueamount","remainingamt","closingbalance","openbalance","pendingbalance"],
   dr:["debit","dr","debitamount","debitamt"],
-  cr:["credit","cr","creditamount","creditamt"]
+  cr:["credit","cr","creditamount","creditamt"],
+  g:["customerpostinggroup","custpostinggroup","postinggroup","customercategory","category","custcategory","customergroup","custgroup","partygroup"]
 };
 const norm = s => String(s||"").toLowerCase().replace(/[^a-z0-9]/g,"");
 const ALIAS_LOOKUP = {}; for (const [k, arr] of Object.entries(ALIASES)) arr.forEach(a => { if (!ALIAS_LOOKUP[a]) ALIAS_LOOKUP[a] = k; });
@@ -1381,6 +1401,8 @@ function finishRow(o, warn){
   r.a = Math.round(a*100)/100; r.r = Math.round(rem*100)/100;
   if (!r.c) r.c = r.cn || "Unnamed customer";
   if (!r.cn) r.cn = r.c.toUpperCase().slice(0,40);
+  const g = String(o.g ?? "").trim().toUpperCase().replace(/\s+/g, "-");
+  if (g && g.length <= 20) r.g = g;
   return r;
 }
 
@@ -1393,7 +1415,9 @@ function parseXML(text){
   const rows = [], warn = [];
   const items = [...doc.getElementsByTagName("DataItem")].filter(n => n.getAttribute("name") === "Cust_Ledger_Entry");
   if (items.length){
-    let endDate = null;
+    let endDate = null, pg = "";
+    const ft = (doc.querySelector('Column[name="GETfilterTxt"]') || {}).textContent || "";
+    const fm = ft.match(/Customer Posting Group:\s*([A-Za-z0-9_-]+)\s*(?:$|[,;])/i); if (fm) pg = fm[1].toUpperCase();
     for (const it of items){
       const cols = {}; const cEl = [...it.children].find(c => c.tagName === "Columns"); if (!cEl) continue;
       for (const c of cEl.children) cols[c.getAttribute("name")] = c.textContent;
@@ -1401,7 +1425,7 @@ function parseXML(text){
       if (!endDate && cols.enddate) endDate = parseDate(cols.enddate);
       const r = finishRow({d:cols.PostingDate, cn:cols.Customer_No_, c:cols.Cust_Name, ci:cols.cust_city, ct:cols.Cust_bankbranch,
         ph:[cols.Cust_bank, cols.Cust_accno].map(x => (x||"").trim()).filter(Boolean).join(" / "),
-        t:(cols.DocumentType||"").trim() || "Adjustment", no:cols.DocumentNo, ex:cols.External_Document_No_, du:cols.DueDate, a:cols.Amount, r:cols.RemainingAmount});
+        t:(cols.DocumentType||"").trim() || "Adjustment", no:cols.DocumentNo, ex:cols.External_Document_No_, du:cols.DueDate, a:cols.Amount, r:cols.RemainingAmount, g:cols.Customer_Posting_Group || pg});
       if (r) rows.push(r); else warn.push(1);
     }
     const dy = doc.querySelector("DateTimeValues");
@@ -1658,27 +1682,8 @@ function compute(){
 
 /* ---------- render ---------- */
 let V = null;
-function render(){ V = compute(); renderGbar(); renderGroupPanel(); renderSource(); renderHero(); renderKpis(); renderCxo(); renderAlerts(); renderAgeing(); renderTop(); renderTable(); if (S.view === "cust") renderCustView(); renderLogView(); if (P && !$("#profile").hidden) {} }
-function renderSource(){
-  const m = S.meta || {}, el = $("#source");
-  const chip = S.mode === "sample" ? `<span class="chip sample">Sample data</span>` : S.mode === "live" ? `<span class="chip live">Shared with team</span>` : `<span class="chip local">This screen only</span>`;
-  const hist = S.reports.filter(r => r.ready);
-  el.innerHTML = `<div class="meta">
-      ${chip}
-      <div><span class="label">Company</span> <b>${esc(m.company || "—")}</b></div>
-      <div class="m-hide"><span class="label">File</span> ${esc(m.file || "—")}</div>
-      <div class="m-hide"><span class="label">Entries</span> <span class="num">${S.rows.length}</span></div>
-      ${m.uploadedAt ? `<div class="m-hide"><span class="label">Uploaded</span> ${esc(new Date(m.uploadedAt).toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short"}))}</div>` : ""}
-    </div>
-    <div class="ctrl">
-      ${hist.length > 1 ? `<label class="inline" for="hist">Report <select id="hist">${hist.map(r => `<option value="${esc(r.id)}" ${r.id === m.id ? "selected" : ""}>${esc(dmy(fromIso(r.asOf)))} · ${esc((r.file||"").slice(0,28))}</option>`).join("")}</select></label>` : ""}
-      <label class="inline" for="asOf">Ageing as of <input type="date" id="asOf" value="${iso(asOfDate())}"></label>
-      ${S.asOfOverride ? `<button class="btn sm ghost" id="asOfReset" type="button">Use report date</button>` : ""}
-    </div>`;
-  $("#asOf").onchange = e => { const d = fromIso(e.target.value); S.asOfOverride = d && iso(d) !== S.meta?.asOf ? d : null; render(); };
-  const rs = $("#asOfReset"); if (rs) rs.onclick = () => { S.asOfOverride = null; render(); };
-  const h = $("#hist"); if (h) h.onchange = e => { S.pickedId = e.target.value; loadReport(e.target.value); };
-}
+function render(){ V = compute(); renderGbar(); renderGroupPanel(); renderHero(); renderKpis(); renderCxo(); renderAlerts(); renderAgeing(); renderTop(); renderTable(); if (S.view === "cust") renderCustView(); renderLogView(); if (P && !$("#profile").hidden) {} }
+function renderSource(){ renderGbar(); }
 function renderKpis(){
   const k = V.k, st = S.settings;
   const L = (go, txt) => `<button type="button" class="klink" data-go="${go}">${txt}</button>`;
@@ -2288,7 +2293,7 @@ function splitPeople(raw){
   });
 }
 function buildDir(){
-  const dir = {};
+  const dir = {}, rowCat = {};
   const reps = Object.entries(S.reportRows).map(([id, rows]) => ({id, rows, asOf: (S.reports.find(r => r.id === id) || (S.meta && S.meta.id === id ? S.meta : null) || S.meta || {}).asOf || ""}))
     .sort((a,b) => a.asOf < b.asOf ? -1 : 1);
   for (const rep of reps) for (const r of rep.rows){
@@ -2296,7 +2301,9 @@ function buildDir(){
     d.name = r.c || d.name; if (r.ci) d.city = r.ci;
     if (r.ct) d.cts.add(r.ct.trim()); if (r.ph) d.phs.add(r.ph.trim());
     d.reports.add(rep.id); if (rep.asOf && (!d.first || rep.asOf < d.first)) d.first = rep.asOf; if (rep.asOf > d.last) d.last = rep.asOf;
+    if (r.g) rowCat[r.cn] = r.g;
   }
+  S.rowCat = rowCat; captureCategories();
   // customers only known from saved contacts
   for (const c of Object.values(S.contacts)) if (c && c.cn && !dir[c.cn]) dir[c.cn] = {cn:c.cn, name:c.customer || c.cn, city:c.city || "", cts:new Set(), phs:new Set(), first:"", last:"", reports:new Set()};
   S.dir = dir;
@@ -2435,11 +2442,11 @@ $("#custExport").onclick = async e => {
   try{
     const Excel = await loadExcel(), wb = newBook(Excel), cur = new Map(V.list.map(c => [c.cn, c])), last = lastActivityMap();
     const dirList = Object.values(S.dir).filter(d => inG(d.cn)).sort((a, b) => a.name.localeCompare(b.name));
-    xlTable(wb, "Customers", [{h:"Customer No", w:12}, {h:"Customer", w:36}, {h:"Group", w:8}, {h:"Group name", w:22}, {h:"City", w:14}, {h:"GSTIN", w:17}, {h:"Contact people", w:30, wrap:true}, {h:"Phones", w:30, wrap:true}, {h:"WhatsApp numbers", w:20, wrap:true}, {h:"Emails", w:32, wrap:true}, {h:"Notes", w:26, wrap:true}, {h:"Outstanding (₹)", w:15, t:"money"}, {h:"Overdue (₹)", w:15, t:"money"}, {h:"Last reminder", w:24}],
+    xlTable(wb, "Customers", [{h:"Customer No", w:12}, {h:"Customer", w:36}, {h:"Category", w:8}, {h:"Category name", w:22}, {h:"City", w:14}, {h:"GSTIN", w:17}, {h:"Contact people", w:30, wrap:true}, {h:"Phones", w:30, wrap:true}, {h:"WhatsApp numbers", w:20, wrap:true}, {h:"Emails", w:32, wrap:true}, {h:"Notes", w:26, wrap:true}, {h:"Outstanding (₹)", w:15, t:"money"}, {h:"Overdue (₹)", w:15, t:"money"}, {h:"Last reminder", w:24}],
       dirList.map(d => { const ct = contactOf(d.cn), c = cur.get(d.cn), l = last[d.cn]; return [d.cn, d.name, ...xlGroup(d.cn), ct.city || d.city || "", ct.gstin || "",
         ct.people.map(p => p.name + (p.role ? " (" + p.role + ")" : "")).join("; "), ct.phones.map(p => fmtPhone(p.num) + (p.label ? " " + p.label : "")).join("; "), ct.phones.filter(p => p.wa).map(p => fmtPhone(p.num)).join("; "),
         ct.emails.map(x => x.email).join("; "), ct.notes || "", c ? xlR(c.net) : 0, c ? xlR(c.overdue) : 0, l ? CH_LABEL[l.ch] + " · " + fmtWhen(l.at) : ""]; }),
-      {title: (S.brand.company || "") + " · Customers", sub: S.gf ? gLabel(S.gf) : "All customer groups", total:{label:`${dirList.length} customers`, cols:[11,12]}, freezeCols:2});
+      {title: (S.brand.company || "") + " · Customers", sub: S.gf ? gLabel(S.gf) : "All customer categories", total:{label:`${dirList.length} customers`, cols:[11,12]}, freezeCols:2});
     await saveWorkbook(wb, `Customers ${dmy(V.asOf)}${S.gf ? " " + (S.gf === NONE ? "Unassigned" : S.gf) : ""}`);
   }catch(err){ toast(err.message || "The file could not be created."); }
   btn.disabled = false;
@@ -2495,9 +2502,9 @@ $("#logExport").onclick = async e => {
   const btn = e.currentTarget; if (!dl){ toast("Downloads are not available in this view"); return; } btn.disabled = true;
   try{
     const Excel = await loadExcel(), wb = newBook(Excel), list = filteredLog();
-    xlTable(wb, "Activity", [{h:"Date & time", w:17, t:"dt"}, {h:"Customer No", w:12}, {h:"Customer", w:32}, {h:"Group", w:8}, {h:"Channel", w:14}, {h:"Reminder", w:10}, {h:"Sent to", w:26}, {h:"Invoices", w:30, wrap:true}, {h:"Amount (₹)", w:15, t:"money"}, {h:"Status", w:20}, {h:"Subject", w:30, wrap:true}, {h:"Reference", w:20}, {h:"Error", w:30, wrap:true}],
+    xlTable(wb, "Activity", [{h:"Date & time", w:17, t:"dt"}, {h:"Customer No", w:12}, {h:"Customer", w:32}, {h:"Category", w:8}, {h:"Channel", w:14}, {h:"Reminder", w:10}, {h:"Sent to", w:26}, {h:"Invoices", w:30, wrap:true}, {h:"Amount (₹)", w:15, t:"money"}, {h:"Status", w:20}, {h:"Subject", w:30, wrap:true}, {h:"Reference", w:20}, {h:"Error", w:30, wrap:true}],
       list.map(e => [new Date(e.at), e.cn, e.customer || (S.dir[e.cn] || {}).name || "", xlGroup(e.cn)[0], CH_LABEL[e.ch] || e.ch, e.kind === "soon" ? "Due soon" : e.kind === "od" ? "Overdue" : "", e.ch === "email" ? e.to || "" : e.to ? fmtPhone(e.to) : "", (e.invoices || []).join(", "), e.amount ? xlR(e.amount) : null, statusOf(e).t, e.subject || "", e.ref || "", e.error || ""]),
-      {title: (S.brand.company || "") + " · Reminder activity", sub: S.gf ? gLabel(S.gf) : "All customer groups", total:{label:`${list.length} actions`, cols:[8]}, freezeCols:1});
+      {title: (S.brand.company || "") + " · Reminder activity", sub: S.gf ? gLabel(S.gf) : "All customer categories", total:{label:`${list.length} actions`, cols:[8]}, freezeCols:1});
     await saveWorkbook(wb, `Reminder activity ${dmy(todayUTC())}${S.gf ? " " + (S.gf === NONE ? "Unassigned" : S.gf) : ""}`);
   }catch(err){ toast(err.message || "The file could not be created."); }
   btn.disabled = false;
@@ -2545,8 +2552,8 @@ function renderProfile(){
           <label class="tg"><input type="radio" name="pfEmailPrimary" data-primary="emails.${i}" ${m.primary ? "checked" : ""}>Primary</label>
           <button class="rm" type="button" data-rm="emails.${i}" aria-label="Remove email">✕</button></div>`).join("") || `<div class="empty-line">No email addresses. Business Central reports don't include them, so add them here.</div>`}
         <h4>Other details</h4>
-        <div class="frow"><label class="fld" for="pfGrp">Customer group<select id="pfGrp">${(() => { const auto = gMap.has(gPrefix(P.cn)) ? gPrefix(P.cn) : NONE, cur = S.gassign[P.cn] || "auto";
-          return `<option value="auto" ${cur === "auto" ? "selected" : ""}>Automatic from code: ${esc(gLabel(auto))}</option>` + S.groups.map(g => `<option value="${esc(g.code)}" ${cur === g.code ? "selected" : ""}>${esc(g.code)} · ${esc(g.name)}</option>`).join("") + `<option value="${NONE}" ${cur === NONE ? "selected" : ""}>Unassigned</option>`; })()}</select><span class="h">Saved straight away for everyone</span></label>
+        <div class="frow"><label class="fld" for="pfGrp">Customer category<select id="pfGrp">${(() => { const auto = autoCat(P.cn), cur = S.gassign[P.cn] || "auto";
+          return `<option value="auto" ${cur === "auto" ? "selected" : ""}>Automatic: ${esc(gLabel(auto))}</option>` + S.groups.map(g => `<option value="${esc(g.code)}" ${cur === g.code ? "selected" : ""}>${esc(g.code)} · ${esc(g.name)}</option>`).join("") + `<option value="${NONE}" ${cur === NONE ? "selected" : ""}>Unassigned</option>`; })()}</select><span class="h">Saved straight away for everyone</span></label>
           <label class="fld" for="pfCity">City<input id="pfCity" data-e="city" value="${esc(L.city)}"></label><label class="fld" for="pfGst">GSTIN<input id="pfGst" data-e="gstin" value="${esc(L.gstin)}" maxlength="15" style="text-transform:uppercase"></label></div>
         <label class="fld" for="pfNotes">Notes<textarea id="pfNotes" data-e="notes" style="min-height:70px">${esc(L.notes)}</textarea></label>
       </div>
@@ -2693,7 +2700,7 @@ $("#fBrand").addEventListener("submit", async e => {
   render();
 });
 
-/* ---------- customer groups: bar, summary, settings ---------- */
+/* ---------- customer categories: bar, summary, settings ---------- */
 function groupSummary(){
   const asOf = asOfDate(), st = S.settings, m = new Map();
   for (const r of S.rows){
@@ -2707,25 +2714,33 @@ function groupSummary(){
   }
   return [...m.values()].sort((a,b) => (a.g === NONE) - (b.g === NONE) || b.net - a.net);
 }
+const FUNNEL_IC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h18l-7 8v6l-4-2v-4z"/></svg>';
+const CAL_IC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>';
 function renderGbar(){
   const bar = $("#gbar"), show = ["dash","cxo","cust","log"].includes(S.view);
   bar.hidden = !show; if (!show) return;
   const cnt = new Map(), useDir = S.view === "cust" || S.view === "log";
   const src = useDir ? Object.keys(S.dir) : [...new Set(S.rows.map(r => r.cn))];
   src.forEach(cn => { const g = groupOf(cn); cnt.set(g, (cnt.get(g) || 0) + 1); });
-  const items = [...S.groups.map(g => g.code), NONE].filter(c => cnt.get(c) || c === S.gf);
-  const b = (code, inner) => `<button type="button" data-g="${esc(code)}" aria-pressed="${S.gf === code}">${inner}</button>`;
-  $("#gbarList").innerHTML = b("", `All groups<i>${src.length}</i>`) + items.map(c => b(c, c === NONE ? `Unassigned<i>${cnt.get(c) || 0}</i>` : `<b>${esc(c)}</b>${esc(gName(c))}<i>${cnt.get(c) || 0}</i>`)).join("");
-  $("#gbarList").querySelectorAll("[data-g]").forEach(x => x.onclick = () => setGroupFilter(x.dataset.g));
-  const on = $("#gbarList [aria-pressed=true]"); if (on && S.gf) { const l = $("#gbarList"); l.scrollLeft = Math.max(0, on.offsetLeft - l.offsetLeft - 40); }
+  const opt = (v, label) => `<option value="${esc(v)}" ${S.gf === v ? "selected" : ""}>${esc(label)}</option>`;
+  const opts = opt("", `All categories (${src.length})`) + S.groups.map(g => opt(g.code, `${g.code} · ${g.name} (${cnt.get(g.code) || 0})`)).join("")
+    + (cnt.get(NONE) || S.gf === NONE ? opt(NONE, `Unassigned (${cnt.get(NONE) || 0})`) : "");
+  const withDate = S.view === "dash" || S.view === "cxo", m = S.meta || {}, hist = S.reports.filter(r => r.ready);
+  bar.innerHTML = `<label class="ff ff-cat" for="gSel"><span>${FUNNEL_IC}<span class="m-hide">Customer&nbsp;</span>category</span><select id="gSel" class="${S.gf ? "on" : ""}">${opts}</select></label>`
+    + (withDate && hist.length > 1 ? `<label class="ff ff-rep" for="hist"><span>Report</span><select id="hist">${hist.map(r => `<option value="${esc(r.id)}" ${r.id === m.id ? "selected" : ""}>${esc(dmy(fromIso(r.asOf)))} · ${esc((r.file || "").slice(0, 28))}</option>`).join("")}</select></label>` : "")
+    + (withDate ? `<label class="ff ff-date" for="asOf"><span>${CAL_IC}Ageing as of</span><span class="dwrap"><input type="date" id="asOf" value="${iso(asOfDate())}">${S.asOfOverride ? `<button type="button" class="rs" id="asOfReset" title="Back to the report date" aria-label="Back to the report date">↺</button>` : ""}</span></label>` : "");
+  $("#gSel").onchange = e => setGroupFilter(e.target.value);
+  const ao = $("#asOf"); if (ao) ao.onchange = e => { const d = fromIso(e.target.value); S.asOfOverride = d && iso(d) !== S.meta?.asOf ? d : null; render(); };
+  const rs = $("#asOfReset"); if (rs) rs.onclick = e => { e.preventDefault(); S.asOfOverride = null; render(); };
+  const h = $("#hist"); if (h) h.onchange = e => { S.pickedId = e.target.value; loadReport(e.target.value); };
 }
 function renderGroupPanel(){
   const list = groupSummary(), wrap = $("#grpWrap");
   if (!list.length){ wrap.innerHTML = `<div class="empty">No customers in this report.</div>`; return; }
   const tot = list.reduce((a, x) => (a.c += x.cs.size, a.net += x.net, a.od += x.overdue, a.cr += x.crit, a.so += x.soon, a.d += x.debit, a), {c:0, net:0, od:0, cr:0, so:0, d:0});
   const maxD = Math.max(1, ...list.map(x => x.debit));
-  $("#grpHint").textContent = S.gf ? `Showing ${gLabel(S.gf)} only · tap it again to show all groups` : "Tap a group to filter the whole dashboard";
-  wrap.innerHTML = `<table class="gsum"><thead><tr><th>Group</th><th class="r">Cust.</th><th class="r">Net due</th><th class="r">Overdue</th><th class="r g-hide">Critical</th><th class="r g-hide">Due soon</th><th class="g-hide">Open debits · overdue share</th></tr></thead><tbody>
+  $("#grpHint").textContent = S.gf ? `Showing ${gLabel(S.gf)} only · tap it again to show all categories` : "Tap a category to filter the whole dashboard";
+  wrap.innerHTML = `<table class="gsum"><thead><tr><th>Category</th><th class="r">Cust.</th><th class="r">Net due</th><th class="r">Overdue</th><th class="r g-hide">Critical</th><th class="r g-hide">Due soon</th><th class="g-hide">Open debits · overdue share</th></tr></thead><tbody>
     ${list.map(x => `<tr data-g="${esc(x.g)}" class="${S.gf === x.g ? "on" : ""}" tabindex="0">
       <td><span class="gtag${x.g === NONE ? " none" : ""}">${x.g === NONE ? "—" : esc(x.g)}</span> <span class="gn">${esc(gName(x.g))}</span></td>
       <td class="r num">${x.cs.size}${x.odc.size ? `<span class="muted g-od"> · ${x.odc.size} overdue</span>` : ""}</td>
@@ -2734,7 +2749,7 @@ function renderGroupPanel(){
       <td class="r num g-hide" style="color:${x.crit ? "var(--crit)" : "inherit"}">${x.crit ? compact(x.crit) : "–"}</td>
       <td class="r num g-hide">${x.soon ? compact(x.soon) : "–"}</td>
       <td class="g-hide"><div class="gbarc" style="width:${Math.max(8, x.debit / maxD * 100).toFixed(1)}%" title="Open debits ${inr(x.debit)} · overdue ${inr(x.overdue)}"><span style="width:${x.debit ? (x.overdue / x.debit * 100).toFixed(1) : 0}%;background:var(--b4)"></span><span style="flex:1;background:var(--b0)"></span></div></td></tr>`).join("")}
-    </tbody><tfoot><tr data-g="" class="${S.gf ? "" : "on"}" style="cursor:pointer"><td>All groups</td><td class="r num">${tot.c}</td><td class="r num">${compact(tot.net)}</td><td class="r num">${compact(tot.od)}</td><td class="r num g-hide">${compact(tot.cr)}</td><td class="r num g-hide">${compact(tot.so)}</td><td class="g-hide"></td></tr></tfoot></table>`;
+    </tbody><tfoot><tr data-g="" class="${S.gf ? "" : "on"}" style="cursor:pointer"><td>All categories</td><td class="r num">${tot.c}</td><td class="r num">${compact(tot.net)}</td><td class="r num">${compact(tot.od)}</td><td class="r num g-hide">${compact(tot.cr)}</td><td class="r num g-hide">${compact(tot.so)}</td><td class="g-hide"></td></tr></tfoot></table>`;
   wrap.querySelectorAll("tr[data-g]").forEach(tr => { const go = () => setGroupFilter(tr.dataset.g && tr.dataset.g === S.gf ? "" : tr.dataset.g); tr.onclick = go; tr.onkeydown = e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); go(); } }; });
 }
 async function saveGroups(){
@@ -2745,30 +2760,30 @@ async function saveGroups(){
 let GE = null;
 function renderGroupEditor(){
   if (!GE) GE = S.groups.map(g => ({...g}));
-  const cnt = new Map(); Object.keys(S.dir).forEach(cn => { const p = S.gassign[cn] || gPrefix(cn); cnt.set(p, (cnt.get(p) || 0) + 1); });
+  const cnt = new Map(); Object.keys(S.dir).forEach(cn => { const p = S.gassign[cn] || S.rowCat[cn] || gPrefix(cn); cnt.set(p, (cnt.get(p) || 0) + 1); });
   const codes = GE.map(g => g.code.trim().toUpperCase()), dup = c => c && codes.filter(x => x === c).length > 1;
-  $("#grpEdit").innerHTML = `<div class="gr"><span class="gh">Code</span><span class="gh">Group name</span><span class="gh n" style="text-align:right">Customers</span><span></span></div>` +
-    GE.map((g, i) => { const c = g.code.trim().toUpperCase(); return `<div class="gr"><input class="code${!/^[A-Z]{1,10}$/.test(c) || dup(c) ? " bad" : ""}" data-gi="${i}" data-gk="code" value="${esc(g.code)}" maxlength="10" aria-label="Group code" placeholder="CNI">
-      <input data-gi="${i}" data-gk="name" value="${esc(g.name)}" maxlength="60" aria-label="Group name" placeholder="Group name">
-      <span class="n">${cnt.get(c) || 0}</span><button type="button" class="rm" data-grm="${i}" aria-label="Remove group">✕</button></div>`; }).join("");
+  $("#grpEdit").innerHTML = `<div class="gr"><span class="gh">Code</span><span class="gh">Category name</span><span class="gh n" style="text-align:right">Customers</span><span></span></div>` +
+    GE.map((g, i) => { const c = g.code.trim().toUpperCase(); return `<div class="gr"><input class="code${!/^[A-Z]{1,10}$/.test(c) || dup(c) ? " bad" : ""}" data-gi="${i}" data-gk="code" value="${esc(g.code)}" maxlength="10" aria-label="Category code" placeholder="CNI">
+      <input data-gi="${i}" data-gk="name" value="${esc(g.name)}" maxlength="60" aria-label="Category name" placeholder="Category name">
+      <span class="n">${cnt.get(c) || 0}${g.auto ? `<span class="gnew" title="Added automatically from uploaded data. Give it a name and save.">New</span>` : ""}</span><button type="button" class="rm" data-grm="${i}" aria-label="Remove category">✕</button></div>`; }).join("");
   $("#grpEdit").querySelectorAll("[data-gi]").forEach(el => el.oninput = () => { GE[+el.dataset.gi][el.dataset.gk] = el.value; if (el.dataset.gk === "code") el.value = el.value.toUpperCase().replace(/[^A-Za-z]/g, ""), GE[+el.dataset.gi].code = el.value; });
   $("#grpEdit").querySelectorAll("[data-grm]").forEach(b => b.onclick = () => { GE.splice(+b.dataset.grm, 1); renderGroupEditor(); });
-  const unknown = new Map(); Object.keys(S.dir).forEach(cn => { const p = gPrefix(cn); if (!S.gassign[cn] && p && !GE.some(g => g.code.toUpperCase() === p)) unknown.set(p, (unknown.get(p) || 0) + 1); });
+  const unknown = new Map(); Object.keys(S.dir).forEach(cn => { const p = S.rowCat[cn] || gPrefix(cn); if (!S.gassign[cn] && p && !GE.some(g => g.code.toUpperCase() === p)) unknown.set(p, (unknown.get(p) || 0) + 1); });
   const ov = Object.entries(S.gassign);
-  $("#grpOver").innerHTML = (unknown.size ? `<div class="banner warn" style="margin-top:14px">Customer codes with no matching group: ${[...unknown].map(([p, n]) => `<b class="num">${esc(p)}</b> (${n})`).join(", ")}. They show as Unassigned until you add a group with that code.</div>` : "") +
+  $("#grpOver").innerHTML = (unknown.size ? `<div class="banner warn" style="margin-top:14px">Customer codes with no matching category: ${[...unknown].map(([p, n]) => `<b class="num">${esc(p)}</b> (${n})`).join(", ")}. They show as Unassigned until you add a category with that code.</div>` : "") +
     (ov.length ? `<h4 style="margin:16px 0 4px">Customers moved by hand</h4><div class="gover">${ov.map(([cn, g]) => `<div><span>${esc((S.dir[cn] || {}).name || cn)}</span><span class="num muted">${esc(cn)}</span>→ <span class="gtag${g === NONE ? " none" : ""}">${g === NONE ? "Unassigned" : esc(g)}</span><button class="btn sm ghost" type="button" data-gun="${esc(cn)}">Back to automatic</button></div>`).join("")}</div>` : "");
   $("#grpOver").querySelectorAll("[data-gun]").forEach(b => b.onclick = async () => { delete S.gassign[b.dataset.gun]; render(); renderGroupEditor(); await saveGroups(); toast("Back to automatic grouping"); });
 }
 $("#grpAdd").onclick = () => { GE = GE || S.groups.map(g => ({...g})); GE.push({code:"", name:""}); renderGroupEditor(); const ins = $("#grpEdit").querySelectorAll("input.code"); ins[ins.length - 1].focus(); };
-$("#grpReset").onclick = () => { GE = DEFAULT_GROUPS.map(g => ({...g})); renderGroupEditor(); toast("Standard groups restored. Click Save groups to keep them."); };
+$("#grpReset").onclick = () => { GE = DEFAULT_GROUPS.map(g => ({...g})); renderGroupEditor(); toast("Standard categories restored. Click Save categories to keep them."); };
 $("#grpSave").onclick = async () => {
-  const list = GE ? GE.map(g => ({code: g.code.trim().toUpperCase(), name: g.name.trim()})).filter(g => g.code || g.name) : S.groups;
+  const list = (GE ? GE : S.groups).map(g => ({code: String(g.code).trim().toUpperCase(), name: String(g.name).trim()})).filter(g => g.code || g.name);
   const codes = list.map(g => g.code);
-  if (list.some(g => !/^[A-Z]{1,10}$/.test(g.code))){ renderGroupEditor(); toast("Each group needs a code of letters only, for example CNI."); return; }
-  if (codes.some((c, i) => codes.indexOf(c) !== i)){ toast("Two groups have the same code."); return; }
-  if (list.some(g => !g.name)){ toast("Give every group a name."); return; }
+  if (list.some(g => !/^[A-Z]{1,10}$/.test(g.code))){ renderGroupEditor(); toast("Each category needs a code of letters only, for example CNI."); return; }
+  if (codes.some((c, i) => codes.indexOf(c) !== i)){ toast("Two categories have the same code."); return; }
+  if (list.some(g => !g.name)){ toast("Give every category a name."); return; }
   S.groups = list; GE = null; gIndex(); render(); renderGroupEditor();
-  await saveGroups(); toast("Customer groups saved");
+  await saveGroups(); toast("Customer categories saved");
 };
 
 /* ---------- report comparison ---------- */
@@ -2892,7 +2907,7 @@ function renderCxo(){
   $("#cxoBody").innerHTML = `<div class="cx-wrap">
     <div class="cx-head">
       <div><div class="cx-eyebrow">Executive summary</div><div class="cx-co">${esc(S.brand.company || S.meta?.company || "")}</div></div>
-      <div class="cx-meta"><span class="chip ${h.c}">${h.t}</span><span>${S.gf ? "Group: " + esc(gLabel(S.gf)) : "All customer groups"}</span><span>Report dated ${dmy(V.asOf)}</span>${prev ? `<span>Compared with ${dmy(fromIso(prev.meta.asOf))}</span>` : ""}</div>
+      <div class="cx-meta"><span class="chip ${h.c}">${h.t}</span><span>${S.gf ? "Category: " + esc(gLabel(S.gf)) : "All customer categories"}</span><span>Report dated ${dmy(V.asOf)}</span>${prev ? `<span>Compared with ${dmy(fromIso(prev.meta.asOf))}</span>` : ""}</div>
     </div>
     <div class="cx-figs">
       ${fig("Net receivable", compact(k.net), `${plural(V.list.length, "customer")} ${deltaChip(k.net, ps && ps.net, true, vs)}`)}
@@ -3047,7 +3062,7 @@ async function buildMainReport(){
   const prev = prevReport(), ps = prev ? repStats(prev.rows, fromIso(prev.meta.asOf)) : null, mv = prev ? movement(prev) : null;
   const age = V.age, tot = age.reduce((s,b) => s + b.v, 0) || 1, share = (tot - age[0].v) / tot, h = healthOf(share);
   pdfCover(ctx, "Customer Outstanding & Collections Report", ctx.company, [
-    ["Company", ctx.company], ["Report date", dmy(V.asOf)], ["Customer group", S.gf ? gLabel(S.gf) : "All groups"], ["Customers", String(V.list.length)], ["Open ledger entries", String(V.rows.length)],
+    ["Company", ctx.company], ["Report date", dmy(V.asOf)], ["Customer category", S.gf ? gLabel(S.gf) : "All categories"], ["Customers", String(V.list.length)], ["Open ledger entries", String(V.rows.length)],
     ["Source", S.meta?.file || "-"], ["Prepared by", `${ctx.app}${S.brand.tagline ? " · " + S.brand.tagline : ""}`]]);
   // 1 Executive summary
   doc.addPage(); let y = 26;
@@ -3076,9 +3091,9 @@ async function buildMainReport(){
   }
   if (!S.gf){
     const gs = groupSummary();
-    y = pdfH(ctx, y, "Outstanding by customer group", "Customer groups by posting group code, largest net balance first");
-    y = pdfTable(ctx, y, ["Group", "Customers", "Net due (Rs)", "Overdue (Rs)", "Critical (Rs)", "Due soon (Rs)"], [...gs.map(x => [x.g === NONE ? "Unassigned" : x.g + " - " + gName(x.g), String(x.cs.size), num0(x.net), x.overdue ? num0(x.overdue) : "-", x.crit ? num0(x.crit) : "-", x.soon ? num0(x.soon) : "-"]),
-      [{content:"All groups", styles:{fontStyle:"bold"}}, {content:String(gs.reduce((a,x) => a + x.cs.size, 0)), styles:{fontStyle:"bold"}}, {content:num0(gs.reduce((a,x) => a + x.net, 0)), styles:{fontStyle:"bold"}}, {content:num0(gs.reduce((a,x) => a + x.overdue, 0)), styles:{fontStyle:"bold"}}, {content:num0(gs.reduce((a,x) => a + x.crit, 0)), styles:{fontStyle:"bold"}}, {content:num0(gs.reduce((a,x) => a + x.soon, 0)), styles:{fontStyle:"bold"}}]],
+    y = pdfH(ctx, y, "Outstanding by customer category", "Customer categories by posting group code, largest net balance first");
+    y = pdfTable(ctx, y, ["Category", "Customers", "Net due (Rs)", "Overdue (Rs)", "Critical (Rs)", "Due soon (Rs)"], [...gs.map(x => [x.g === NONE ? "Unassigned" : x.g + " - " + gName(x.g), String(x.cs.size), num0(x.net), x.overdue ? num0(x.overdue) : "-", x.crit ? num0(x.crit) : "-", x.soon ? num0(x.soon) : "-"]),
+      [{content:"All categories", styles:{fontStyle:"bold"}}, {content:String(gs.reduce((a,x) => a + x.cs.size, 0)), styles:{fontStyle:"bold"}}, {content:num0(gs.reduce((a,x) => a + x.net, 0)), styles:{fontStyle:"bold"}}, {content:num0(gs.reduce((a,x) => a + x.overdue, 0)), styles:{fontStyle:"bold"}}, {content:num0(gs.reduce((a,x) => a + x.crit, 0)), styles:{fontStyle:"bold"}}, {content:num0(gs.reduce((a,x) => a + x.soon, 0)), styles:{fontStyle:"bold"}}]],
       {cols: {0:{cellWidth:62}, 1:{halign:"right"}, 2:{halign:"right", fontStyle:"bold"}, 3:{halign:"right"}, 4:{halign:"right"}, 5:{halign:"right"}}});
   }
   // 3 Alerts
@@ -3090,7 +3105,7 @@ async function buildMainReport(){
   // 4 Customer-wise outstanding
   y = pdfH(ctx, y, "4. Customer-wise outstanding", "All customers in the report, largest net balance first");
   const cl = [...V.list].sort((a,b) => b.net - a.net);
-  y = pdfTable(ctx, y, ["Code", "Grp", "Customer", "City", "Debit (Rs)", "Credit (Rs)", "Net due (Rs)", "Overdue (Rs)", "Oldest", "Status"],
+  y = pdfTable(ctx, y, ["Code", "Cat", "Customer", "City", "Debit (Rs)", "Credit (Rs)", "Net due (Rs)", "Overdue (Rs)", "Oldest", "Status"],
     [...cl.map(c => [c.cn, groupOf(c.cn) === NONE ? "-" : groupOf(c.cn), c.c, c.ci || "", c.debit ? num0(c.debit) : "-", c.credit ? num0(c.credit) : "-", num0(c.net), c.overdue ? num0(c.overdue) : "-", c.maxOd > 0 ? c.maxOd + " d" : "-", STATUS_LABEL[c.status]]),
      [{content:`${cl.length} customers`, colSpan:4, styles:{fontStyle:"bold"}}, {content:num0(k.debit), styles:{fontStyle:"bold"}}, {content:num0(k.credit), styles:{fontStyle:"bold"}}, {content:num0(k.net), styles:{fontStyle:"bold"}}, {content:num0(cl.reduce((s,c)=>s+c.overdue,0)), styles:{fontStyle:"bold"}}, "", ""]],
     {cols: {0:{cellWidth:16}, 1:{cellWidth:10}, 2:{cellWidth:38}, 3:{cellWidth:16}, 4:{halign:"right"}, 5:{halign:"right"}, 6:{halign:"right", fontStyle:"bold"}, 7:{halign:"right"}, 8:{halign:"right", cellWidth:12}, 9:{cellWidth:17}},
@@ -3112,7 +3127,7 @@ async function buildMainReport(){
   // notes
   y = pdfH(ctx, y, "Notes");
   doc.setFont("helvetica", "normal"); doc.setFontSize(8.5); doc.setTextColor(...PC.muted);
-  doc.text(doc.splitTextToSize(pt(`Figures are based on the customer outstanding report dated ${dmy(V.asOf)}${S.meta?.file ? " (" + S.meta.file + ")" : ""}. Alerts consider balances of ${rsC(st.minAmt)} or more; smaller balances are treated as residuals. "Critical" means more than ${st.critDays} days past the due date. Amounts are in Indian Rupees.${S.gf ? " This report covers customer group " + gLabel(S.gf) + " only." : " Customer groups follow the customer code prefix (posting group)."}`), W - 2 * M), M, y);
+  doc.text(doc.splitTextToSize(pt(`Figures are based on the customer outstanding report dated ${dmy(V.asOf)}${S.meta?.file ? " (" + S.meta.file + ")" : ""}. Alerts consider balances of ${rsC(st.minAmt)} or more; smaller balances are treated as residuals. "Critical" means more than ${st.critDays} days past the due date. Amounts are in Indian Rupees.${S.gf ? " This report covers customer category " + gLabel(S.gf) + " only." : " Customer categories follow the customer code prefix (posting group)."}`), W - 2 * M), M, y);
   pdfChrome(ctx, "Receivables report");
   await pdfSave(ctx, `${ctx.company} Receivables Report ${dmy(V.asOf)}${S.gf ? " " + (S.gf === NONE ? "Unassigned" : S.gf) : ""}`);
 }
@@ -3121,7 +3136,7 @@ async function buildCxoReport(){
   const ctx = await pdfBase("cxo"), {doc, M, W} = ctx, k = V.k, st = S.settings;
   const prev = prevReport(), ps = prev ? repStats(prev.rows, fromIso(prev.meta.asOf)) : null, mv = prev ? movement(prev) : null;
   const age = V.age, tot = age.reduce((s,b) => s + b.v, 0) || 1, share = (tot - age[0].v) / tot, h = healthOf(share), wk = weekActivity();
-  pdfCover(ctx, "Executive Summary", ctx.company, [["Company", ctx.company], ["Report date", dmy(V.asOf)], ["Customer group", S.gf ? gLabel(S.gf) : "All groups"], ["Compared with", prev ? dmy(fromIso(prev.meta.asOf)) : "No earlier report"], ["Overall status", `${h.t} · ${Math.round(share * 100)}% of open debits past due`], ["Prepared by", `${ctx.app}${S.brand.tagline ? " · " + S.brand.tagline : ""}`]]);
+  pdfCover(ctx, "Executive Summary", ctx.company, [["Company", ctx.company], ["Report date", dmy(V.asOf)], ["Customer category", S.gf ? gLabel(S.gf) : "All categories"], ["Compared with", prev ? dmy(fromIso(prev.meta.asOf)) : "No earlier report"], ["Overall status", `${h.t} · ${Math.round(share * 100)}% of open debits past due`], ["Prepared by", `${ctx.app}${S.brand.tagline ? " · " + S.brand.tagline : ""}`]]);
   doc.addPage(); let y = 26;
   y = pdfH(ctx, y, "Key numbers", `${S.gf ? gLabel(S.gf) + " · " : ""}As on ${dmy(V.asOf)}`);
   const dl = (c, p) => p == null ? "" : (Math.abs(c - p) < 1 ? "no change" : (c > p ? "+" : "-") + rsC(Math.abs(c - p)));
@@ -3353,7 +3368,7 @@ async function saveWorkbook(wb, name){
 function newBook(Excel){ const wb = new Excel.Workbook(); wb.creator = S.brand.appName || "Credit Control Desk"; wb.company = S.brand.company || ""; wb.created = new Date(); return wb; }
 async function buildWorkbook(){
   const Excel = await loadExcel(), wb = newBook(Excel), st = S.settings, k = V.k, company = S.brand.company || S.meta?.company || "";
-  const grpTxt = S.gf ? gLabel(S.gf) : "All customer groups", last = lastActivityMap();
+  const grpTxt = S.gf ? gLabel(S.gf) : "All customer categories", last = lastActivityMap();
   const sub = `${grpTxt} · report dated ${dmy(V.asOf)}${S.meta?.file ? " · " + S.meta.file : ""}`;
   const age = V.age, tot = age.reduce((a, b) => a + b.v, 0) || 1, share = (tot - age[0].v) / tot;
   const prev = prevReport(), ps = prev ? repStats(prev.rows, fromIso(prev.meta.asOf)) : null, mv = prev ? movement(prev) : null;
@@ -3362,7 +3377,7 @@ async function buildWorkbook(){
   ws.columns = [{width:40}, {width:20}, {width:14}, {width:14}];
   ws.mergeCells("A1:D1"); ws.getCell("A1").value = company; ws.getCell("A1").font = {bold:true, size:16, color:{argb: argb(S.brand.color)}};
   ws.getCell("A2").value = "Customer Outstanding & Collections"; ws.getCell("A2").font = {bold:true, size:12};
-  const info = [["Report date", xlDate(iso(V.asOf))], ["Customer group", grpTxt], ["Source", S.meta?.file || ""], ["Compared with", prev ? xlDate(prev.meta.asOf) : "No earlier report"], ["Exported", new Date()]];
+  const info = [["Report date", xlDate(iso(V.asOf))], ["Customer category", grpTxt], ["Source", S.meta?.file || ""], ["Compared with", prev ? xlDate(prev.meta.asOf) : "No earlier report"], ["Exported", new Date()]];
   info.forEach(([l, v], i) => { const row = ws.getRow(4 + i); row.getCell(1).value = l; row.getCell(1).font = {color:{argb:"FF5B655F"}}; row.getCell(2).value = v; if (v instanceof Date) row.getCell(2).numFmt = l === "Exported" ? XL_FMT.dt : XL_FMT.date; row.getCell(2).alignment = {horizontal:"left"}; });
   const head = (r, labels) => { const row = ws.getRow(r); labels.forEach((t, i) => { const c = row.getCell(i + 1); c.value = t; c.font = {bold:true, color:{argb:"FFFFFFFF"}}; c.fill = {type:"pattern", pattern:"solid", fgColor:{argb: argb(S.brand.color)}}; c.alignment = {horizontal: i ? "right" : "left"}; }); };
   let r = 11; head(r, ["Key figures", "Amount (₹)", "Invoices", "Customers"]);
@@ -3374,17 +3389,17 @@ async function buildWorkbook(){
   age.forEach((b, i) => { const row = ws.getRow(r + 1 + i); row.getCell(1).value = b.label === "Not due" ? "Not yet due" : b.label + " days past due"; row.getCell(2).value = xlR(b.v); row.getCell(2).numFmt = XL_FMT.money; row.getCell(3).value = b.n; row.getCell(4).value = b.v / tot; row.getCell(4).numFmt = XL_FMT.pct; [1,2,3,4].forEach(j => row.getCell(j).border = {bottom:xlThin}); });
   const tr = ws.getRow(r + age.length + 1); tr.getCell(1).value = "Total"; tr.getCell(2).value = xlR(tot); tr.getCell(2).numFmt = XL_FMT.money; tr.getCell(3).value = age.reduce((a, b) => a + b.n, 0); tr.getCell(4).value = 1; tr.getCell(4).numFmt = XL_FMT.pct; [1,2,3,4].forEach(j => { tr.getCell(j).font = {bold:true}; tr.getCell(j).border = {top:{style:"medium"}}; });
   r += age.length + 4;
-  ws.getCell(`A${r}`).value = `Alerts consider balances of ₹${st.minAmt.toLocaleString("en-IN")} or more. Critical means more than ${st.critDays} days past due. Customer groups follow the customer code prefix (posting group) unless moved by hand.`;
+  ws.getCell(`A${r}`).value = `Alerts consider balances of ₹${st.minAmt.toLocaleString("en-IN")} or more. Critical means more than ${st.critDays} days past due. Customer categories follow the customer code prefix (posting group) unless moved by hand.`;
   ws.getCell(`A${r}`).font = {italic:true, size:9, color:{argb:"FF5B655F"}}; ws.mergeCells(`A${r}:D${r}`); ws.getCell(`A${r}`).alignment = {wrapText:true, vertical:"top"}; ws.getRow(r).height = 42;
   ws.views = [{showGridLines:false}]; ws.pageSetup = {orientation:"portrait", fitToPage:true, fitToWidth:1, fitToHeight:0, paperSize:9};
   // Customers
   const cl = [...V.list].sort((a, b) => b.net - a.net);
-  xlTable(wb, "Customers", [{h:"Code", w:12}, {h:"Customer", w:38}, {h:"Group", w:8}, {h:"Group name", w:22}, {h:"City", w:14}, {h:"Debit (₹)", w:15, t:"money"}, {h:"Credit (₹)", w:15, t:"money"}, {h:"Net due (₹)", w:15, t:"money"}, {h:"Overdue (₹)", w:15, t:"money"}, {h:`Due in ${st.soonDays} days (₹)`, w:15, t:"money"}, {h:"Oldest (days)", w:10, t:"int"}, {h:"Status", w:12}, {h:"Follow-up", w:12}, {h:"Promised by", w:12, t:"date"}, {h:"Last reminder", w:24}],
+  xlTable(wb, "Customers", [{h:"Code", w:12}, {h:"Customer", w:38}, {h:"Category", w:8}, {h:"Category name", w:22}, {h:"City", w:14}, {h:"Debit (₹)", w:15, t:"money"}, {h:"Credit (₹)", w:15, t:"money"}, {h:"Net due (₹)", w:15, t:"money"}, {h:"Overdue (₹)", w:15, t:"money"}, {h:`Due in ${st.soonDays} days (₹)`, w:15, t:"money"}, {h:"Oldest (days)", w:10, t:"int"}, {h:"Status", w:12}, {h:"Follow-up", w:12}, {h:"Promised by", w:12, t:"date"}, {h:"Last reminder", w:24}],
     cl.map(c => { const fu = S.followups[safeId(c.cn)], l = last[c.cn]; return [c.cn, c.c, ...xlGroup(c.cn), c.ci || "", xlR(c.debit), xlR(c.credit), xlR(c.net), xlR(c.overdue), xlR(c.soon), c.maxOd > 0 ? c.maxOd : null, STATUS_LABEL[c.status], fu && fu.status && fu.status !== "open" ? fu.status[0].toUpperCase() + fu.status.slice(1) : "", fu && fu.status === "promised" ? xlDate(fu.promiseDate) : null, l ? `${CH_LABEL[l.ch]} · ${fmtWhen(l.at)}` : ""]; }),
     {title: company + " · Customer-wise outstanding", sub, total:{label:`${cl.length} customers`, cols:[5,6,7,8,9]}, freezeCols:2});
   // Ledger
   const led = [...V.rows].sort((a, b) => a.c.localeCompare(b.c) || b.od - a.od);
-  const ledCols = [{h:"Code", w:12}, {h:"Customer", w:34}, {h:"Group", w:8}, {h:"City", w:13}, {h:"Type", w:12}, {h:"Document", w:18}, {h:"Ext. doc / PO", w:16}, {h:"Posting date", w:12, t:"date"}, {h:"Due date", w:12, t:"date"}, {h:"Days past due", w:10, t:"int"}, {h:"Ageing", w:10}, {h:"Amount (₹)", w:15, t:"money"}, {h:"Remaining (₹)", w:15, t:"money"}];
+  const ledCols = [{h:"Code", w:12}, {h:"Customer", w:34}, {h:"Category", w:8}, {h:"City", w:13}, {h:"Type", w:12}, {h:"Document", w:18}, {h:"Ext. doc / PO", w:16}, {h:"Posting date", w:12, t:"date"}, {h:"Due date", w:12, t:"date"}, {h:"Days past due", w:10, t:"int"}, {h:"Ageing", w:10}, {h:"Amount (₹)", w:15, t:"money"}, {h:"Remaining (₹)", w:15, t:"money"}];
   const ledRow = x => [x.cn, x.c, xlGroup(x.cn)[0], x.ci || "", x.t || "", x.no || "", /^e-?mail$/i.test(x.ex || "") ? "" : x.ex || "", xlDate(x.d), xlDate(x.du), x.r > 0 ? x.od : null, x.r > 0 ? bucketOf(x.od) : "Credit", xlR(x.a), xlR(x.r)];
   xlTable(wb, "Ledger", ledCols, led.map(ledRow), {title: company + " · Open ledger entries", sub, total:{label:`${led.length} entries`, cols:[12]}, freezeCols:2});
   // Overdue
@@ -3397,22 +3412,22 @@ async function buildWorkbook(){
     {title: company + ` · Invoices due in the next ${st.soonDays} days`, sub, total:{label:`${sr.length} invoices`, cols:[10]}, freezeCols:2, tab:"FF1F4E9A"});
   // Alerts
   const al = V.alerts.filter(a => a.cust);
-  xlTable(wb, "Alerts", [{h:"Priority", w:10}, {h:"Code", w:12}, {h:"Customer", w:34}, {h:"Group", w:8}, {h:"City", w:13}, {h:"Amount (₹)", w:15, t:"money"}, {h:"Detail", w:60, wrap:true}, {h:"Follow-up", w:12}, {h:"Promised by", w:12, t:"date"}, {h:"Note", w:30, wrap:true}, {h:"Last reminder", w:24}],
+  xlTable(wb, "Alerts", [{h:"Priority", w:10}, {h:"Code", w:12}, {h:"Customer", w:34}, {h:"Category", w:8}, {h:"City", w:13}, {h:"Amount (₹)", w:15, t:"money"}, {h:"Detail", w:60, wrap:true}, {h:"Follow-up", w:12}, {h:"Promised by", w:12, t:"date"}, {h:"Note", w:30, wrap:true}, {h:"Last reminder", w:24}],
     al.map(a => { const l = last[a.cn]; return [SEV_LABEL[a.sev], a.cn, a.title, xlGroup(a.cn)[0], a.cust.ci || "", xlR(a.amt), a.desc, a.fu && a.fu.status ? a.fu.status[0].toUpperCase() + a.fu.status.slice(1) : "", a.fu && a.fu.status === "promised" ? xlDate(a.fu.promiseDate) : null, a.fu ? a.fu.note || "" : "", l ? `${CH_LABEL[l.ch]} · ${fmtWhen(l.at)}` : ""]; }),
     {title: company + " · Pending-due alerts", sub, freezeCols:3, tab:"FFC2410C"});
   // Ageing by group
   const groupsInRows = [...new Set(V.rows.map(x => groupOf(x.cn)))].sort((a, b) => (a === NONE) - (b === NONE) || a.localeCompare(b));
   const agRows = groupsInRows.map(g => { const v = BUCKETS.map(() => 0); V.rows.forEach(x => { if (x.r > 0 && groupOf(x.cn) === g){ const i = BUCKETS.findIndex(b => b.test(x.od)); if (i >= 0) v[i] += x.r; } }); return [g === NONE ? "Unassigned" : g + " · " + gName(g), ...v.map(xlR), xlR(v.reduce((a, b) => a + b, 0))]; });
-  xlTable(wb, "Ageing", [{h:"Customer group", w:34}, ...BUCKETS.map(b => ({h: b.label === "Not due" ? "Not yet due (₹)" : b.label + " days (₹)", w:15, t:"money"})), {h:"Total open debits (₹)", w:17, t:"money"}], agRows,
-    {title: company + " · Ageing of open debits by customer group", sub, total:{label:"Total", cols: BUCKETS.map((b, i) => i + 1).concat([BUCKETS.length + 1])}});
+  xlTable(wb, "Ageing", [{h:"Customer category", w:34}, ...BUCKETS.map(b => ({h: b.label === "Not due" ? "Not yet due (₹)" : b.label + " days (₹)", w:15, t:"money"})), {h:"Total open debits (₹)", w:17, t:"money"}], agRows,
+    {title: company + " · Ageing of open debits by customer category", sub, total:{label:"Total", cols: BUCKETS.map((b, i) => i + 1).concat([BUCKETS.length + 1])}});
   // Groups (all groups, regardless of filter)
   const gs = groupSummary();
-  xlTable(wb, "Groups", [{h:"Code", w:9}, {h:"Customer group", w:28}, {h:"Customers", w:11, t:"int"}, {h:"With overdue", w:12, t:"int"}, {h:"Open debits (₹)", w:16, t:"money"}, {h:"Net due (₹)", w:16, t:"money"}, {h:"Overdue (₹)", w:16, t:"money"}, {h:"Critical (₹)", w:16, t:"money"}, {h:`Due in ${st.soonDays} days (₹)`, w:16, t:"money"}, {h:"Overdue share", w:12, t:"pct"}],
+  xlTable(wb, "Categories", [{h:"Code", w:9}, {h:"Customer category", w:28}, {h:"Customers", w:11, t:"int"}, {h:"With overdue", w:12, t:"int"}, {h:"Open debits (₹)", w:16, t:"money"}, {h:"Net due (₹)", w:16, t:"money"}, {h:"Overdue (₹)", w:16, t:"money"}, {h:"Critical (₹)", w:16, t:"money"}, {h:`Due in ${st.soonDays} days (₹)`, w:16, t:"money"}, {h:"Overdue share", w:12, t:"pct"}],
     gs.map(x => [x.g === NONE ? "" : x.g, gName(x.g), x.cs.size, x.odc.size, xlR(x.debit), xlR(x.net), xlR(x.overdue), xlR(x.crit), xlR(x.soon), x.debit ? x.overdue / x.debit : 0]),
-    {title: company + " · Outstanding by customer group (all groups)", sub: `Report dated ${dmy(V.asOf)}`, total:{label:"All groups", cols:[2,3,4,5,6,7,8]}});
+    {title: company + " · Outstanding by customer category (all categories)", sub: `Report dated ${dmy(V.asOf)}`, total:{label:"All categories", cols:[2,3,4,5,6,7,8]}});
   // Activity
   const act = allActivity().filter(e => inG(e.cn));
-  xlTable(wb, "Activity", [{h:"Date & time", w:17, t:"dt"}, {h:"Code", w:12}, {h:"Customer", w:32}, {h:"Group", w:8}, {h:"Channel", w:14}, {h:"Reminder", w:10}, {h:"Sent to", w:26}, {h:"Invoices", w:30, wrap:true}, {h:"Amount (₹)", w:15, t:"money"}, {h:"Status", w:20}, {h:"Error", w:30, wrap:true}],
+  xlTable(wb, "Activity", [{h:"Date & time", w:17, t:"dt"}, {h:"Code", w:12}, {h:"Customer", w:32}, {h:"Category", w:8}, {h:"Channel", w:14}, {h:"Reminder", w:10}, {h:"Sent to", w:26}, {h:"Invoices", w:30, wrap:true}, {h:"Amount (₹)", w:15, t:"money"}, {h:"Status", w:20}, {h:"Error", w:30, wrap:true}],
     act.map(e => [new Date(e.at), e.cn, e.customer || (S.dir[e.cn] || {}).name || "", xlGroup(e.cn)[0], CH_LABEL[e.ch] || e.ch, e.kind === "soon" ? "Due soon" : e.kind === "od" ? "Overdue" : "", e.ch === "email" ? e.to || "" : e.to ? fmtPhone(e.to) : "", (e.invoices || []).join(", "), e.amount ? xlR(e.amount) : null, statusOf(e).t, e.error || ""]),
     {title: company + " · Reminder activity", sub: grpTxt, freezeCols:1, tab:"FF6B42C4"});
   await saveWorkbook(wb, `${company} Receivables ${dmy(V.asOf)}${S.gf ? " " + (S.gf === NONE ? "Unassigned" : S.gf) : ""}`);
@@ -3427,11 +3442,11 @@ $("#btnExport").onclick = e => runExcel(e.currentTarget);
 $("#btnCxoXls").onclick = e => runExcel(e.currentTarget);
 $("#btnTemplate2").onclick = async () => {
   if (typeof XLSX === "undefined"){ toast("Spreadsheet library did not load"); return; }
-  const head = ["Posting Date","Customer No","Customer Name","City","Contact Person","Phone","Document Type","Document No","External Document No","Due Date","Amount","Remaining Amount"];
-  const ex = [["11-09-2026","CUST-0001","Example Engineering Pvt Ltd","PUNE","Mr. A. Kumar","98xxxxxx00","Invoice","INV/26-27/0001","PO-4521","11-10-2026",50150,50150],
-              ["21-07-2026","CUST-0002","Example Power Ltd","VADODARA","Ms. B. Shah","97xxxxxx00","Payment","RCPT/0098","","21-07-2026",-41130,-41130]];
+  const head = ["Posting Date","Customer No","Customer Name","Customer Category","City","Contact Person","Phone","Document Type","Document No","External Document No","Due Date","Amount","Remaining Amount"];
+  const ex = [["11-09-2026","CNI-0001","Example Engineering Pvt Ltd","CNI","PUNE","Mr. A. Kumar","98xxxxxx00","Invoice","INV/26-27/0001","PO-4521","11-10-2026",50150,50150],
+              ["21-07-2026","CPT-0002","Example Power Ltd","CPT","VADODARA","Ms. B. Shah","97xxxxxx00","Payment","RCPT/0098","","21-07-2026",-41130,-41130]];
   const ws = XLSX.utils.aoa_to_sheet([head, ...ex]); ws["!cols"] = head.map(h => ({wch: Math.max(12, h.length + 2)}));
-  const notes = XLSX.utils.aoa_to_sheet([["How to fill this template"],["One row per open ledger entry (invoice, payment, credit note)."],["Remaining Amount: positive for money the customer owes (debit), negative for unapplied payments/credit notes (credit)."],["Dates as DD-MM-YYYY. Due Date drives the ageing and alerts."],["Instead of Remaining Amount you can give separate Debit and Credit columns."],["Delete the two example rows before uploading."]]);
+  const notes = XLSX.utils.aoa_to_sheet([["How to fill this template"],["One row per open ledger entry (invoice, payment, credit note)."],["Remaining Amount: positive for money the customer owes (debit), negative for unapplied payments/credit notes (credit)."],["Dates as DD-MM-YYYY. Due Date drives the ageing and alerts."],["Instead of Remaining Amount you can give separate Debit and Credit columns."],["Customer Category is optional (for example CNI, CPT). If left out, the letters at the start of the Customer No are used. New categories are added automatically."],["Delete the two example rows before uploading."]]);
   const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Outstanding"); XLSX.utils.book_append_sheet(wb, notes, "Instructions");
   await saveFile("Customer outstanding template.xlsx", new Blob([XLSX.write(wb, {bookType:"xlsx", type:"array"})]));
 };
@@ -3517,15 +3532,15 @@ const smp = sampleData(); S.meta = smp.meta; S.rows = smp.rows; renderSettings()
 async function boot(){
   if (SERVER){ db = restDb(); dl = localDownloads; }
   else {
-    if (!window.claude || !window.claude.use) { $("#btnExport").hidden = true; $("#btnCxoXls").hidden = true; $("#btnTemplate2").hidden = true; $("#btnReport").hidden = true; $("#btnCxoPdf").hidden = true; return; }
+    if (!window.claude || !window.claude.use) { S.groupsLoaded = true; captureCategories(); $("#btnExport").hidden = true; $("#btnCxoXls").hidden = true; $("#btnTemplate2").hidden = true; $("#btnReport").hidden = true; $("#btnCxoPdf").hidden = true; return; }
     const [d, x] = await Promise.all([window.claude.use("db"), window.claude.use("downloads")]);
     dl = x; if (!dl){ $("#btnExport").hidden = true; $("#btnCxoXls").hidden = true; $("#btnTemplate2").hidden = true; $("#btnReport").hidden = true; $("#btnCxoPdf").hidden = true; }
-    db = d; if (!db) return;
+    db = d; if (!db){ S.groupsLoaded = true; captureCategories(); return; }
   }
   const stopErr = () => {};
   db.doc("settings/alerts").onSnapshot(s => { if (s.exists){ S.settings = {...DEFAULT_SETTINGS, ...s.data()}; renderSettings(); render(); } }, stopErr);
   db.doc("settings/branding").onSnapshot(s => { if (s.exists) setBrand(s.data(), true); }, stopErr);
-  db.doc("settings/groups").onSnapshot(s => { if (s.exists){ const d = s.data() || {}; S.groups = Array.isArray(d.list) && d.list.length ? d.list : DEFAULT_GROUPS.map(g => ({...g})); S.gassign = d.assign || {}; gIndex(); render(); if (S.view === "cust") renderCustView(); if (S.view === "log") renderLogView(); if (S.view === "settings" && !GE) renderGroupEditor(); } }, stopErr);
+  db.doc("settings/groups").onSnapshot(s => { const first = !S.groupsLoaded; S.groupsLoaded = true; if (!s.exists && first) captureCategories(); if (s.exists){ const d = s.data() || {}; S.groups = Array.isArray(d.list) && d.list.length ? d.list : DEFAULT_GROUPS.map(g => ({...g})); S.gassign = d.assign || {}; gIndex(); render(); if (S.view === "cust") renderCustView(); if (S.view === "log") renderLogView(); if (S.view === "settings" && !GE) renderGroupEditor(); if (first) captureCategories(); } }, stopErr);
   db.doc("settings/comms").onSnapshot(s => { if (s.exists){ S.comms = mergeComms(s.data()); renderComms(); } }, stopErr);
   db.collection("followups").onSnapshot(s => { const m = {}; s.docs.forEach(doc => m[doc.id] = doc.data()); S.followups = m; render(); if (C) renderCompose(); }, stopErr);
   db.collection("bccustomers").onSnapshot(s => { const m = {}; s.docs.forEach(doc => m[doc.id] = doc.data()); S.bc = m; buildDir(); if (S.view === "cust") renderCustView(); }, stopErr);
