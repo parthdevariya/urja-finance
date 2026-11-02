@@ -356,6 +356,8 @@ tr.clickrow:hover td{background:var(--surface-2)}
 .bcguide summary{cursor:pointer;font-weight:500}
 .bcguide ol{margin:10px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--ink-2)}
 .bcguide code{font-family:var(--mono);font-size:12px;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:0 4px}
+.sqlbox{font-family:var(--mono);font-size:11.5px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:10px;white-space:pre-wrap;overflow-x:auto;margin:10px 0 8px;max-height:280px}
+.dbsteps code{font-family:var(--mono);font-size:12px;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:0 4px}
 .bcfields{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);margin-top:6px;overflow-wrap:anywhere}
 /* uploads view */
 .uplgrid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:0}
@@ -853,6 +855,7 @@ tr.clickrow:hover td{background:var(--surface-2)}
         <button role="tab" type="button" data-st="wa" aria-selected="false">WhatsApp</button>
         <button role="tab" type="button" data-st="voice" aria-selected="false">Voice AI (OmniDim)</button>
         <button role="tab" type="button" data-st="bc" aria-selected="false">Business Central</button>
+        <button role="tab" type="button" data-st="db" aria-selected="false">Database</button>
         <button role="tab" type="button" data-st="server" aria-selected="false">Server &amp; API keys</button>
       </div>
       <span class="muted" id="settingsNote" style="font-size:12px">Shared with everyone who opens this dashboard</span>
@@ -1011,6 +1014,50 @@ tr.clickrow:hover td{background:var(--surface-2)}
         </details>
       </form>
 
+
+      <form class="spane" data-sp="db" hidden id="fDb" novalidate>
+        <div id="dbHosted">
+          <div class="banner">This dashboard keeps its data in its own shared storage. <b>Supabase</b> (PostgreSQL) is connected from the <b>self-hosted Credit Control Desk app</b>, because a database needs a secret key that can't be kept in this page. To move this data there, download a backup below and restore it in the app under Settings → Database.</div>
+        </div>
+        <div id="dbServer" hidden>
+          <div class="bcstat" id="dbStatus"></div>
+          <div id="dbWarn"></div>
+          <h4>Supabase connection</h4>
+          <div class="frow">
+            <label class="fld" for="dbUrl">Project URL<input id="dbUrl" name="supabaseUrl" type="url" placeholder="https://abcd1234.supabase.co" autocomplete="off"><span class="h">Supabase → Project Settings → Data API → Project URL</span></label>
+            <label class="fld" for="dbKey">Secret (service_role) key<input id="dbKey" name="supabaseKey" type="password" autocomplete="new-password" data-secret><span class="h">Project Settings → API keys. Not the anon/publishable key. Stored on the server only.</span></label>
+            <label class="fld" for="dbTable">Table name<input id="dbTable" name="supabaseTable" placeholder="ccd_documents" autocomplete="off"></label>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn" type="button" id="dbTest">Test connection</button>
+            <button class="btn primary" type="button" id="dbCopy" hidden>Copy this app's data to Supabase and switch</button>
+            <button class="btn" type="button" id="dbRemote" hidden>Switch to the data already in Supabase</button>
+            <button class="btn" type="button" id="dbSync" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11a8 8 0 0 0-14.9-3.9L4 9M4 4v5h5M4 13a8 8 0 0 0 14.9 3.9L20 15m0 5v-5h-5"/></svg>Save to Supabase now</button>
+            <button class="btn ghost" type="button" id="dbLocal" hidden>Switch back to local file</button>
+          </div>
+          <div id="dbResult"></div>
+          <details class="bcguide" id="dbGuide">
+            <summary>Supabase setup (once, about 10 minutes)</summary>
+            <ol class="dbsteps">
+              <li>Create a project at <b>supabase.com</b>. Choose the <b>Mumbai (ap-south-1)</b> region for India.</li>
+              <li>Open <b>SQL Editor → New query</b>, paste the SQL below and click <b>Run</b>. It creates one private table for all Credit Control Desk data.</li>
+              <li>Copy the <b>Project URL</b> and the <b>secret (service_role) key</b> into the fields above and click <b>Test connection</b>.</li>
+              <li>Click <b>Copy this app's data to Supabase and switch</b>. From then on every change is saved to Supabase, and a local copy is kept on the server.</li>
+              <li><b>On Render:</b> add the environment variables <code>SUPABASE_URL</code>, <code>SUPABASE_SERVICE_KEY</code> and <code>DB_BACKEND=supabase</code> (Service → Environment). Render's disk is wiped on every deploy, so these let the app reconnect and reload all data and settings by itself after a redeploy.</li>
+            </ol>
+            <pre class="sqlbox" id="dbSql"></pre>
+            <button class="btn sm" type="button" id="dbSqlCopy">Copy SQL</button>
+          </details>
+        </div>
+        <h4>Backup &amp; restore</h4>
+        <div class="ph-help">A backup is one JSON file with reports, customers and contacts, customer categories, reminder and upload logs, follow-ups and settings. It never includes passwords or API keys. Use it to keep a copy or to move data between the hosted dashboard and the self-hosted app.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button class="btn" type="button" id="dbBackup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v3h16v-3"/></svg>Download backup</button>
+          <button class="btn" type="button" id="dbRestoreBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4m0 0L8 8m4-4l4 4M4 17v3h16v-3"/></svg>Restore from backup</button>
+          <input type="file" id="dbRestoreFile" accept="application/json,.json" hidden>
+        </div>
+        <div id="dbRestore"></div>
+      </form>
 
       <form class="spane" data-sp="server" hidden id="fServer">
         <div id="srvArtifact">
@@ -2250,6 +2297,7 @@ $("#stabs").querySelectorAll("[data-st]").forEach(b => b.onclick = () => {
   document.querySelectorAll("#settingsPanel [data-sp]").forEach(p => p.hidden = p.dataset.sp !== b.dataset.st);
   if (b.dataset.st === "server" && SERVER) loadServerConfig();
   if (b.dataset.st === "bc" && SERVER) loadBc();
+  if (b.dataset.st === "db" && SERVER) loadDb();
   if (b.dataset.st === "groups") renderGroupEditor();
   if (b.dataset.st === "email") renderReplyCats();
 });
@@ -2269,6 +2317,7 @@ function renderComms(){
   document.querySelectorAll("#settingsPanel [data-k]").forEach(el => { if (document.activeElement !== el) el.value = getPath(S.comms, el.dataset.k) ?? ""; });
   $("#srvArtifact").hidden = SERVER; $("#srvServer").hidden = !SERVER;
   $("#bcHosted").hidden = SERVER; $("#bcServer").hidden = !SERVER;
+  $("#dbHosted").hidden = SERVER; $("#dbServer").hidden = !SERVER;
 }
 ["fEmail","fWa","fVoice","fServer"].forEach(id => $("#" + id).addEventListener("submit", async e => {
   e.preventDefault();
@@ -2414,7 +2463,7 @@ const VIEW_TITLES = {
   log: ["Activity log", "Every email, WhatsApp message and voice AI call, with date and time"],
   upload: ["Uploads", "Upload customer outstanding reports and see every upload with its date, time and result"],
   cxo: ["CXO view", "Key numbers, movement and status updates at a glance"],
-  settings: ["Settings", "Alert rules, reminder templates, and email, WhatsApp and voice AI connections"]
+  settings: ["Settings", "Alert rules, reminder templates, connections and database"]
 };
 function setView(v){
   S.view = v;
@@ -2423,7 +2472,7 @@ function setView(v){
   document.querySelectorAll("header.top [data-only]").forEach(el => el.classList.toggle("offview", el.dataset.only !== v));
   if (v === "upload"){ renderUploadView(); if (SERVER) refreshBcUploadCard(); }
   if (v === "cxo"){ renderCxo(); loadAllReports(); }
-  if (v === "settings"){ renderSettings(); if ($("#stabs [aria-selected=true]")?.dataset.st === "groups") renderGroupEditor(); renderComms(); if (!brDirty) renderBrandForm(); const st = $("#stabs [aria-selected=true]"); if (st && st.dataset.st === "server" && SERVER) loadServerConfig(); }
+  if (v === "settings"){ renderSettings(); if ($("#stabs [aria-selected=true]")?.dataset.st === "groups") renderGroupEditor(); renderComms(); if (!brDirty) renderBrandForm(); const st = $("#stabs [aria-selected=true]"); if (st && st.dataset.st === "server" && SERVER) loadServerConfig(); if (st && st.dataset.st === "db" && SERVER) loadDb(); }
   renderGbar();
   $("#pgTitle").innerHTML = VIEW_TITLES[v][0]; $("#pgSub").textContent = VIEW_TITLES[v][1]; if (v === "dash" && V) renderKpis();
   if (v === "cust"){ renderCustView(); loadAllReports(); }
@@ -3275,6 +3324,122 @@ async function refreshBcUploadCard(){
 }
 $("#bcSyncBtn").onclick = e => runBcSync(e.currentTarget);
 $("#upBcSync").onclick = e => runBcSync(e.currentTarget);
+
+/* ---------- database: Supabase, backup & restore ---------- */
+let dbArm = null, dbArmT = null, dbLast = null;
+const dbCreds = () => { const o = {}; ["supabaseUrl","supabaseKey","supabaseTable"].forEach(n => { const el = $(`#dbServer [name=${n}]`); if (el && !el.disabled && el.value.trim()) o[n] = el.value.trim(); }); return o; };
+const dbMsg = (cls, html) => { $("#dbResult").innerHTML = `<div class="banner ${cls}" style="margin-top:10px">${html}</div>`; };
+function dbArmBtn(btn, label, fn){
+  if (dbArm !== btn.id){ dbArm = btn.id; btn.dataset.lab = btn.innerHTML; btn.classList.add("danger"); btn.textContent = label; clearTimeout(dbArmT); dbArmT = setTimeout(() => { dbArm = null; btn.classList.remove("danger"); btn.innerHTML = btn.dataset.lab; }, 6000); return; }
+  dbArm = null; clearTimeout(dbArmT); btn.classList.remove("danger"); btn.innerHTML = btn.dataset.lab; fn(btn);
+}
+function dbRenderStatus(st){
+  dbLast = st; const sb = st.backend === "supabase";
+  $("#dbStatus").innerHTML = `<div><span>Storage in use</span><b>${sb ? "Supabase" : "Local file on server"}</b></div>
+    <div><span>Connection</span><b style="color:var(--${!sb ? "ink-3" : st.connected ? "ok" : "crit"})">${!sb ? "—" : st.connected ? "Connected" : "Offline · saving locally"}</b></div>
+    <div><span>Documents</span><b>${st.localDocs} in app${st.remoteDocs != null ? ` · ${st.remoteDocs} in Supabase` : ""}</b></div>
+    <div><span>Last saved to Supabase</span><b>${!sb ? "—" : st.pending ? `${plural(st.pending, "change")} waiting` : st.lastSyncAt ? esc(fmtWhen(st.lastSyncAt)) : "—"}</b></div>`;
+  $("#dbSql").textContent = st.sql || "";
+  $("#dbLocal").hidden = !sb || st.locked; $("#dbSync").hidden = !sb;
+  if (sb){ $("#dbCopy").hidden = true; $("#dbRemote").hidden = true; }
+  const w = [];
+  if (st.onRender && !sb) w.push(`<div class="banner warn" style="margin-top:10px"><b>Your data is on Render's temporary disk.</b> Render wipes it on every deploy or restart, which removes uploads, contacts, logs and settings. Connect Supabase below to keep everything permanently.</div>`);
+  if (st.onRender && sb && !st.envCreds) w.push(`<div class="banner warn" style="margin-top:10px"><b>One more step on Render:</b> add <span class="num">SUPABASE_URL</span>, <span class="num">SUPABASE_SERVICE_KEY</span> and <span class="num">DB_BACKEND=supabase</span> as environment variables in Render, so the app reconnects to Supabase by itself after a redeploy.</div>`);
+  if (st.locked) w.push(`<div class="banner" style="margin-top:10px">The database is set by the DB_BACKEND environment variable on the server.</div>`);
+  if (sb && st.lastError) w.push(`<div class="banner bad" style="margin-top:10px">${esc(st.lastError)}</div>`);
+  $("#dbWarn").innerHTML = w.join("");
+}
+async function loadDb(){
+  try{
+    const [cfg, st] = await Promise.all([api("GET", "/api/config"), api("GET", "/api/db/status")]);
+    $("#dbServer").querySelectorAll("[name]").forEach(el => {
+      if (el.dataset.secret !== undefined){ el.value = ""; el.placeholder = cfg[el.name + "Set"] ? "Saved ••••••••" : "Not set"; }
+      else el.value = cfg[el.name] || (el.name === "supabaseTable" ? "ccd_documents" : "");
+      const locked = (cfg.envLocked || []).includes(el.name); el.disabled = locked; el.title = locked ? "Set by an environment variable on the server" : "";
+    });
+    dbRenderStatus(st);
+    if (st.backend !== "supabase" && !$("#dbResult").innerHTML) $("#dbGuide").open = !cfg.supabaseUrl;
+  }catch(e){ $("#dbStatus").innerHTML = `<div class="banner bad">${esc(e.message)}</div>`; }
+}
+$("#dbTest").onclick = async () => {
+  dbMsg("", "Testing the Supabase connection…");
+  try{
+    const r = await api("POST", "/api/db/test", dbCreds());
+    const st = await api("GET", "/api/db/status"), sb = st.backend === "supabase"; dbRenderStatus(st);
+    dbMsg("good", `<b>Connected.</b> Table <span class="num">${esc(r.table)}</span> has ${plural(r.remoteDocs, "document")}; this app has ${plural(r.localDocs, "document")}.` +
+      (sb ? " This app is already saving to Supabase." : r.remoteDocs ? " Choose whether to copy this app's data to Supabase (replacing what is there) or to switch to the data already in Supabase." : ` Click "Copy this app's data to Supabase and switch" to start using it.`));
+    $("#dbCopy").hidden = sb || st.locked; $("#dbRemote").hidden = sb || st.locked || !r.remoteDocs;
+  }catch(e){
+    dbMsg("bad", esc(e.message));
+    if (/does not exist|setup SQL/i.test(e.message)) $("#dbGuide").open = true;
+  }
+};
+$("#dbCopy").onclick = e => dbArmBtn(e.currentTarget, "Click again to copy and switch", async btn => {
+  btn.disabled = true; dbMsg("", "Copying data to Supabase…");
+  try { const r = await api("POST", "/api/db/connect", {mode:"copy", ...dbCreds()}); dbMsg("good", `<b>Done.</b> ${plural(r.docs, "document")} copied. Every change is now saved to Supabase, and a local copy is kept on the server.`); loadDb(); }
+  catch(err){ dbMsg("bad", esc(err.message)); }
+  btn.disabled = false;
+});
+$("#dbRemote").onclick = e => dbArmBtn(e.currentTarget, "Click again: replace this app's data", async btn => {
+  btn.disabled = true; dbMsg("", "Loading data from Supabase…");
+  try { const r = await api("POST", "/api/db/connect", {mode:"remote", ...dbCreds()}); dbMsg("good", `Switched to Supabase with ${plural(r.docs, "document")}. A backup of the previous data was kept on the server. Reloading…`); setTimeout(() => location.reload(), 1500); }
+  catch(err){ dbMsg("bad", esc(err.message)); btn.disabled = false; }
+});
+$("#dbLocal").onclick = e => dbArmBtn(e.currentTarget, "Click again to switch to local file", async () => {
+  try { const r = await api("POST", "/api/db/use-local"); dbMsg("good", `Now saving to the local file on the server (${plural(r.docs, "document")}). Supabase is no longer updated.`); loadDb(); }
+  catch(err){ dbMsg("bad", esc(err.message)); }
+});
+$("#dbSync").onclick = async e => {
+  const btn = e.currentTarget; btn.disabled = true;
+  try { const st = await api("POST", "/api/db/sync"); dbRenderStatus(st); toast(st.pending ? "Some changes are still waiting" : "Everything is saved to Supabase"); }
+  catch(err){ dbMsg("bad", esc(err.message)); loadDb(); }
+  btn.disabled = false;
+};
+$("#dbSqlCopy").onclick = () => copyText($("#dbSql").textContent);
+const BACKUP_SETTINGS = ["alerts","comms","branding","groups","bcsync"], BACKUP_COLS = ["uploads","activity","followups","contacts","bccustomers"];
+async function collectBackup(){
+  const docs = [];
+  for (const id of BACKUP_SETTINGS){ const d = await db.doc("settings/" + id).get(); if (d.exists) docs.push({path:"settings/" + id, data:d.data()}); }
+  for (const c of BACKUP_COLS){ const q = await db.collection(c).get(); q.docs.forEach(d => docs.push({path:`${c}/${d.id}`, data:d.data()})); }
+  const reps = await db.collection("reports").get();
+  for (const r of reps.docs){ docs.push({path:"reports/" + r.id, data:r.data()}); const rows = await db.collection(`reports/${r.id}/rows`).get(); rows.docs.forEach(d => docs.push({path:`reports/${r.id}/rows/${d.id}`, data:d.data()})); }
+  return docs;
+}
+$("#dbBackup").onclick = async e => {
+  const btn = e.currentTarget, lab = btn.innerHTML; btn.disabled = true; btn.textContent = "Preparing…";
+  try{
+    const name = `credit-control-desk-backup-${iso(todayUTC())}.json`;
+    if (SERVER){ const r = await fetch("/api/db/export", {credentials:"same-origin"}); if (!r.ok) throw new Error("The backup could not be created."); await localDownloads.save({filename:name, data: await r.blob()}); }
+    else { if (!db) throw new Error("Shared storage is not available in this view."); const docs = await collectBackup(); await saveFile(name, new Blob([JSON.stringify({app:"credit-control-desk", version:1, exportedAt:new Date().toISOString(), docs})], {type:"application/json"})); }
+    toast("Backup downloaded");
+  }catch(err){ toast(err.message); }
+  btn.disabled = false; btn.innerHTML = lab;
+};
+let restoreDocs = null;
+$("#dbRestoreBtn").onclick = () => $("#dbRestoreFile").click();
+$("#dbRestoreFile").onchange = async e => {
+  const f = e.target.files[0]; e.target.value = ""; if (!f) return;
+  try{
+    const j = JSON.parse(await f.text());
+    if (!j || j.app !== "credit-control-desk" || !Array.isArray(j.docs)) throw new Error("This is not a Credit Control Desk backup file.");
+    restoreDocs = [...j.docs].sort((a, b) => (String(b.path).includes("/rows/") ? 1 : 0) - (String(a.path).includes("/rows/") ? 1 : 0));
+    const n = k => j.docs.filter(d => String(d.path).startsWith(k + "/") && String(d.path).split("/").length === 2).length;
+    $("#dbRestore").innerHTML = `<div class="review" style="margin-top:10px"><div><b>${esc(f.name)}</b><div class="muted" style="font-size:13px">Backup from ${j.exportedAt ? esc(fmtWhen(j.exportedAt)) : "unknown date"} · ${n("reports")} reports · ${n("contacts")} customer contacts · ${n("activity")} reminders · ${n("uploads")} upload logs</div></div>
+      <label class="tg" style="display:flex;gap:8px;align-items:center;font-size:13px"><input type="radio" name="dbMode" value="merge" checked> Add to current data (items with the same ID are replaced)</label>
+      ${SERVER ? `<label class="tg" style="display:flex;gap:8px;align-items:center;font-size:13px"><input type="radio" name="dbMode" value="replace"> Replace all current data with this backup</label>` : ""}
+      <div style="display:flex;gap:8px"><button class="btn primary" type="button" id="dbRestoreGo">Restore</button><button class="btn ghost" type="button" id="dbRestoreCancel">Cancel</button></div></div>`;
+    $("#dbRestoreCancel").onclick = () => { restoreDocs = null; $("#dbRestore").innerHTML = ""; };
+    $("#dbRestoreGo").onclick = async ev => {
+      const mode = (document.querySelector("input[name=dbMode]:checked") || {}).value || "merge", b = ev.currentTarget; b.disabled = true; b.textContent = "Restoring…";
+      try{
+        let restored = 0;
+        if (SERVER){ const r = await api("POST", "/api/db/import", {docs: restoreDocs, mode}); restored = r.restored; }
+        else { if (!db) throw new Error("Shared storage is not available in this view."); for (const d of restoreDocs){ if (!d || !d.path || !d.data) continue; await db.doc(d.path).set(d.data); restored++; } }
+        $("#dbRestore").innerHTML = `<div class="banner good" style="margin-top:10px">Restored ${plural(restored, "item")}. Reloading…</div>`; setTimeout(() => location.reload(), 1200);
+      }catch(err){ b.disabled = false; b.textContent = "Restore"; toast(err.message); }
+    };
+  }catch(err){ toast(err.message || "That file could not be read."); }
+};
 
 /* ---------- uploads view ---------- */
 S.uploads = [];

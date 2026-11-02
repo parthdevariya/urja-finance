@@ -30,7 +30,7 @@ docker run -d --name credit-desk -p 3000:3000 --env-file .env -v credit-desk-dat
 ### On Render / Railway / a VPS
 
 - Start command: `npm start`. The app reads `PORT` from the environment.
-- Attach a **persistent disk** and set `DATA_DIR` to it. Reports, settings, contacts and keys are stored there.
+- Keep the data permanently with **Supabase** (recommended on Render, whose disk is wiped on every deploy; see *Database (Supabase)* below), or attach a **persistent disk** and set `DATA_DIR` to it.
 - Serve it over **HTTPS**. Hosting platforms do this for you; on a VPS, put Nginx or Caddy in front.
 
 Health check: `GET /healthz`.
@@ -88,6 +88,26 @@ What a sync does:
 
 All of these settings can also be set with `BC_*` variables in `.env` (see `.env.example`).
 
+### Database (Supabase)
+
+By default the app saves everything in `data/store.json` on the server. On Render (and any host without a persistent disk) that file is wiped on every deploy or restart. Connect Supabase to keep reports, contacts, categories, logs and settings permanently:
+
+1. Create a Supabase project (Mumbai region for India).
+2. In **SQL Editor**, run the setup SQL shown in the app under **Settings → Database → Supabase setup**. It creates one private table, `ccd_documents`, with row level security on.
+3. In **Settings → Database**, enter the **Project URL** and the **secret (service_role) key**, click **Test connection**, then **Copy this app's data to Supabase and switch**.
+4. On Render, add these environment variables so the app reconnects by itself after every redeploy:
+
+| Variable | Value |
+|---|---|
+| `SUPABASE_URL` | `https://<project>.supabase.co` |
+| `SUPABASE_SERVICE_KEY` | the secret (service_role) key |
+| `DB_BACKEND` | `supabase` |
+| `SUPABASE_TABLE` | optional, default `ccd_documents` |
+
+How it works: the app keeps working from memory and a local copy; every change is saved to Supabase within about a second, and changes made while Supabase is unreachable are queued and sent when it is back. On start-up all data is loaded from Supabase. Settings and API keys entered in the app (normally `data/config.json`) and the login session key are kept in the same table under reserved rows that the browser can never read, so they also survive redeploys. Pending changes are saved before the server stops.
+
+**Backup & restore** (Settings → Database) downloads all data as one JSON file (never passwords or keys) and restores it, either added to the current data or replacing it. Use it to move data from the hosted dashboard into this app.
+
 ## 3. Daily use
 
 1. Upload the Business Central *Customer Outstanding* XML, an Excel/CSV sheet or a PDF.
@@ -122,12 +142,14 @@ The **Customers** tab lists every customer found in all your uploaded reports. C
 
 The **Activity log** tab records every email, WhatsApp message and voice AI call with the date and time, who it went to, which invoices and amount it covered, and whether it succeeded or failed. Click a row to see the exact message or call instructions. You can filter by channel, result and date, and export to Excel.
 
-### Links from the claude.ai dashboard
+### Links from the hosted dashboard
 
-If you also use the claude.ai version, put this app's address in its **Settings → Server & API keys**. Its **Send from server** button then opens the same customer here (`/?open=CUSTOMER_NO&ch=email|wa|voice&kind=od|soon`). The customer must be in the latest report uploaded to this server.
+If you also use the hosted dashboard version, put this app's address in its **Settings → Server & API keys**. Its **Send from server** button then opens the same customer here (`/?open=CUSTOMER_NO&ch=email|wa|voice&kind=od|soon`). The customer must be in the latest report uploaded to this server.
 
 ## Security notes
 
 - Change `ADMIN_PASSWORD`, set a long random `SESSION_SECRET`, and serve over HTTPS.
 - There is one shared login. For separate users, put the app behind your company SSO or VPN, or ask for multi-user support.
 - `data/config.json` holds any keys entered in the Settings screen (file mode 600). Back up the `data` folder, and keep it private.
+- With Supabase on, those keys are also stored in your Supabase table. Use the secret (service_role) key only on the server, keep row level security on, and never put the key in the browser or in a public repository.
+- Never commit `.env` to a public repository.

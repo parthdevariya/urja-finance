@@ -3,7 +3,8 @@
  * Credit Control Desk — self-hosted server
  * Serves the dashboard, stores data on disk, and sends reminders through
  * SMTP email, the WhatsApp Business (Meta Cloud) API and OmniDim voice AI,
- * and pulls customer ledger data from Microsoft Dynamics 365 Business Central.
+ * pulls customer ledger data from Microsoft Dynamics 365 Business Central,
+ * and can keep all data in Supabase (PostgreSQL) so it survives redeploys.
  */
 const express = require('express');
 const nodemailer = require('nodemailer');
@@ -45,7 +46,8 @@ if (!SESSION_SECRET) {
 /* ---------- document store (same shape the dashboard uses) ---------- */
 let store = readJson(STORE_FILE, {});
 let saveTimer = null;
-function persist() { clearTimeout(saveTimer); saveTimer = setTimeout(() => writeJsonAtomic(STORE_FILE, store), 150); }
+let storage = null; // Supabase sync, set up below
+function persist() { clearTimeout(saveTimer); saveTimer = setTimeout(() => writeJsonAtomic(STORE_FILE, store), 150); if (storage) storage.schedule(); }
 const SEG = /^[A-Za-z0-9_\-.~:@+]{1,200}$/;
 function checkPath(p, even) {
   if (typeof p !== 'string' || p.length > 1000) return false;
@@ -60,9 +62,11 @@ const ENV_MAP = {
   waPhoneNumberId: 'WA_PHONE_NUMBER_ID', waApiVersion: 'WA_API_VERSION', waToken: 'WA_TOKEN',
   omniApiKey: 'OMNIDIM_API_KEY',
   bcTenantId: 'BC_TENANT_ID', bcEnvironment: 'BC_ENVIRONMENT', bcCompanyName: 'BC_COMPANY', bcClientId: 'BC_CLIENT_ID', bcClientSecret: 'BC_CLIENT_SECRET',
-  bcLedgerService: 'BC_LEDGER_SERVICE', bcFilter: 'BC_FILTER', bcSyncCustomers: 'BC_SYNC_CUSTOMERS', bcAutoSyncHours: 'BC_AUTO_SYNC_HOURS'
+  bcLedgerService: 'BC_LEDGER_SERVICE', bcFilter: 'BC_FILTER', bcSyncCustomers: 'BC_SYNC_CUSTOMERS', bcAutoSyncHours: 'BC_AUTO_SYNC_HOURS',
+  supabaseUrl: 'SUPABASE_URL', supabaseKey: 'SUPABASE_SERVICE_KEY', supabaseTable: 'SUPABASE_TABLE', dbBackend: 'DB_BACKEND'
 };
-const SECRET_KEYS = ['smtpPass', 'waToken', 'omniApiKey', 'bcClientSecret'];
+const SECRET_KEYS = ['smtpPass', 'waToken', 'omniApiKey', 'bcClientSecret', 'supabaseKey'];
+const DB_KEYS = ['supabaseUrl', 'supabaseKey', 'supabaseTable', 'dbBackend']; // changed only through the Database settings
 function getConfig() {
   const file = readJson(CONFIG_FILE, {});
   const cfg = { ...file };
@@ -232,13 +236,15 @@ app.get('/api/config', auth, (req, res) => {
 app.put('/api/config', auth, (req, res) => {
   const file = readJson(CONFIG_FILE, {}), locked = envLocked();
   for (const k of Object.keys(ENV_MAP)) {
-    if (locked.includes(k) || !(k in (req.body || {}))) continue;
+    if (locked.includes(k) || DB_KEYS.includes(k) || !(k in (req.body || {}))) continue;
     const v = String(req.body[k] ?? '').trim();
     if (SECRET_KEYS.includes(k) && !v) continue; // blank secret = keep existing
     file[k] = v;
   }
+  file.savedAt = new Date().toISOString();
   writeJsonAtomic(CONFIG_FILE, file);
   try { fs.chmodSync(CONFIG_FILE, 0o600); } catch (_) {}
+  if (storage) storage.pushConfig();
   res.json({ ok: true });
 });
 
@@ -337,8 +343,45 @@ const bcRoute = fn => async (req, res) => {
 app.post('/api/bc/test', auth, bcRoute(() => bc.test()));
 app.post('/api/bc/sync', auth, bcRoute(() => bc.sync('manual')));
 app.get('/api/bc/status', auth, bcRoute(async () => bc.status()));
-bc.startScheduler();
+
+/* Database: optional Supabase storage, backup and restore */
+storage = require('./supabase')({
+  store, storeFile: STORE_FILE, configFile: CONFIG_FILE, readJson, writeJsonAtomic, getConfig,
+  getSessionSecret: () => SESSION_SECRET, setSessionSecret: s => { SESSION_SECRET = s; }
+});
+const dbRoute = fn => async (req, res) => {
+  try { res.json(await fn(req)); }
+  catch (e) { res.status(e.status || 500).json({ error: e.message || 'Database request failed.' }); }
+};
+const dbCreds = b => ({ supabaseUrl: b.supabaseUrl, supabaseKey: b.supabaseKey, supabaseTable: b.supabaseTable });
+app.get('/api/db/status', auth, dbRoute(async () => storage.status()));
+app.post('/api/db/test', auth, dbRoute(async req => ({ ...(await storage.test(dbCreds(req.body || {}))), sql: storage.status().sql })));
+app.post('/api/db/connect', auth, dbRoute(async req => {
+  const b = req.body || {}; if (!['copy', 'remote'].includes(b.mode)) throw Object.assign(new Error('Choose how to connect.'), { status: 400 });
+  return storage.connect(b.mode, dbCreds(b));
+}));
+app.post('/api/db/use-local', auth, dbRoute(() => storage.useLocal()));
+app.post('/api/db/sync', auth, dbRoute(async () => { await storage.flush(); return storage.status(); }));
+app.get('/api/db/export', auth, (req, res) => {
+  res.setHeader('Content-Disposition', `attachment; filename="credit-control-desk-backup-${new Date().toISOString().slice(0, 10)}.json"`);
+  res.type('application/json').send(JSON.stringify(storage.exportAll()));
+});
+app.post('/api/db/import', auth, dbRoute(async req => {
+  const b = req.body || {}, out = storage.importAll(b.docs, b.mode === 'replace' ? 'replace' : 'merge', req.user, checkPath);
+  persist(); return out;
+}));
 
 app.use('/api', (req, res) => res.status(404).json({ error: 'Not found.' }));
 
-app.listen(PORT, () => console.log(`Credit Control Desk running on http://localhost:${PORT}`));
+(async () => {
+  // load data from Supabase first (when switched on), so the app never starts with an empty copy
+  await Promise.race([storage.init(), new Promise(r => setTimeout(r, 25000))]);
+  bc.startScheduler();
+  app.listen(PORT, () => console.log(`Credit Control Desk running on http://localhost:${PORT}`));
+})();
+// save anything not yet in Supabase before the server stops (Render sends SIGTERM on redeploy)
+for (const sig of ['SIGTERM', 'SIGINT']) process.on(sig, async () => {
+  try { writeJsonAtomic(STORE_FILE, store); } catch (_) {}
+  await Promise.race([storage.flush().catch(() => {}), new Promise(r => setTimeout(r, 8000))]);
+  process.exit(0);
+});
