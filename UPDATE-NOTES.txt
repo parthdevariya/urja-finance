@@ -1,19 +1,12 @@
-Credit Control Desk – update v5 (Supabase database)
+Credit Control Desk – update v6 (WhatsApp through 11za) — includes v5 (Supabase database)
 
 Replace these files in your repository (same folders), commit and push. Render redeploys automatically.
-  server.js, supabase.js (new), public/dashboard.html, README.md
-bc.js, Dockerfile and public/share/* are unchanged.
+  server.js, supabase.js, public/dashboard.html, README.md
 
-New: Settings → Database
-  - Connect Supabase (PostgreSQL): Project URL, secret (service_role) key, table name,
-    Test connection, "Copy this app's data to Supabase and switch",
-    "Switch to the data already in Supabase", "Save to Supabase now", "Switch back to local file".
-  - Status: storage in use, connection, documents in the app and in Supabase, last save.
-  - Setup guide with the SQL to run in Supabase (one private table, row level security on).
-  - Backup & restore of all data as a JSON file (never passwords or keys).
+WhatsApp through 11za
+  Settings → Server & API keys → WhatsApp: Provider = 11za, Origin website, 11za auth token
+  (API URL can stay blank), then "Send test WhatsApp".
+  Settings → WhatsApp: approved template name, language code, and template variables in order.
+  On Render, add: WA_PROVIDER=11za, ELEVENZA_AUTH_TOKEN, ELEVENZA_ORIGIN_WEBSITE.
 
-On Render, after connecting, add these environment variables (Service → Environment):
-  SUPABASE_URL=https://<project>.supabase.co
-  SUPABASE_SERVICE_KEY=<secret service_role key>
-  DB_BACKEND=supabase
-Then every redeploy reloads all data, settings and API keys from Supabase.
+Supabase database (v5): see Settings → Database and the README.

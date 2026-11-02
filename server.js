@@ -59,13 +59,14 @@ function checkPath(p, even) {
 /* ---------- provider configuration ---------- */
 const ENV_MAP = {
   smtpHost: 'SMTP_HOST', smtpPort: 'SMTP_PORT', smtpSecure: 'SMTP_SECURE', smtpUser: 'SMTP_USER', smtpPass: 'SMTP_PASS',
-  waPhoneNumberId: 'WA_PHONE_NUMBER_ID', waApiVersion: 'WA_API_VERSION', waToken: 'WA_TOKEN',
+  waProvider: 'WA_PROVIDER', waPhoneNumberId: 'WA_PHONE_NUMBER_ID', waApiVersion: 'WA_API_VERSION', waToken: 'WA_TOKEN',
+  elevenzaUrl: 'ELEVENZA_API_URL', elevenzaOrigin: 'ELEVENZA_ORIGIN_WEBSITE', elevenzaToken: 'ELEVENZA_AUTH_TOKEN',
   omniApiKey: 'OMNIDIM_API_KEY',
   bcTenantId: 'BC_TENANT_ID', bcEnvironment: 'BC_ENVIRONMENT', bcCompanyName: 'BC_COMPANY', bcClientId: 'BC_CLIENT_ID', bcClientSecret: 'BC_CLIENT_SECRET',
   bcLedgerService: 'BC_LEDGER_SERVICE', bcFilter: 'BC_FILTER', bcSyncCustomers: 'BC_SYNC_CUSTOMERS', bcAutoSyncHours: 'BC_AUTO_SYNC_HOURS',
   supabaseUrl: 'SUPABASE_URL', supabaseKey: 'SUPABASE_SERVICE_KEY', supabaseTable: 'SUPABASE_TABLE', dbBackend: 'DB_BACKEND'
 };
-const SECRET_KEYS = ['smtpPass', 'waToken', 'omniApiKey', 'bcClientSecret', 'supabaseKey'];
+const SECRET_KEYS = ['smtpPass', 'waToken', 'elevenzaToken', 'omniApiKey', 'bcClientSecret', 'supabaseKey'];
 const DB_KEYS = ['supabaseUrl', 'supabaseKey', 'supabaseTable', 'dbBackend']; // changed only through the Database settings
 function getConfig() {
   const file = readJson(CONFIG_FILE, {});
@@ -228,7 +229,8 @@ app.get('/api/config', auth, (req, res) => {
     if (SECRET_KEYS.includes(k)) out[k + 'Set'] = !!c[k]; else out[k] = c[k] ?? '';
   }
   out.emailReady = !!(c.smtpHost && c.smtpUser && c.smtpPass);
-  out.waReady = !!(c.waPhoneNumberId && c.waToken);
+  out.waProvider = waProviderOf(c);
+  out.waReady = out.waProvider === '11za' ? !!(c.elevenzaToken && c.elevenzaOrigin) : !!(c.waPhoneNumberId && c.waToken);
   out.omniReady = !!c.omniApiKey;
   out.bcReady = !!(c.bcTenantId && c.bcClientId && c.bcClientSecret && c.bcCompanyName);
   res.json(out);
@@ -277,8 +279,38 @@ async function sendEmail({ to, cc, subject, body, replyTo, category }) {
   return { id: info.messageId };
 }
 
-async function sendWhatsApp({ to, text, params }) {
+/* WhatsApp: 11za (template API) or Meta WhatsApp Cloud API */
+const ELEVENZA_DEFAULT_URL = 'https://api.11za.in/apis/template/sendTemplate';
+function waProviderOf(c) {
+  const p = String(c.waProvider || '').toLowerCase();
+  if (p === '11za' || p === 'meta') return p;
+  return c.elevenzaToken && !c.waToken ? '11za' : 'meta';
+}
+async function sendWhatsApp11za({ c, w, num, params, name }) {
+  if (!c.elevenzaToken || !c.elevenzaOrigin) throw httpErr(400, 'WhatsApp (11za) is not set up. Add the 11za auth token and origin website in Settings → Server & API keys.');
+  if (!w.templateName) throw httpErr(400, 'Set the approved 11za template name in Settings → WhatsApp.');
+  const data = (Array.isArray(params) ? params : []).map(p => String(p).replace(/\s*\n\s*/g, ' ').replace(/\s{4,}/g, '   ').slice(0, 1024));
+  const body = {
+    authToken: c.elevenzaToken, name: String(name || 'Customer').slice(0, 100), sendto: num, originWebsite: c.elevenzaOrigin,
+    templateName: w.templateName, language: w.templateLang || 'en', data
+  };
+  let r;
+  try { r = await fetch(c.elevenzaUrl || ELEVENZA_DEFAULT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body), signal: AbortSignal.timeout(20000) }); }
+  catch (e) { throw httpErr(502, 'Could not reach 11za. Check the API URL and the server\'s internet access.'); }
+  const txt = await r.text(); let j = null; try { j = JSON.parse(txt); } catch (_) {}
+  const msg = j && (j.message || j.Message || j.error || j.msg || (j.data && j.data.message) || (j.Data && j.Data.Message));
+  const failed = !r.ok || (j && (j.success === false || j.IsSuccess === false || j.isSuccess === false || j.status === 'error' || j.status === false || (typeof j.status === 'number' && j.status >= 400) || j.error));
+  if (failed) throw httpErr(502, '11za did not send the message: ' + (msg || txt.slice(0, 200) || r.status));
+  const dd = j && (j.data || j.Data), id = j && (j.messageId || j.MessageId || j.id || (dd && typeof dd === 'object' && (dd.messageId || dd.MessageId || dd.id || dd.wamid)) || j.wamid);
+  return { id: id ? String(id) : '' };
+}
+async function sendWhatsApp({ to, text, params, name }) {
   const c = getConfig(), w = comms().wa;
+  const num0 = String(to || '').replace(/\D/g, '');
+  if (waProviderOf(c) === '11za') {
+    if (num0.length < 10 || num0.length > 15) throw httpErr(400, 'Enter the WhatsApp number with country code, e.g. 919876543210.');
+    return sendWhatsApp11za({ c, w, num: num0, params, name });
+  }
   if (!c.waPhoneNumberId || !c.waToken) throw httpErr(400, 'WhatsApp is not set up. Add your phone number ID and access token in Settings → Server & API keys.');
   const num = String(to || '').replace(/\D/g, '');
   if (num.length < 10 || num.length > 15) throw httpErr(400, 'Enter the WhatsApp number with country code, e.g. 919876543210.');
@@ -332,6 +364,7 @@ function route(kind, fn) {
 app.post('/api/send/email', auth, route('email', sendEmail));
 app.post('/api/send/whatsapp', auth, route('whatsapp', sendWhatsApp));
 app.post('/api/call', auth, route('call', placeCall));
+app.post('/api/test/whatsapp', auth, route('test-whatsapp', b => sendWhatsApp({ to: b.to, params: b.params, name: b.name || 'Test', text: 'Test message from Credit Control Desk' })));
 app.post('/api/test/email', auth, route('test-email', b => sendEmail({ to: b.to, subject: 'Credit Control Desk – test email', body: 'This is a test email from your Credit Control Desk server. Email sending is working.' })));
 
 /* Microsoft Dynamics 365 Business Central */

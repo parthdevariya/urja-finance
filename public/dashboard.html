@@ -933,7 +933,7 @@ tr.clickrow:hover td{background:var(--surface-2)}
       <form class="spane" data-sp="wa" hidden id="fWa">
         <div class="frow">
           <label class="fld" for="waBiz">Your WhatsApp Business number<input id="waBiz" data-k="wa.businessNumber" placeholder="+91 98xxx xxxxx"></label>
-          <label class="fld" for="waMode">Send method (self-hosted app)<select id="waMode" data-k="wa.mode"><option value="template">Approved template (business-initiated)</option><option value="text">Free text (only within 24 h of customer's last message)</option></select></label>
+          <label class="fld" for="waMode">Send method (self-hosted app)<select id="waMode" data-k="wa.mode"><option value="template">Approved template (business-initiated)</option><option value="text">Free text (only within 24 h of customer's last message)</option></select><span class="h">With 11za, the approved template is always used.</span></label>
           <label class="fld" for="waTpl">Template name<input id="waTpl" data-k="wa.templateName" placeholder="payment_reminder"><span class="h">Exactly as approved in WhatsApp Manager</span></label>
           <label class="fld" for="waLang">Template language code<input id="waLang" data-k="wa.templateLang" placeholder="en"></label>
         </div>
@@ -1075,11 +1075,24 @@ tr.clickrow:hover td{background:var(--surface-2)}
             <label class="fld" for="kSmtpUser">Username<input id="kSmtpUser" name="smtpUser" autocomplete="off"></label>
             <label class="fld" for="kSmtpPass">Password / app password<input id="kSmtpPass" name="smtpPass" type="password" autocomplete="new-password" data-secret></label>
           </div>
-          <h4>WhatsApp Business (Meta Cloud API)</h4>
+          <h4>WhatsApp</h4>
           <div class="frow">
+            <label class="fld" for="kWaProv">Provider<select id="kWaProv" name="waProvider"><option value="11za">11za (WhatsApp Business API)</option><option value="meta">Meta WhatsApp Cloud API (direct)</option></select></label>
+          </div>
+          <div class="frow" id="kWa11za">
+            <label class="fld" for="kZaUrl">11za API URL<input id="kZaUrl" name="elevenzaUrl" type="url" placeholder="https://api.11za.in/apis/template/sendTemplate"><span class="h">Leave blank for the standard sendTemplate URL</span></label>
+            <label class="fld" for="kZaOrigin">Origin website<input id="kZaOrigin" name="elevenzaOrigin" type="url" placeholder="https://urjafabrics.com/"><span class="h">As registered on your 11za account</span></label>
+            <label class="fld" for="kZaTok">11za auth token<input id="kZaTok" name="elevenzaToken" type="password" autocomplete="new-password" data-secret><span class="h">From 11za → Developer / API settings. Stored on the server only.</span></label>
+          </div>
+          <div class="frow" id="kWaMeta">
             <label class="fld" for="kWaPid">Phone number ID<input id="kWaPid" name="waPhoneNumberId"></label>
             <label class="fld" for="kWaVer">Graph API version<input id="kWaVer" name="waApiVersion" placeholder="v21.0"></label>
             <label class="fld" for="kWaTok">Permanent access token<input id="kWaTok" name="waToken" type="password" autocomplete="new-password" data-secret></label>
+          </div>
+          <div class="ph-help" id="kWaHelp"></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end">
+            <label class="fld" for="kWaTestTo" style="flex:1;min-width:200px">Send a test WhatsApp to<input id="kWaTestTo" inputmode="tel" placeholder="91 98765 43210"><span class="h">Uses your approved template from Settings → WhatsApp, with sample values. Save the keys first.</span></label>
+            <button class="btn" type="button" id="kTestWa">Send test WhatsApp</button>
           </div>
           <h4>OmniDim</h4>
           <div class="frow">
@@ -2187,7 +2200,7 @@ function renderCompose(){
     body = `<div class="frow">${kindSel}<label class="fld" for="cmWaSel">WhatsApp number<select id="cmWaSel" data-first>${phoneOpts(n)}</select></label><label class="fld" for="cmWaTo">Number with country code<input id="cmWaTo" data-f="waTo" inputmode="tel" value="${esc(n)}" placeholder="919876543210"></label></div>
       ${ph && !ph.mobile ? `<div class="banner warn">This looks like a landline. WhatsApp usually needs a mobile number.</div>` : ""}${!n ? `<div class="banner warn">No WhatsApp number saved for this customer. Type one above, or add it with <button type="button" class="klink" data-profile="${esc(C.cn)}">Edit contacts</button>.</div>` : ""}
       ${pick}
-      ${SERVER && S.comms.wa.mode === "template"
+      ${SERVER && (S.comms.wa.mode === "template" || S.waProvider === "11za")
         ? `<div class="banner">Your server sends the approved template <b class="num">${esc(S.comms.wa.templateName || "(not set)")}</b> (${esc(S.comms.wa.templateLang || "en")}) with these values:<ol style="margin:6px 0 0;padding-left:20px">${params.map(p => `<li>${esc(p)}</li>`).join("")}</ol>WhatsApp only allows approved templates for the first message to a customer. The text below is for your reference.</div>` : ""}
       <label class="fld" for="cmWaMsg">Message ${regenBtn("wa")}<textarea id="cmWaMsg" data-f="waMsg" data-dirty="wa" style="min-height:230px">${esc(C.f.waMsg)}</textarea></label>`;
     const wa = n ? `https://wa.me/${n.replace(/\D/g,"")}?text=${encodeURIComponent(C.f.waMsg)}` : "";
@@ -2271,9 +2284,9 @@ function wireCompose(){
         entry = {ch:"email", mode:"api", ok:true, to: C.f.to, replyTo: C.f.replyTo, amount: amt, ref: r.id || ""};
         C.f.result = {ok:true, msg:`Email sent to ${C.f.to}.`};
       } else if (C.ch === "wa"){
-        r = await api("POST", "/api/send/whatsapp", {cn: C.cn, to: C.f.waTo.replace(/\D/g,""), text: C.f.waMsg, params: waParams()});
+        r = await api("POST", "/api/send/whatsapp", {cn: C.cn, to: C.f.waTo.replace(/\D/g,""), text: C.f.waMsg, params: waParams(), name: draftCtx(C.c, selRows(), "wa").ctx.contact});
         entry = {ch:"wa", mode:"api", ok:true, to: C.f.waTo, amount: amt, ref: r.id || ""};
-        C.f.result = {ok:true, msg:`WhatsApp message accepted for +${C.f.waTo}. Delivery status appears in WhatsApp Manager.`};
+        C.f.result = {ok:true, msg:`WhatsApp message accepted for +${C.f.waTo}${r.id ? " (ID " + r.id + ")" : ""}. Delivery status appears in ${S.waProvider === "11za" ? "your 11za dashboard" : "WhatsApp Manager"}.`};
       } else {
         const ctx = callContext(C.c, rows, C.kind); ctx.instructions = C.f.voInstr;
         r = await api("POST", "/api/call", {cn: C.cn, to: "+" + C.f.voTo.replace(/\D/g,""), context: ctx});
@@ -2340,12 +2353,32 @@ document.querySelectorAll("#settingsPanel [data-reset]").forEach(b => b.onclick 
   document.querySelectorAll(`#settingsPanel [data-k^="${sec}."]`).forEach(el => el.value = getPath(S.comms, el.dataset.k) ?? "");
   toast("Default text restored. Click Save to keep it.");
 });
+function waProvUi(){
+  const p = $("#kWaProv").value, t = S.comms.wa.templateName;
+  $("#kWa11za").hidden = p !== "11za"; $("#kWaMeta").hidden = p !== "meta";
+  $("#kWaHelp").innerHTML = p === "11za"
+    ? `11za sends <b>approved templates</b> only. Template: <b class="num">${esc(t || "not set")}</b> (${esc(S.comms.wa.templateLang || "en")}) with the variables set in Settings → WhatsApp, in order. Create and get the template approved in your 11za dashboard first.`
+    : `Meta Cloud API: approved template for the first message, or free text within 24 hours of the customer's last message (Settings → WhatsApp).`;
+}
+$("#kWaProv").addEventListener("change", waProvUi);
+$("#kTestWa").onclick = async e => {
+  const to = $("#kWaTestTo").value.replace(/\D/g, ""), btn = e.currentTarget;
+  if (to.length < 10){ toast("Enter the WhatsApp number with country code"); return; }
+  const num = to.length === 10 ? "91" + to : to;
+  const sample = {contact:"Test Customer", customer:"Test Customer", customer_no:"TEST-0001", company:(S.brand && S.brand.company) || "", total:"₹1,000.00", count:"1", invoices:"INV/TEST/001 – ₹1,000.00", invoice_list_short:"INV/TEST/001", oldest_days:"0", earliest_due:dmy(todayUTC()), as_of:dmy(todayUTC()), signature:""};
+  const params = String(S.comms.wa.templateParams || "").split("|").map(x => x.trim()).filter(Boolean).map(x => fill(x, sample));
+  btn.disabled = true;
+  try { const r = await api("POST", "/api/test/whatsapp", {to: num, params, name: "Test Customer"}); toast(`Test WhatsApp sent to +${num}${r.id ? " (ID " + r.id + ")" : ""}`); }
+  catch(err){ toast(err.message); }
+  btn.disabled = false;
+};
 async function loadServerConfig(){
   try{
-    const cfg = await api("GET", "/api/config");
+    const cfg = await api("GET", "/api/config"); S.waProvider = cfg.waProvider;
     $("#srvServer").querySelectorAll("[name]").forEach(el => { if (el.dataset.secret !== undefined){ el.value = ""; el.placeholder = cfg[el.name + "Set"] ? "Saved ••••••••" : "Not set"; } else el.value = cfg[el.name] ?? ""; if ((cfg.envLocked || []).includes(el.name)){ el.disabled = true; el.title = "Set by an environment variable on the server"; } });
     const ok = x => x ? "✓" : "✗";
-    $("#srvStatus").innerHTML = `Email ${ok(cfg.emailReady)} · WhatsApp ${ok(cfg.waReady)} · OmniDim ${ok(cfg.omniReady)}${(cfg.envLocked||[]).length ? " · Some fields are set by environment variables and can only be changed on the server." : ""}`;
+    waProvUi();
+    $("#srvStatus").innerHTML = `Email ${ok(cfg.emailReady)} · WhatsApp${cfg.waProvider === "11za" ? " (11za)" : ""} ${ok(cfg.waReady)} · OmniDim ${ok(cfg.omniReady)}${(cfg.envLocked||[]).length ? " · Some fields are set by environment variables and can only be changed on the server." : ""}`;
   }catch(e){ $("#srvStatus").textContent = e.message; }
 }
 async function saveServerConfig(){
@@ -3728,7 +3761,7 @@ if (SERVER){
 const smp = sampleData(); S.meta = smp.meta; S.rows = smp.rows; renderSettings(); render();
 
 async function boot(){
-  if (SERVER){ db = restDb(); dl = localDownloads; }
+  if (SERVER){ db = restDb(); dl = localDownloads; api("GET", "/api/config").then(c => { S.waProvider = c.waProvider; }).catch(() => {}); }
   else {
     if (!window.claude || !window.claude.use) { S.groupsLoaded = true; captureCategories(); $("#btnExport").hidden = true; $("#btnCxoXls").hidden = true; $("#btnTemplate2").hidden = true; $("#btnReport").hidden = true; $("#btnCxoPdf").hidden = true; return; }
     const [d, x] = await Promise.all([window.claude.use("db"), window.claude.use("downloads")]);

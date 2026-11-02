@@ -53,6 +53,15 @@ Then fill in the other Settings tabs:
 
 Use **Send test email** to check SMTP.
 
+### WhatsApp through 11za
+
+1. In your 11za dashboard, create a message template (for example `payment_reminder`) and get it approved. Note how many variables (`{{1}}`, `{{2}}`, …) its body has.
+2. **Settings → Server & API keys → WhatsApp**: choose **11za**, enter the **origin website** registered on your 11za account and the **11za auth token**. The API URL can stay blank (`https://api.11za.in/apis/template/sendTemplate`).
+3. **Settings → WhatsApp**: enter the **template name**, the **language code** (usually `en`) and the **template body variables, in order**, separated by `|`, for example `{contact}|{total}|{invoice_list_short}|{oldest_days}`. The number of values must match the template.
+4. Use **Send test WhatsApp** to check it, then send reminders from the WhatsApp icon on any overdue customer.
+
+Environment variables (recommended on Render): `WA_PROVIDER=11za`, `ELEVENZA_AUTH_TOKEN`, `ELEVENZA_ORIGIN_WEBSITE`, optional `ELEVENZA_API_URL`.
+
 ### WhatsApp template (needed for the first message to a customer)
 
 WhatsApp only allows **approved templates** for business-initiated messages. Create a *Utility* template in WhatsApp Manager, for example:
